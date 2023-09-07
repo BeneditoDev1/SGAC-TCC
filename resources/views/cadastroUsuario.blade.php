@@ -101,7 +101,11 @@
 
 </head>
 <body>
-    <h1>Cadastrar o Aluno</h1>
+    <h1>Cadastrar Usuário</h1>
+
+    <div class = "form-group">
+        <label for="curso">Escolha o Curso</label>
+    </div>
 
     <div class="form-group">
       <label for="nome">Nome:</label>
