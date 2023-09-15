@@ -9,8 +9,6 @@ class UsuarioController extends Controller
 {
     public function listar(){
         $usuarios = Usuario::orderBy('nome')->get();
-        var_dump($usuarios);
-        die();
         return view('listarUsuario', compact('usuarios'));
     }
 

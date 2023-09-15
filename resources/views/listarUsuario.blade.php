@@ -146,7 +146,9 @@
           <td>{{ $usuario->nome }}</td>
           <td>{{ $usuario->cpf }}</td>
           <td>{{ $usuario->sexo }}</td>
-          <th>Data de ativação</th>
+          <th>{{ $usuario->data_ativacao}}</th>
+          <th>{{ $usuario->ra}}</th>
+          <th>{{ $usuario->nome_curso}}</th>
           <td><a class="btn btn-primary" href="editar/{{ $usuario->id }}">Editar</a></td>
           <td><a class="btn btn-danger" href="excluir/{{ $usuario->id }}">Excluir</a></td>
         </tr>
