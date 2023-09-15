@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UsuarioController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/usuario/listar', [UsuarioController::class, 'listar'])->name('usuario.listar');
+Route::get('/usuario/novo', [UsuarioController::class, 'novo'])->name('usuario.novo');
+Route::post('/usuario/salvar', [UsuarioController::class, 'salvar'])->name('usuario.salvar');
+
+
+
+
+
 Route::get('/', function () {
-    return view('cadastroUsuario');
+    return view('listarUsuario');
 });

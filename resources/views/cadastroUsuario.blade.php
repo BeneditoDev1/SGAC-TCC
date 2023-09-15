@@ -124,11 +124,11 @@
 
     <div class="form-group">
       <label for="dataAtiv">Data de ativação:</label>
-      <input type="text" class="form-control" name="dataAtiv" value="" required>
+      <input type="date" class="form-control" name="dataAtiv" value="" required>
     </div>
 
     <div class="form-group">
-      <label for="ra">Ra do aluno:</label>
+      <label for="ra">Ra:</label>
       <input type="text" class="form-control" name="ra" value="" required>
     </div>
 
