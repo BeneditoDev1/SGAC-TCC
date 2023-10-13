@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UsuarioController;
-
+use App\Http\Controllers\CursoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +20,12 @@ Route::get('/usuario/listar', [UsuarioController::class, 'listar'])->name('usuar
 Route::get('/usuario/novo', [UsuarioController::class, 'novo'])->name('usuario.novo');
 Route::post('/usuario/salvar', [UsuarioController::class, 'salvar'])->name('usuario.salvar');
 
-
+Route::get('/curso/listar', [CursoController::class, 'listar'])->name('curso.listar');
+Route::get('/curso/novo', [CursoController::class, 'novo'])->name('curso.novo');
+Route::post('/curso/salvar', [CursoController::class, 'salvar'])->name('curso.salvar');
 
 
 
 Route::get('/', function () {
-    return view('listarUsuario');
+    return view('index');
 });

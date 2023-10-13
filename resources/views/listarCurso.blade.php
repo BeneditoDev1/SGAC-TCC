@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar Usuario</title>
+    <title>Listar Curso</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
@@ -141,38 +141,32 @@
     </div>
   </div>
 </nav>
+
 </head>
 <body>
 <div class="container">
-<h1>Listagem de Usuarios</h1>
-  <a href="{{ route('usuario.novo') }}" class="btn btn-primary">Novo Usuario</a>
+<h1>Listagem de cursos</h1>
+  <a href="{{ route('curso.novo') }}" class="btn btn-primary">Novo Curso</a>
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th>ID</th>
         <th>Nome</th>
-        <th>CPF</th>
-        <th>Matricula</th>
-        <th>Sexo</th>
-        <th>Data de ativação</th>
-        <th>RA</th>
-        <th>Nome do Curso</th>
+        <th>Semestre</th>
+        <th>Ano</th>
         <th>Editar</th>
         <th>Excluir</th>
       </tr>
     </thead>
     <tbody> 
-      @foreach($usuarios as $usuario)
+      @foreach($cursos as $curso)
         <tr>
-          <td>{{ $usuario->id }}</td>
-          <td>{{ $usuario->nome }}</td>
-          <td>{{ $usuario->cpf }}</td>
-          <td>{{ $usuario->sexo }}</td>
-          <th>{{ $usuario->data_ativacao}}</th>
-          <th>{{ $usuario->ra}}</th>
-          <th>{{ $usuario->nome_curso}}</th>
-          <td><a class="btn btn-primary" href="editar/{{ $usuario->id }}">Editar</a></td>
-          <td><a class="btn btn-danger" href="excluir/{{ $usuario->id }}">Excluir</a></td>
+          <td>{{ $curso->id }}</td>
+          <td>{{ $curso->nome }}</td>
+          <td>{{ $curso->semestre }}</td>
+          <td>{{ $curso->ano }}</td>
+          <td><a class="btn btn-primary" href="editar/{{ $curso->id }}">Editar</a></td>
+          <td><a class="btn btn-danger" href="excluir/{{ $curso->id }}">Excluir</a></td>
         </tr>
       @endforeach
     </tbody>

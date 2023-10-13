@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGAC</title>
+    <title>Cadastro de cursos</title>
 
     <style>
         body {
@@ -99,42 +99,37 @@
         }
 
     </style>
-
 </head>
 <body>
-    <h1>Cadastrar Usuário</h1>
+<form action="{{ $curso->id ? route('curso.atualizar', $curso->id) : route('curso.salvar')  }}" method="POST">
+    @csrf
+    @if($curso->id)
+      @method('PUT')
+    @endif
 
-    <div class = "form-group">
-        <label for="curso">Escolha o Curso</label>
-        <input type="text" class="form-control" name="nome_curso" value="{{ $usuario->nome_curso }}" required>
-    </div>
+    <input type="hidden" name="id" value="{{ $curso->id }}">
 
     <div class="form-group">
       <label for="nome">Nome:</label>
-      <input type="text" class="form-control" name="nome" value="" required>
+      <input type="text" class="form-control" name="nome" value="{{ $curso->nome }}" required>
     </div>
 
     <div class="form-group">
-      <label for="cpf">CPF:</label>
-      <input type="text" class="form-control" name="cpf" value="" required>
-    </div>
-    
-    <div class="form-group">
-      <label for="matricula">Matricula:</label>
-      <input type="text" class="form-control" name="matricula" value="" required>
-    </div>
+    <label for="semestre">Semestre:</label>
+    <select class="form-control" name="semestre" required>
+        <option value="1" @if($curso->semestre == 1) selected @endif>1</option>
+        <option value="2" @if($curso->semestre == 2) selected @endif>2</option>
+    </select>
+</div>
+
 
     <div class="form-group">
-      <label for="dataAtiv">Data de ativação:</label>
-      <input type="date" class="form-control" name="dataAtiv" value="" required>
-    </div>
-
-    <div class="form-group">
-      <label for="ra">Ra:</label>
-      <input type="text" class="form-control" name="ra" value="" required>
+      <label for="ano">Ano:</label>
+      <input type="date" class="form-control" name="ano" value="{{ $curso->ano }}" required></input>
     </div>
 
     <button type="submit" class="btn btn-primary">Salvar</button>
-    <a href="{{ route('usuario.listar') }}" class="btn btn-secondary">Cancelar</a>
-    </body>
+    <a href="{{ route('curso.listar') }}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</body>
 </html>

@@ -28,5 +28,3 @@ create table atividade(
 	constraint usuario foreign key (id) references usuario(id)
 );
 
-inserto into usuario(id, nome, cpf, matricula, sexo, data_ativacao, ra, nome_curso)
-values (1, 'Roger', '28392839401', '20202837483', 'M', current_timeStamp)
