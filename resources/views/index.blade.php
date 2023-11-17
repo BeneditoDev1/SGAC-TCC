@@ -97,7 +97,7 @@
       body {
         min-height: 75rem;
         padding-top: 4.5rem;
-        background-color: rgb(255, 255, 255);
+        background-color: blue;
       }
 
       .navbar-collapse {
@@ -177,13 +177,13 @@
           <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}">Cursos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{url('usuario/novo')}}">Atividades</a>
+          <a class="nav-link active" aria-current="page" href="{{url('atividade/listar')}}">Atividades</a>
         </li>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-    
+    <h1>Bem-vindo ao SGAC, onde você aluno vai computar suas atividades complementares</h1>
 </body>
 </html>

@@ -134,7 +134,7 @@
           <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}">Cursos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{url('usuario/novo')}}">Atividades</a>
+          <a class="nav-link active" aria-current="page" href="{{url('atividade/listar')}}">Atividades</a>
         </li>
         </li>
       </ul>
@@ -167,10 +167,11 @@
           <td>{{ $usuario->id }}</td>
           <td>{{ $usuario->nome }}</td>
           <td>{{ $usuario->cpf }}</td>
+          <td>{{ $usuario-> matricula}}</td>
           <td>{{ $usuario->sexo }}</td>
           <th>{{ $usuario->data_ativacao}}</th>
           <th>{{ $usuario->ra}}</th>
-          <th>{{ $usuario->nome_curso}}</th>
+          <th>{{ $usuario->curso->nome}}</th>
           <td><a class="btn btn-primary" href="editar/{{ $usuario->id }}">Editar</a></td>
           <td><a class="btn btn-danger" href="excluir/{{ $usuario->id }}">Excluir</a></td>
         </tr>

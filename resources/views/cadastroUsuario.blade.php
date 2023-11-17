@@ -102,39 +102,62 @@
 
 </head>
 <body>
-    <h1>Cadastrar Usuário</h1>
 
-    <div class = "form-group">
-        <label for="curso">Escolha o Curso</label>
-        <input type="text" class="form-control" name="nome_curso" value="{{ $usuario->nome_curso }}" required>
-    </div>
+<h1>Cadastrar Usuário</h1>
 
-    <div class="form-group">
-      <label for="nome">Nome:</label>
-      <input type="text" class="form-control" name="nome" value="" required>
-    </div>
+<form action="{{ $usuario->id ? route('usuario.atualizar', $usuario->id) :route('usuario.salvar') }}" method="POST">
+  @csrf
+    @if($usuario->id)
+      @method('PUT')
+    @endif
 
-    <div class="form-group">
-      <label for="cpf">CPF:</label>
-      <input type="text" class="form-control" name="cpf" value="" required>
-    </div>
-    
-    <div class="form-group">
-      <label for="matricula">Matricula:</label>
-      <input type="text" class="form-control" name="matricula" value="" required>
-    </div>
 
-    <div class="form-group">
-      <label for="dataAtiv">Data de ativação:</label>
-      <input type="date" class="form-control" name="dataAtiv" value="" required>
-    </div>
+  <div class="form-group">
+    <label for="nome">Nome:</label>
+    <input type="text" class="form-control" name="nome" value="" required>
+  </div>
 
-    <div class="form-group">
-      <label for="ra">Ra:</label>
-      <input type="text" class="form-control" name="ra" value="" required>
-    </div>
+  <div class="form-group">
+    <label for="cpf">CPF:</label>
+    <input type="text" class="form-control" name="cpf" value="" required>
+  </div>
 
-    <button type="submit" class="btn btn-primary">Salvar</button>
-    <a href="{{ route('usuario.listar') }}" class="btn btn-secondary">Cancelar</a>
+  <div class="form-group">
+    <label for="matricula">Matricula:</label>
+    <input type="text" class="form-control" name="matricula" value="" required>
+  </div>
+
+  <div class="form-group">
+    <label for="sexo">Sexo:</label>
+    <select class="form-control" name="sexo" required>
+        <option value="M" @if($usuario->sexo == 'M') selected @endif>M</option>
+        <option value="F" @if($usuario->sexo == 'F') selected @endif>F</option>
+    </select>
+</div>
+  <div class="form-group">
+    <label for="dataAtiv">Data de ativação:</label>
+    <input type="date" class="form-control" name="dataAtiv" value="" required>
+  </div>
+
+  <div class="form-group">
+    <label for="ra">Ra:</label>
+    <input type="text" class="form-control" name="ra" value="" required>
+  </div>
+
+  <div class="form-group">
+    <label for="curso">Escolha o Curso</label>
+    <select class="form-control" name="curso_id" required>
+        <option value="">Selecione um curso</option>
+        @foreach($cursos as $curso)
+            <option {{ $curso->id == old('curso_id', $usuario->curso_id) ? 'selected' : '' }} value="{{ $curso->id }}">{{ $curso->nome }}</option>
+        @endforeach
+    </select>
+</div>
+
+
+  <button type="submit" class="btn btn-primary">Salvar</button>
+  <a href="{{ route('usuario.listar') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+
     </body>
 </html>

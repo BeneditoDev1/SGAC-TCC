@@ -4,18 +4,19 @@ create table curso(
 	semestre integer,
 	ano date
 );
-  
-create table usuario(
-	id serial not null primary key,
-	nome varchar(255) not null,
-	cpf varchar(11) unique not null,
-	matricula varchar(255) not null,
-	sexo char (1),
-	data_ativacao date not null,
-	ra varchar(255) not null,
-	nome_curso varchar(255) not null,
-	constraint nome_curso foreign key (id) references curso(id) 
+ 
+CREATE TABLE usuario (
+    id serial NOT NULL PRIMARY KEY,
+    nome varchar(255) NOT NULL,
+    cpf varchar(11) UNIQUE NOT NULL,
+    matricula varchar(255) NOT NULL,
+    sexo char(1),
+    data_ativacao date NOT NULL,
+    ra varchar(255) NOT NULL,
+    curso_id integer NOT NULL, -- Alteração aqui para usar curso_id
+    CONSTRAINT fk_curso FOREIGN KEY (curso_id) REFERENCES curso(id)
 );
+
  
 create table atividade(
 	id serial not null primary key,
@@ -27,4 +28,7 @@ create table atividade(
 	constraint nome_curso foreign key (id) references curso(id),
 	constraint usuario foreign key (id) references usuario(id)
 );
+
+drop table usuario  
+
 

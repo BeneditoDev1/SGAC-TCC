@@ -9,7 +9,7 @@ class Atividade extends Model
 {
     use HasFactory;
 
-    protected $table = 'usuario';
+    protected $table = 'atividade';
     public $timestamps = false;
 
     public function curso(){

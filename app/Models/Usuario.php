@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Curso;
 
 class Usuario extends Model
 {
@@ -13,7 +14,7 @@ class Usuario extends Model
     public $timestamps = false;
 
     public function curso(){
-        return $this->belongsTo(Curso::class, 'curso');
+        return $this->belongsTo(Curso::class);
     }
 
 }

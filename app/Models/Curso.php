@@ -10,6 +10,7 @@ class Curso extends Model
     use HasFactory;
 
     protected $table = 'curso';
+    protected $fillable = ['nome_curso'];
     public $timestamps = false;
 
 }

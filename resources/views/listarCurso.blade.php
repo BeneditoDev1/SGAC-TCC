@@ -134,7 +134,7 @@
           <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}">Cursos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{url('usuario/novo')}}">Atividades</a>
+          <a class="nav-link active" aria-current="page" href="{{url('atividade/listar')}}">Atividades</a>
         </li>
         </li>
       </ul>
@@ -145,7 +145,7 @@
 </head>
 <body>
 <div class="container">
-<h1>Listagem de cursos</h1>
+<h1>Listagem de Cursos</h1>
   <a href="{{ route('curso.novo') }}" class="btn btn-primary">Novo Curso</a>
   <table class="table table-bordered table-striped">
     <thead>

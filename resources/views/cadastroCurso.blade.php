@@ -99,6 +99,12 @@
         }
 
     </style>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{url('/')}}">Inicio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    </button>
 </head>
 <body>
 <form action="{{ $curso->id ? route('curso.atualizar', $curso->id) : route('curso.salvar')  }}" method="POST">
