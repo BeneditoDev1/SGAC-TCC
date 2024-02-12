@@ -100,6 +100,10 @@
         background-color: rgb(5, 93, 245);
       }
 
+      .navbar{
+        background-color: rgb(5, 93, 245);
+      }
+
       .navbar-collapse {
       text-align: center;
       }

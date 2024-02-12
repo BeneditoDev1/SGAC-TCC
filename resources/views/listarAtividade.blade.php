@@ -55,6 +55,25 @@
             background-color: #dc3545;
         }
 
+        .navbar-collapse {
+      text-align: center;
+      }
+
+      .navbar-collapse ul {
+      display: inline-block;
+      vertical-align: middle;
+      float: none;
+      }
+
+      .navbar-collapse li {
+      display: inline-block;
+      }
+
+      .navbar-collapse li a {
+      display: inline-block;
+      vertical-align: middle;
+      }
+
     </style>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -91,9 +110,13 @@
             <th>ID</th>
             <th>Título</th>
             <th>Credencial</th>
-            <th>Nome</th>
             <th>Semestre</th>
+            <th>Nome do curso</th>
+            <th>Categoria</th>
+            <th>Data de inicio</th>
+            <th>Data de conclsão</th>
             <th>Usuario</th>
+            <th>Arquivo</th>
             <th>Editar</th>
             <th>Excluir</th>
         </tr>
@@ -104,9 +127,13 @@
                 <td>{{ $atividade->id }}</td>
                 <td>{{ $atividade->titulo }}</td>
                 <td>{{ $atividade->credencial }}</td>
-                <td>{{ $atividade->nome_curso }}</td>
                 <td>{{ $atividade->semestre }}</td>
-                <td>{{ $atividade->usuario_id }}</td>
+                <td>{{ $atividade->nome_curso }}</td>
+                <td>{{ $atividade->categoria }}</td>
+                <td>{{ $atividade->data_inicio }}</td>
+                <td>{{ $atividade->data_conclusao }}</td>
+                <td>{{ $atividade->usuario->nome}}</td>
+                <td>{{ $atividade->arquivo}}</td>
                 <td><a class="btn btn-primary" href="editar/{{ $atividade->id }}">Editar</a></td>
                 <td><a class="btn btn-danger" href="excluir/{{ $atividade->id }}">Excluir</a></td>
             </tr>

@@ -121,13 +121,18 @@
     </div>
 
     <div class="form-group">
-    <label for="semestre">Semestre:</label>
+        <label for="semestre">Semestre:</label>
     <select class="form-control" name="semestre" required>
         <option value="1" @if($curso->semestre == 1) selected @endif>1</option>
         <option value="2" @if($curso->semestre == 2) selected @endif>2</option>
+        <option value="3" @if($curso->semestre == 3) selected @endif>3</option>
+        <option value="4" @if($curso->semestre == 4) selected @endif>4</option>
+        <option value="5" @if($curso->semestre == 5) selected @endif>5</option>
+        <option value="6" @if($curso->semestre == 6) selected @endif>6</option>
     </select>
-</div>
-
+    </div>
+    
+    
 
     <div class="form-group">
       <label for="ano">Ano:</label>

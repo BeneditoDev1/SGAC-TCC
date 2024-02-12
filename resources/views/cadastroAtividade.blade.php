@@ -102,10 +102,40 @@
         <div class="form-group">
             <label for="tipo">Categoria:</label>
             <select class="form-control" name="tipo" required>
-                <option value="Tipo1" @if($atividade->tipo == 'Tipo1') selected @endif>Tipo 1</option>
-                <option value="Tipo2" @if($atividade->tipo == 'Tipo2') selected @endif>Tipo 2</option>
+                <option value="Tipo1" @if($atividade->tipo == 'Curso') selected @endif>Tipo 1</option>
+                <option value="Tipo2" @if($atividade->tipo == 'Palestra') selected @endif>Tipo 2</option>
                 <option value="Tipo3" @if($atividade->tipo == 'Tipo3') selected @endif>Tipo 3</option>
             </select>
+        </div>
+
+        <div class="form-group">
+        <label for="semestre">Semestre:</label>
+        <select class="form-control" name="semestre" required>
+            <option value="1" @if($atividade->semestre == 1) selected @endif>1</option>
+            <option value="2" @if($atividade->semestre == 2) selected @endif>2</option>
+            <option value="3" @if($atividade->semestre == 3) selected @endif>3</option>
+            <option value="4" @if($atividade->semestre == 4) selected @endif>4</option>
+            <option value="5" @if($atividade->semestre == 5) selected @endif>5</option>
+            <option value="6" @if($atividade->semestre == 6) selected @endif>6</option>
+        </select>
+
+        <div class="form-group">
+        <label for="curso">Escolha o curso:</label>
+        <select class="form-control" name="curso_id" required>
+        <option value="">Selecione um curso</option>
+        @foreach($cursos as $curso)
+            <option {{ $curso->id == old('curso_id', $atividade->curso_id) ? 'selected' : '' }} value="{{ $curso->id }}">{{ $curso->nome }}</option>
+        @endforeach
+        </select>
+
+        <div class="form-group">
+            <label for="usuario">Escolha o usuário:</label>
+        <select class="form-control" name="usuario_id" required>
+        <option value="">Selecione um usuário</option>
+        @foreach($usuarios as $usuario)
+            <option {{ $usuario->id == old('usuario_id', $atividade->usuario_id) ? 'selected' : '' }} value="{{ $usuario->id }}">{{ $usuario->nome }}</option>
+        @endforeach
+        </select>
         </div>
 
         <div class="form-group">
@@ -118,22 +148,11 @@
             <input type="date" class="form-control" name="data_conclusao" value="{{ old('data_conclusao', $atividade->data_conclusao) }}" required>
         </div>
 
-        <div class="form-group">
-            <label for="ra">Subcategoria:</label>
-            <input type="text" class="form-control" name="ra" value="{{ old('ra', $atividade->ra) }}" required>
-        </div>
 
         <div class="form-group">
-            <label for="curso_id">Carga Horária:</label>
-            <select class="form-control" name="curso_id" required>
-                <option value="">Selecione um curso</option>
-                @foreach($cursos as $curso)
-                    <option {{ $curso->id == old('curso_id', $atividade->curso_id) ? 'selected' : '' }} value="{{ $curso->id }}">{{ $curso->nome }}</option>
-                @endforeach
-            </select>
+            <label for="arquivo">Arquivo:</label>
+            <input type="file" class="form-control" name="arquivo" accept=".pdf, .doc, .docx, png, .jpeg"> <!-- Adicione a extensão desejada no atributo accept -->
         </div>
-
-        <!-- Adicione outros campos conforme necessário -->
 
         <button type="submit" class="btn-primary">Salvar</button>
         <a href="{{ route('atividade.listar') }}" class="btn-secondary">Cancelar</a>
