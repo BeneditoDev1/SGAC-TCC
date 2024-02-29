@@ -100,11 +100,11 @@
         </div>
 
         <div class="form-group">
-            <label for="tipo">Categoria:</label>
-            <select class="form-control" name="tipo" required>
-                <option value="Tipo1" @if($atividade->tipo == 'Curso') selected @endif>Tipo 1</option>
-                <option value="Tipo2" @if($atividade->tipo == 'Palestra') selected @endif>Tipo 2</option>
-                <option value="Tipo3" @if($atividade->tipo == 'Tipo3') selected @endif>Tipo 3</option>
+            <label for="categoria">Categoria:</label>
+            <select class="form-control" name="categoria" required>
+                <option value="Curso" @if($atividade->tipo == 'Curso') selected @endif>Tipo 1</option>
+                <option value="Palestra" @if($atividade->tipo == 'Palestra') selected @endif>Tipo 2</option>
+                <option value="Evento" @if($atividade->tipo == 'Evento') selected @endif>Tipo 3</option>
             </select>
         </div>
 
@@ -144,15 +144,22 @@
         </div>
 
         <div class="form-group">
-            <label for="data_conclusao">Data de Conclusão:</label>
+            <label for="'data_conclusao'">Data de Conclusão:</label>
             <input type="date" class="form-control" name="data_conclusao" value="{{ old('data_conclusao', $atividade->data_conclusao) }}" required>
         </div>
 
-
         <div class="form-group">
-            <label for="arquivo">Arquivo:</label>
-            <input type="file" class="form-control" name="arquivo" accept=".pdf, .doc, .docx, png, .jpeg"> <!-- Adicione a extensão desejada no atributo accept -->
+            <label for="total_horas">Total de horas:</label>
+            <input type="datetime" class="form-control" name="total_horas" value="{{ old('total_horas', $atividade->total_horas) }}" required>
         </div>
+
+        <form method="POST" action="seu_action_aqui" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="arquivo">Arquivo:</label>
+        <input type="file" class="form-control" name="arquivo" accept=".pdf, .doc, .docx, .png, .jpeg">
+    </div>
+
+        <input type="hidden" name=¨nome_arquivo¨ value=¨{{ old('arquivo', $atividade->arquivo) }}¨>
 
         <button type="submit" class="btn-primary">Salvar</button>
         <a href="{{ route('atividade.listar') }}" class="btn-secondary">Cancelar</a>

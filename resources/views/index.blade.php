@@ -185,7 +185,6 @@
     </div>
   </div>
 </nav>
-
     <h1>Bem-vindo ao SGAC, onde você aluno vai computar suas atividades complementares</h1>
 </body>
 </html>

@@ -7,6 +7,7 @@ use App\Models\Atividade;
 use Illuminate\Validation\Rule;
 use App\Models\Curso;
 use App\Models\Usuario;
+use Illuminate\Support\Facades\Storage;
 
 class AtividadeController extends Controller
 {
@@ -27,23 +28,25 @@ class AtividadeController extends Controller
 
     public function salvar(Request $request)
     {
+        
+        // Cria ou atualiza a atividade
+        $atividade = $request->input('id') ? Atividade::findOrFail($request->input('id')) : new Atividade;
+        $nomeArquivo = $request->input('nome_arquivo');
         if ($request->hasFile('arquivo')) {
             $arquivo = $request->file('arquivo');
             $nomeArquivo = time() . '_' . $arquivo->getClientOriginalName();
+            var_dump($nomeArquivo); die();
             $arquivo->move(public_path('uploads'), $nomeArquivo);
-        } else {
-            $nomeArquivo = null;
         }
-
-        // Cria ou atualiza a atividade
-        $atividade = $request->input('id') ? Atividade::findOrFail($request->input('id')) : new Atividade;
-
         $atividade->titulo = $request->input('titulo');
         $atividade->credencial = $request->input('credencial');
         $atividade->categoria = $request->input('categoria');
         $atividade->semestre = $request->input('semestre');
+        $atividade->curso = $request->input('curso_id');
+        $atividade->usuario = $request->input('usuario_id');
         $atividade->data_inicio = $request->input('data_inicio');
         $atividade->data_conclusao = $request->input('data_conclusao');
+        $atividade->total_horas = $request->input('total_horas');
         $atividade->arquivo = $nomeArquivo;
 
         $atividade->save();
@@ -66,6 +69,7 @@ class AtividadeController extends Controller
         $atividade->semestre = $request->input('semestre');
         $atividade->usuario = $request->input('usuario');
         $atividade->data_inicio = $request->input('data_inicio');
+        $ativdade->total_horas = $request->input('total_horas');
         $atividade->data_conclusao = $request->input('data_conclusao');
 
         // Obtendo o ID do curso selecionado
@@ -92,4 +96,5 @@ class AtividadeController extends Controller
 
         return redirect()->route('atividade.listar');
     }
+
 }

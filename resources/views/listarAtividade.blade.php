@@ -17,7 +17,7 @@
             color: #007bff;
         }
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
@@ -114,7 +114,8 @@
             <th>Nome do curso</th>
             <th>Categoria</th>
             <th>Data de inicio</th>
-            <th>Data de conclsão</th>
+            <th>Data de conclusão</th>
+            <th>Total de horas</th>
             <th>Usuario</th>
             <th>Arquivo</th>
             <th>Editar</th>
@@ -132,6 +133,7 @@
                 <td>{{ $atividade->categoria }}</td>
                 <td>{{ $atividade->data_inicio }}</td>
                 <td>{{ $atividade->data_conclusao }}</td>
+                <td>{{ $atividade->TotalHoras}}</td>
                 <td>{{ $atividade->usuario->nome}}</td>
                 <td>{{ $atividade->arquivo}}</td>
                 <td><a class="btn btn-primary" href="editar/{{ $atividade->id }}">Editar</a></td>
