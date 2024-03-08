@@ -83,7 +83,7 @@
 
 <div class="container">
 
-    <form action="{{ $atividade->id ? route('atividade.atualizar', $atividade->id) : route('atividade.salvar') }}" method="POST">
+    <form enctype="multipart/form-data" action="{{ $atividade->id ? route('atividade.atualizar', $atividade->id) : route('atividade.salvar') }}" method="POST">
         @csrf
         @if($atividade->id)
             @method('PUT')

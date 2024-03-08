@@ -28,22 +28,22 @@ class AtividadeController extends Controller
 
     public function salvar(Request $request)
     {
-        
+
         // Cria ou atualiza a atividade
         $atividade = $request->input('id') ? Atividade::findOrFail($request->input('id')) : new Atividade;
         $nomeArquivo = $request->input('nome_arquivo');
         if ($request->hasFile('arquivo')) {
             $arquivo = $request->file('arquivo');
             $nomeArquivo = time() . '_' . $arquivo->getClientOriginalName();
-            var_dump($nomeArquivo); die();
+
             $arquivo->move(public_path('uploads'), $nomeArquivo);
         }
         $atividade->titulo = $request->input('titulo');
         $atividade->credencial = $request->input('credencial');
         $atividade->categoria = $request->input('categoria');
         $atividade->semestre = $request->input('semestre');
-        $atividade->curso = $request->input('curso_id');
-        $atividade->usuario = $request->input('usuario_id');
+        $atividade->curso_id = $request->input('curso_id');
+        $atividade->usuario_id = $request->input('usuario_id');
         $atividade->data_inicio = $request->input('data_inicio');
         $atividade->data_conclusao = $request->input('data_conclusao');
         $atividade->total_horas = $request->input('total_horas');
@@ -69,19 +69,19 @@ class AtividadeController extends Controller
         $atividade->semestre = $request->input('semestre');
         $atividade->usuario = $request->input('usuario');
         $atividade->data_inicio = $request->input('data_inicio');
-        $ativdade->total_horas = $request->input('total_horas');
+        $atividade->total_horas = $request->input('total_horas');
         $atividade->data_conclusao = $request->input('data_conclusao');
 
         // Obtendo o ID do curso selecionado
         $cursoId = $request->input('curso_id');
-      
+
         // Verificar se um curso com o ID especificado existe
         $curso = Curso::find($cursoId);
-  
+
         if ($curso) {
-          $usuario->curso_id = $curso->id; // Associar o usuário ao curso usando curso_id
+          $atividade->curso_id = $curso->id; // Associar o usuário ao curso usando curso_id
         } else {
-          $usuario->curso__id = 4;
+          $atividade->curso__id = 4;
         }
 
         $atividade->save();
@@ -96,5 +96,12 @@ class AtividadeController extends Controller
 
         return redirect()->route('atividade.listar');
     }
+
+    public function download(Request $request, $id)
+{
+    $atividade = Atividade::findOrFail($id);
+
+    return response()->download(public_path('uploads/' . $atividade->arquivo), $atividade->arquivo);
+}
 
 }

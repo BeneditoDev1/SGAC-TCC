@@ -41,6 +41,7 @@ Route::get('/atividade/editar/{id}', [AtividadeController::class, 'editar'])->na
 Route::post('/atividade/atualizar/{id}', [AtividadeController::class, 'atualizar'])->name('atividade.atualizar');
 Route::put('/atividade/atualizar/{id}', [AtividadeController::class, 'atualizar'])->name('atividade.atualizar');
 Route::get('/atividade/excluir/{id}', [AtividadeController::class, 'excluir'])->name('atividade.excluir');
+Route::get('atividade/download/{id}', 'AtividadeController@download')->name('atividade.download');
 
 Route::get('/', function () {
     return view('index');

@@ -118,6 +118,7 @@
             <th>Total de horas</th>
             <th>Usuario</th>
             <th>Arquivo</th>
+            <th>Baixar</th>
             <th>Editar</th>
             <th>Excluir</th>
         </tr>
@@ -129,13 +130,13 @@
                 <td>{{ $atividade->titulo }}</td>
                 <td>{{ $atividade->credencial }}</td>
                 <td>{{ $atividade->semestre }}</td>
-                <td>{{ $atividade->nome_curso }}</td>
+                <td>{{ $atividade->curso->nome }}</td>
                 <td>{{ $atividade->categoria }}</td>
                 <td>{{ $atividade->data_inicio }}</td>
                 <td>{{ $atividade->data_conclusao }}</td>
-                <td>{{ $atividade->TotalHoras}}</td>
+                <td>{{ $atividade->total_horas}}</td>
                 <td>{{ $atividade->usuario->nome}}</td>
-                <td>{{ $atividade->arquivo}}</td>
+                <td><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->arquivo }}</a></td>
                 <td><a class="btn btn-primary" href="editar/{{ $atividade->id }}">Editar</a></td>
                 <td><a class="btn btn-danger" href="excluir/{{ $atividade->id }}">Excluir</a></td>
             </tr>

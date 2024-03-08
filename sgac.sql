@@ -23,15 +23,15 @@ create table atividade(
 	titulo varchar(255) not null,
 	credencial varchar(255) not null,
 	categoria varchar(255) not null,
-	semestre date,
-	usuario integer not null,
-	curso integer not null,
+	semestre int,
+	usuario_id integer not null,
+	curso_id integer not null,
 	data_inicio date,
 	data_conclusao date,
-	total_horas time,
-	arquivo BYTEA,
-	constraint curso foreign key (id) references curso(id),
-	constraint usuario foreign key (id) references usuario(id)
+	total_horas int,
+	arquivo varchar(255),
+	constraint fk_curso FOREIGN KEY (curso_id) REFERENCES curso(id),
+	constraint fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
 
 
