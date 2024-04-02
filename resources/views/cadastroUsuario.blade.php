@@ -41,7 +41,7 @@
             background-color: white; /* Define o fundo do container como branco */
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
-            margin-top: 50px;
+            margin-top: 60px;
             color: black; /* Define a cor do texto dentro do container como preto */
         }
 
@@ -99,6 +99,10 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
                             href="{{url('atividade/listar')}}">Atividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                            href="{{url('about')}}">Regras</a>
                     </li>
                     </li>
                 </ul>

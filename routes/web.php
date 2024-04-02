@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\AtividadeController;
+use App\Http\Controllers\AboutController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +44,8 @@ Route::post('/atividade/atualizar/{id}', [AtividadeController::class, 'atualizar
 Route::put('/atividade/atualizar/{id}', [AtividadeController::class, 'atualizar'])->name('atividade.atualizar');
 Route::get('/atividade/excluir/{id}', [AtividadeController::class, 'excluir'])->name('atividade.excluir');
 Route::get('atividade/download/{id}', 'AtividadeController@download')->name('atividade.download');
+
+Route::get('/about', [AboutController::class, 'index']);
 
 Route::get('/', function () {
     return view('index');

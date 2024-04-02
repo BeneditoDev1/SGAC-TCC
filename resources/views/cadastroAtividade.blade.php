@@ -53,13 +53,14 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
-            margin-top: 50px;
+            margin-top: 60px;
+            margin-bottom: 50px;
         }
 
         .form-group {
@@ -84,7 +85,7 @@
         .btn-primary,
         .btn-secondary {
             display: block;
-            width: 90%;
+            width: 100%;
             padding: 10px;
             border-radius: 3px;
             cursor: pointer;
@@ -116,14 +117,19 @@
                         <a class="nav-link active" aria-current="page"
                             href="{{url('atividade/listar')}}">Atividades</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                            href="{{url('about')}}">Regras</a>
+                    </li>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <h1>Cadastrar Atividade</h1>
 
     <div class="container">
+
+        <h1>Cadastrar Atividade</h1>
 
         <form enctype="multipart/form-data"
             action="{{ $atividade->id ? route('atividade.atualizar', $atividade->id) : route('atividade.salvar') }}"

@@ -41,6 +41,10 @@
             }
         }
 
+        h1{
+            text-align: center;
+        }
+
         .b-example-divider {
             width: 100%;
             height: 3rem;
@@ -145,201 +149,44 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}">Inicio</a>
+            <a class="navbar-brand" href="{{url('/')}}">Inicio</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}">Usuarios</a>
+                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}">Usuarios</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}">Cursos</a>
+                        <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}">Cursos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
-                            href="{{ url('atividade/listar') }}">Atividades</a>
+                            href="{{url('atividade/listar')}}">Atividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                            href="{{url('about')}}">Regras</a>
+                    </li>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container">
-        <h1><strong>Bem-vindo ao SGAC, onde você aluno vai computar suas atividades complementares</strong></h1>
+        <h1><strong>Bem-vindo ao SGAC</strong></h1>
         <p></p>
-        <h2><strong>PONTUAÇÃO SUGERIDA PARA AS ATIVIDADES COMPLEMENTARES</strong></h2>
+        <h3>O processo de formação de Tecnologia em Sistemas para Internet de 2022, exige que, conforme o Projeto Pedagógico do Curso (PPC),
+        o estudante participe de atividades de enriquecimento curricular para compor os requisitos para sua formação, as chamadas atividades complementares.</h3>
 
-        <table>
-            <tr>
-                <th>1. Atividades de aperfeiçoamento e enriquecimento cultural (Máximo de 120 pontos ao longo do
-                    curso)</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="activity">
-                        <ul>
-                            <li>
-                                <h3>1.1 Participação em atividades culturais</h3>
-                                <ul>
-                                    <li> Participar em atividades culturais, como filme, teatro, apresentações
-                                        artísticas, feiras, exposições, festivais e competições esportivas, bandas,
-                                        coral, olimpíadas em geral. (5 pontos por atividade comprovada - 30 pontos) </li>
-                                </ul>
-                                <ul>
-                                    <li>Relatório ou comprovante de participação</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th>2. Atividades de divulgação científica e de iniciação à docência (Máximo de 100 pontos ao longo do
-                    curso)</th>
-            </tr>
-            <tr>
-                <td>
-                    <ul>
-                        <li>
-                            <h3>2.1 Monitoria remunerada ou voluntária</h3>
-                            <ul>
-                                <li>15 pontos por participação (60 pontos max)</li>
-                                <li>Certificado/Declaração</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>2.2 Membro atuante em atividades técnico-científicas</h3>
-                            <ul>
-                                <li>
-                                    <p>10 pontos por participação (30 pontos max)</p>
-                                    <p>ou</p>
-                                    <p>15 pontos, caso o trabalho seja da área específica do curso (30 pontos
-                                        max)</p>
-                                </li>
-                                <li>Certificado/Declaração</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>2.3 Participação em atividades pedagógicas de observação para cursos de licenciatura</h3>
-                            <ul>
-                                <li>5 pontos por participação (20 pontos max)</li>
-                                <li>Certificado/Declaração</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <p>* Valido após regulamentação pelo IFMS</p>
-                </td>
-            </tr>
-            <tr>
-                <th>3. Atividades de vivência acadêmica e profissional complementar (Máximo de 100 pontos ao longo do
-                    curso)</th>
-            </tr>
-            <tr>
-                <td>
-                    <ul>
-                        <li>
-                            <h3>3.1 Organização de eventos acadêmicos e festivais. (1 ponto por hora ou 10 pontos por
-                                evento, caso o documento de comprovação não apresente a carga horária - 30 pontos)</h3>
-                            <ul>
-                                <li>Certificado/Declaração</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>3.2 Representação discente em Conselhos e Entidades estudantis, liderança de turma,
-                                órgãos de classe e conselhos representativos.</h3>
-                            <ul>
-                                <li>5 pontos por participação (20 pontos max)</li>
-                                <li>Certificado/Declaração</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>3.3 Participação como ouvinte em eventos acadêmicos, tais como bancas de TCC,
-                                dissertação, teses.</h3>
-                            <ul>
-                                <li>3 pontos por participação (18 pontos max)</li>
-                                <li>Relatório/Declaração</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>3.4 Participação como ouvinte em congressos, seminários, simpósios e demais eventos
-                                relacionados ao curso ou áreas afins.</h3>
-                            <ul>
-                                <li>1 ponto por hora ou 10 pontos por evento (caso o documento de comprovação não
-                                    apresente a carga horária) (40 pontos max)</li>
-                                <li>Certificado/Declaração</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>3.5 Participação em visita técnica, relacionada à área de atuação.</h3>
-                            <ul>
-                                <li>1 ponto por hora ou 8 pontos por evento (caso o documento de comprovação não
-                                    apresente a carga horária) (20 pontos max)</li>
-                                <li>Relatório da visita, com anuência do professor responsável.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>3.6 Participação em projetos de incubação.</h3>
-                            <ul>
-                                <li>7,5 pontos por mês (45 pontos max)</li>
-                                <li>Certificado/Declaração</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <th>4. Atividades de Pesquisa ou Extensão e publicações (Máximo de 100 pontos ao longo do curso)</th>
-            </tr>
-            <tr>
-                <td>
-                    <ul>
-                        <li>
-                            <h3>4.1 Participação em projetos e grupos de pesquisa</h3>
-                            <ul>
-                                <li>7,5 pontos por mês (45 pontos max)</li>
-                                <li>Certificado/Declaração</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>4.2 Participação em projetos e grupos de extensão</h3>
-                            <ul>
-                                <li>7,5 pontos por mês (45 pontos max)</li>
-                                <li>Certificado/Declaração</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>4.3 Publicação de artigo científico completo em revista ou periódico.</h3>
-                            <ul>
-                                <li>25 pontos por publicação ou 30 pontos por publicação em revista ou periódico da
-                                    área (50 pontos max)</li>
-                                <li>Artigo publicado</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>4.4 Publicação de resumos de artigo científico em revista ou periódicos</h3>
-                            <ul>
-                                <li>15 pontos por publicação ou 20 pontos por publicação em revista ou periódico da
-                                    área (50 pontos max)</li>
-                                <li>Resumo publicado</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>4.5 Publicação de matérias ou notas em jornais e meios eletrônicos</h3>
-                            <ul>
-                                <li>5 pontos (10 pontos max)</li>
-                                <li>Publicação</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
-
+        <p>Confira os links com os documentos oficiais:</p>
+        <div class="links">
+            <ul>
+                <li><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/sistemas-para-internet" target="_blank">Sistemas para Internet - IFMS</a></li>
+                <li><a href="https://www.ifms.edu.br/cidadania/consultas-publicas/rod/minuta-regulamento-da-organizacao-didatico-pedagogica-03-04-2019-revisada-para-consulta.pdf" target="_blank">Minuta Regulamento da Organização Didático-Pedagógica</a></li>
+                <li><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/sistemas-para-internet/projeto-pedagogico-do-curso-superior-sistemas-internet-campo-grande-2019.pdf" target="_blank">Projeto Pedagógico do Curso Superior de Sistemas para Internet - Campo Grande (2019)</a></li>
+                <li><a href="https://www.ifms.edu.br/centrais-de-conteudo/documentos-institucionais/projetos-pedagogicos/projetos-pedagogicos-dos-cursos-de-graduacao/projeto-pedagogico-do-curso-superior-sistemas-internet-campo-grande.pdf" target="_blank">Projeto Pedagógico do Curso Superior de Sistemas para Internet - Campo Grande (2022)</a></li>
+            </ul>
+        </div>
 </html>

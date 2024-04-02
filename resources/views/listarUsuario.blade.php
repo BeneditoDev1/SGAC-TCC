@@ -25,6 +25,7 @@
     body {
         background-color: green; /* Define o fundo verde */
         color: white; /* Define a cor do texto como branco */
+        margin-bottom: 70px;
     }
 
     .container {
@@ -62,29 +63,33 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{url('/')}}">Inicio</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}">Usuarios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}">Cursos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page"
-                        href="{{url('atividade/listar')}}">Atividades</a>
-                </li>
-                </li>
-            </ul>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{url('/')}}">Inicio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}">Cursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                            href="{{url('atividade/listar')}}">Atividades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                            href="{{url('about')}}">Regras</a>
+                    </li>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 <div class="container">
     <h1 >Listagem de Usuarios</h1> <!-- Adicionado a classe display-4 para aumentar o tamanho do título -->
