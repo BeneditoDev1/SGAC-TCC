@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use App\Models\Curso;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Storage;
+use Exception as GlobalException;
 
 class AtividadeController extends Controller
 {
@@ -96,6 +97,7 @@ class AtividadeController extends Controller
 
         return redirect()->route('atividade.listar');
     }
+
 
     public function download(Request $request, $id)
 {

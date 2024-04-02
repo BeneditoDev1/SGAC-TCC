@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Curso;
+use App\Models\Usuario;
+use Exception as GlobalException;
 
 class CursoController extends Controller
 {
@@ -30,6 +32,7 @@ class CursoController extends Controller
 
         $curso->nome = $request->input('nome');
         $curso->semestre = $request->input('semestre');
+        $curso->turma = $request->input('turma');
         $curso->ano = $request->input('ano');
         $curso->save();
 
@@ -47,6 +50,7 @@ public function atualizar(Request $request, $id)
     $curso = Curso::find($id);
     $curso->nome = $request->input('nome');
     $curso->semestre = $request->input('semestre');
+    $curso->turma = $request->input('turma');
     $curso->ano = $request->input('ano');
     $curso->save();
 
@@ -55,8 +59,15 @@ public function atualizar(Request $request, $id)
 
 public function excluir($id)
 {
-    $curso = Curso::find($id);
-    $curso->delete();
+    try {
+        $curso = Curso::findOrFail($id);
+        if (Usuario::where('curso_id', $id)->count() > 0) {
+            throw new GlobalException('Não é possível excluir o curso, pois ele está vinculado a um ou mais usuários.');
+        }
+        $curso->delete();
+    } catch (GlobalException $e) {
+        return redirect()->back()->with('error', $e->getMessage());
+    }
 
     return redirect()->route('curso.listar');
 }

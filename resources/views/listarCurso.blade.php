@@ -21,160 +21,114 @@
 <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
 <meta name="theme-color" content="#712cf9">
 
-    <style>
-        .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
+<style>
+    body {
+        background-color: green; /* Define o fundo verde */
+        color: white; /* Define a cor do texto como branco */
+    }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+    .container {
+        background-color: white; /* Define o fundo do container como branco */
+        padding: 20px; /* Adiciona algum espaçamento interno ao container */
+        border-radius: 10px; /* Adiciona bordas arredondadas ao container */
+        margin-top: 70px; /* Adiciona um espaço acima do container para a barra de navegação */
+        color: black; /* Define a cor do texto dentro do container como preto */
+    }
 
-      .b-example-divider {
-        width: 100%;
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
+    .navbar {
+        background-color: green; /* Define a cor de fundo da barra de navegação como verde */
+    }
 
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
+    .navbar-collapse {
         text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
+    }
 
-      .btn-bd-primary {
-        --bd-violet-bg: #712cf9;
-        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+    .navbar-collapse ul {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+    }
 
-        --bs-btn-font-weight: 600;
-        --bs-btn-color: var(--bs-white);
-        --bs-btn-bg: var(--bd-violet-bg);
-        --bs-btn-border-color: var(--bd-violet-bg);
-        --bs-btn-hover-color: var(--bs-white);
-        --bs-btn-hover-bg: #6528e0;
-        --bs-btn-hover-border-color: #6528e0;
-        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-        --bs-btn-active-color: var(--bs-btn-hover-color);
-        --bs-btn-active-bg: #5a23c8;
-        --bs-btn-active-border-color: #5a23c8;
-      }
-      .bd-mode-toggle {
-        z-index: 1500;
-      }
+    .navbar-collapse li {
+        display: inline-block;
+    }
 
-      body {
-        min-height: 75rem;
-        padding-top: 4.5rem;
-        background-color: rgb(5, 93, 245);
-      }
-
-      .navbar{
-        background-color: rgb(5, 93, 245);
-      }
-
-      .navbar-collapse {
-      text-align: center;
-      }
-
-      .navbar-collapse ul {
-      display: inline-block;
-      vertical-align: middle;
-      float: none;
-      }
-
-      .navbar-collapse li {
-      display: inline-block;
-      }
-
-      .navbar-collapse li a {
-      display: inline-block;
-      vertical-align: middle;
-      }
-    </style>
+    .navbar-collapse li a {
+        display: inline-block;
+        vertical-align: middle;
+        color: white; /* Define a cor do texto dos links da barra de navegação como branco */
+    }
+</style>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{url('/')}}">Inicio</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}">Usuarios</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}">Cursos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{url('atividade/listar')}}">Atividades</a>
-        </li>
-        </li>
-      </ul>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{url('/')}}">Inicio</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+            aria-label="Toggle navigation">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                        href="{{url('usuario/listar')}}">Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                        href="{{url('curso/listar')}}">Cursos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                        href="{{url('atividade/listar')}}">Atividades</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 
 </head>
+
 <body>
 <div class="container">
-<h1>Listagem de Cursos</h1>
-  <a href="{{ route('curso.novo') }}" class="btn btn-primary">Novo Curso</a>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Semestre</th>
-        <th>Ano</th>
-        <th>Editar</th>
-        <th>Excluir</th>
-      </tr>
-    </thead>
-    <tbody> 
-      @foreach($cursos as $curso)
-        <tr>
-          <td>{{ $curso->id }}</td>
-          <td>{{ $curso->nome }}</td>
-          <td>{{ $curso->semestre }}</td>
-          <td>{{ $curso->ano }}</td>
-          <td><a class="btn btn-primary" href="editar/{{ $curso->id }}">Editar</a></td>
-          <td><a class="btn btn-danger" href="excluir/{{ $curso->id }}">Excluir</a></td>
-        </tr>
-      @endforeach
-    </tbody>
-  </table>
+    <h1>Listagem de Cursos</h1>
+    <a href="{{ route('curso.novo') }}" class="btn btn-primary">Novo Curso</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Semestre</th>
+                <th>Turma</th>
+                <th>Ano</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($cursos as $curso)
+            <tr>
+                <td>{{ $curso->id }}</td>
+                <td>{{ $curso->nome }}</td>
+                <td>{{ $curso->semestre }}</td>
+                <th>{{ $curso->turma}}</th>
+                <td>{{ $curso->ano }}</td>
+                <td><a class="btn btn-primary" href="editar/{{ $curso->id }}">Editar</a></td>
+                <td>
+                    <form method="GET" action="excluir/{{ $curso->id }}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">Excluir</button>
+                    </form>
+                </td>
+                @endforeach
+        </tbody>
+    </table>
 </div>
 </body>
+
+<script>
+@if (session('error'))
+alert('{{ session('error') }}');
+@endif
+</script>
 </html>
