@@ -111,6 +111,18 @@
                     <a class="nav-link active" aria-current="page"
                         href="{{url('about')}}"><strong>Regras</strong></a>
                 </li>
+                <li class="nav-item">
+                    @if (Auth::check())
+                        <!-- Se o usuário estiver autenticado, exiba o botão para sair -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Sair</button>
+                        </form>
+                    @else
+                        <!-- Se o usuário não estiver autenticado, exiba o botão para entrar -->
+                        <a href="{{ route('login') }}" class="btn btn-primary">Entrar</a>
+                    @endif
+                </li>
                 </li>
             </ul>
         </div>

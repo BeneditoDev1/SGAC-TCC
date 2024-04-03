@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\AboutController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +19,16 @@ use App\Http\Controllers\AboutController;
 |
 */
 
-Route::get('/usuario/listar', [UsuarioController::class, 'listar'])->name('usuario.listar');
+Route::get('/dashboard', function () {
+    return view('index');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/usuario/listar', [UsuarioController::class, 'listar'])->name('usuario.listar');
 Route::get('/usuario/novo', [UsuarioController::class, 'novo'])->name('usuario.novo');
 Route::post('/usuario/salvar', [UsuarioController::class, 'salvar'])->name('usuario.salvar');
 Route::get('/usuario/editar/{id}', [UsuarioController::class, 'editar'])->name('usuario.editar');
@@ -50,3 +59,8 @@ Route::get('/about', [AboutController::class, 'index']);
 Route::get('/', function () {
     return view('index');
 });
+
+
+});
+
+require __DIR__.'/auth.php';
