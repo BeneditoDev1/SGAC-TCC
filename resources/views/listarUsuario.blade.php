@@ -23,7 +23,7 @@
 
 <style>
     body {
-        background-color: green; /* Define o fundo verde */
+        background-color: #034811; /* Define o fundo verde */
         color: white; /* Define a cor do texto como branco */
         margin-bottom: 70px;
     }
@@ -59,6 +59,17 @@
         vertical-align: middle;
         color: white; /* Define a cor do texto dos links da barra de navegação como branco */
     }
+
+    .logout-button {
+            position: fixed;
+            top: 10px; /* Distância do topo da página */
+            right: 20px; /* Distância da direita da página */
+            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
+    }
+
+    .btn-primary{
+        margin-bottom: 1%;
+    }
 </style>
 </head>
 
@@ -72,10 +83,13 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Usuarios</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{url('turma/listar')}}"><strong>Turma</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
@@ -88,7 +102,7 @@
                     <li class="nav-item">
                         @if (Auth::check())
                             <!-- Se o usuário estiver autenticado, exiba o botão para sair -->
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ route('logout') }}" class="logout-button">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Sair</button>
                             </form>
@@ -104,13 +118,12 @@
     </nav>
 
 <div class="container">
-    <h1 >Listagem de Usuarios</h1> <!-- Adicionado a classe display-4 para aumentar o tamanho do título -->
-    <a href="{{ route('usuario.novo') }}" class="btn btn-primary">Novo Usuario</a>
+    <h1 >Alunos</h1> <!-- Adicionado a classe display-4 para aumentar o tamanho do título -->
+    <a href="{{ route('usuario.novo') }}" class="btn btn-primary">Novo Aluno</a>
     <div class="table-responsive"> <!-- Adicionado o wrapper .table-responsive -->
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nome</th>
                     <th>CPF</th>
                     <th>Matricula</th>
@@ -126,7 +139,6 @@
             <tbody>
                 @foreach($usuarios as $usuario)
                 <tr>
-                    <td>{{ $usuario->id }}</td>
                     <td>{{ $usuario->nome }}</td>
                     <td>{{ $usuario->cpf }}</td>
                     <td>{{ $usuario-> matricula}}</td>

@@ -23,7 +23,7 @@
 
 <style>
     body {
-        background-color: green; /* Define o fundo verde */
+        background-color: #034811; /* Define o fundo verde */
         color: white; /* Define a cor do texto como branco */
     }
 
@@ -58,6 +58,16 @@
         vertical-align: middle;
         color: white; /* Define a cor do texto dos links da barra de navegação como branco */
     }
+    .logout-button {
+            position: fixed;
+            top: 10px; /* Distância do topo da página */
+            right: 20px; /* Distância da direita da página */
+            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
+        }
+
+    .btn-primary{
+        margin-bottom: 1%;
+    }
 </style>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -69,10 +79,13 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Usuarios</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{url('turma/listar')}}"><strong>Turma</strong></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page"
@@ -85,7 +98,7 @@
                 <li class="nav-item">
                     @if (Auth::check())
                         <!-- Se o usuário estiver autenticado, exiba o botão para sair -->
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('logout') }}" class="logout-button">
                             @csrf
                             <button type="submit" class="btn btn-danger">Sair</button>
                         </form>
@@ -104,16 +117,12 @@
 
 <body>
 <div class="container">
-    <h1>Listagem de Cursos</h1>
+    <h1>Cursos</h1>
     <a href="{{ route('curso.novo') }}" class="btn btn-primary">Novo Curso</a>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nome</th>
-                <th>Semestre</th>
-                <th>Turma</th>
-                <th>Ano</th>
                 <th>Editar</th>
                 <th>Excluir</th>
             </tr>
@@ -121,11 +130,7 @@
         <tbody>
             @foreach($cursos as $curso)
             <tr>
-                <td>{{ $curso->id }}</td>
                 <td>{{ $curso->nome }}</td>
-                <td>{{ $curso->semestre }}</td>
-                <th>{{ $curso->turma}}</th>
-                <td>{{ $curso->ano }}</td>
                 <td><a class="btn btn-primary" href="editar/{{ $curso->id }}">Editar</a></td>
                 <td>
                     <form method="GET" action="excluir/{{ $curso->id }}">

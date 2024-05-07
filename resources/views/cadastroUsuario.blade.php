@@ -24,7 +24,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: green; /* Define o fundo verde */
+            background-color: #034811; /* Define o fundo verde */
             color: white; /* Define a cor do texto como branco */
             margin: 0;
             padding: 0;
@@ -41,13 +41,17 @@
             background-color: white; /* Define o fundo do container como branco */
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
-            margin-top: 60px;
+            margin-top: 4%;
             color: black; /* Define a cor do texto dentro do container como preto */
         }
 
         .form-group {
             margin-bottom: 10px;
             max-width: 100%;
+        }
+
+        .lista{
+            max-width: 15%;
         }
 
         label {
@@ -66,17 +70,24 @@
         .btn-primary,
         .btn-secondary {
             display: block;
-            width: 100%;
+            width: 40%;
             padding: 10px;
             border-radius: 10px;
             cursor: pointer;
-            margin-top: 10px;
+            margin: 10px auto;
         }
 
         @media (max-width: 768px) {
             .container {
                 max-width: 90%;
             }
+        }
+
+        .logout-button {
+            position: fixed;
+            top: 10px; /* Distância do topo da página */
+            right: 20px; /* Distância da direita da página */
+            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
         }
     </style>
 </head>
@@ -91,10 +102,13 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Usuarios</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{url('turma/listar')}}"><strong>Turma</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
@@ -107,7 +121,7 @@
                     <li class="nav-item">
                         @if (Auth::check())
                             <!-- Se o usuário estiver autenticado, exiba o botão para sair -->
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" style="" action="{{ route('logout') }}" class="logout-button">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Sair</button>
                             </form>
@@ -123,7 +137,7 @@
     </nav>
 
     <div class="container">
-        <h1>Cadastrar Usuário</h1>
+        <h1>Cadastrar Aluno</h1>
 
         <form action="{{ $usuario->id ? route('usuario.atualizar', $usuario->id) :route('usuario.salvar') }}"
             method="POST">
@@ -147,7 +161,7 @@
                 <input type="text" class="form-control" name="matricula" value="" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group lista">
                 <label for="sexo">Sexo:</label>
                 <select class="form-control" name="sexo" required>
                     <option value="M" @if($usuario->sexo == 'M') selected @endif>M</option>
@@ -155,7 +169,7 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group lista">
                 <label for="dataAtiv">Data de ativação:</label>
                 <input type="date" class="form-control" name="dataAtiv" value="" required>
             </div>
@@ -166,7 +180,7 @@
                 <input type="text" class="form-control" name="ra" value="" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group lista">
                 <label for="semestre">Semestre:</label>
                 <select class="form-control" name="semestre" required>
                     <option value="1" @if($usuario->semestre == 1) selected @endif>1</option>

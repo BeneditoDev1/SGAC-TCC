@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listagem de Atividades</title>
+    <title>Validar atividades</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
@@ -95,12 +95,8 @@
             z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
         }
 
-    .row{
-        margin-bottom: 1%;
-    }
-
-    .btn-primary{
-        margin-bottom: 1%;
+    .mb-3{
+        margin-top: 2%;
     }
 </style>
 
@@ -113,7 +109,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Usuarios</strong></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
@@ -150,62 +146,78 @@
 </head>
 
 <body>
-
-<div class="container">
-    <h1>Atividades</h1>
-    <div class="row">
-        @foreach ($status as $nomeStatus => $contador)
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $nomeStatus }}</h5>
-                        <p class="card-text">Total: {{ $contador }}</p>
+    <div class="container">
+        <h1>Validar atividades</h1>
+        <div class="row">
+            @foreach ($status as $nomeStatus => $contador)
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $nomeStatus }}</h5>
+                            <p class="card-text">Total: {{ $contador }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
-    <a href="{{ route('atividade.novo') }}" class="btn btn-primary">Nova Atividade</a>
-    <a href="{{ route('atividade.validacao') }}" class="btn btn-primary">Validar atividade</a>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Credencial</th>
-                <th>Semestre</th>
-                <th>Nome do curso</th>
-                <th>Categoria</th>
-                <th>Data de inicio</th>
-                <th>Data de conclusão</th>
-                <th>Total de horas</th>
-                <th>Usuario</th>
-                <th>Arquivo</th>
-                <th>Status</th>
-                <th>Editar</th>
-                <th>Excluir</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($atividades as $atividade)
-            <tr>
-                <td>{{ $atividade->titulo }}</td>
-                <td>{{ $atividade->credencial }}</td>
-                <td>{{ $atividade->semestre }}</td>
-                <td>{{ $atividade->curso->nome }}</td>
-                <td>{{ $atividade->categoria }}</td>
-                <td>{{ $atividade->data_inicio }}</td>
-                <td>{{ $atividade->data_conclusao }}</td>
-                <td>{{ $atividade->total_horas }}</td>
-                <td>{{ $atividade->usuario->nome }}</td>
-                <td style="max-width: 150px"><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a></td>
-                <td>{{ $atividade->status }}</td>
-                <td><a class="btn btn-primary" href="editar/{{ $atividade->id }}">Editar</a></td>
-                <td><a class="btn btn-danger" href="excluir/{{ $atividade->id }}">Excluir</a></td>
-            </tr>
             @endforeach
-        </tbody>
-    </table>
-</div>
+        </div>
 
+        <form class="mb-3" action="{{ route('atividade.listar') }}" method="GET">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Buscar...">
+                <button class="btn btn-primary" type="submit">Buscar</button>
+            </div>
+        </form>
+
+        <table class="table table-bordered table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Credencial</th>
+                    <th>Semestre</th>
+                    <th>Nome do curso</th>
+                    <th>Categoria</th>
+                    <th>Data de inicio</th>
+                    <th>Data de conclusão</th>
+                    <th>Total de horas</th>
+                    <th>Usuario</th>
+                    <th>Arquivo</th>
+                    <th>Status</th>
+                    <th>Salvar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($atividades as $atividade)
+<tr>
+    <td>{{ $atividade->titulo }}</td>
+    <td>{{ $atividade->credencial }}</td>
+    <td>{{ $atividade->semestre }}</td>
+    <td>{{ $atividade->curso->nome }}</td>
+    <td>{{ $atividade->categoria }}</td>
+    <td>{{ $atividade->data_inicio }}</td>
+    <td>{{ $atividade->data_conclusao }}</td>
+    <td>{{ $atividade->total_horas }}</td>
+    <td>{{ $atividade->usuario->nome }}</td>
+    <td style="max-width: 150px"><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a></td>
+    <td>
+        <form action="{{ route('atividade.salvarStatus', ['id' => $atividade->id]) }}" method="POST">
+            @csrf
+            <div class="input-group">
+                <select class="form-select" name="status">
+                    <option value="Em análise" selected>Em análise</option>
+                    <option value="Concluído">Concluído</option>
+                    <option value="Cancelado">Cancelado</option>
+                    <option value="Pendente">Pendente</option>
+                </select>
+            </div>
+            <td>
+                <button type="submit" class="btn btn-primary" name="salvar">Salvar</button>
+            </td>
+        </form>
+    </td>
+</tr>
+@endforeach
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

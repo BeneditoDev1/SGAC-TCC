@@ -31,9 +31,6 @@ class CursoController extends Controller
         }
 
         $curso->nome = $request->input('nome');
-        $curso->semestre = $request->input('semestre');
-        $curso->turma = $request->input('turma');
-        $curso->ano = $request->input('ano');
         $curso->save();
 
         return redirect('curso/listar');
@@ -49,9 +46,6 @@ public function atualizar(Request $request, $id)
 {
     $curso = Curso::find($id);
     $curso->nome = $request->input('nome');
-    $curso->semestre = $request->input('semestre');
-    $curso->turma = $request->input('turma');
-    $curso->ano = $request->input('ano');
     $curso->save();
 
     return redirect()->route('curso.listar');

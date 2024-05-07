@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de cursos</title>
+    <title>Cadastro de Turmas</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
@@ -109,6 +109,10 @@
             right: 20px; /* Distância da direita da página */
             z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
         }
+
+        .lista{
+            max-width: 15%;
+        }
     </style>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -123,7 +127,7 @@
                     <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Usuarios</strong></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Turmas</strong></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{url('turma/listar')}}"><strong>Turma</strong></a>
@@ -157,22 +161,54 @@
 
 <body>
     <div class="container">
-        <h1>Cadastro de Cursos</h1>
-        <form action="{{ $curso->id ? route('curso.atualizar', $curso->id) : route('curso.salvar') }}" method="POST">
+        <h1>Cadastro de Turmas</h1>
+        <form action="{{ $turma->id ? route('turma.atualizar', $turma->id) : route('turma.salvar') }}" method="POST">
             @csrf
-            @if($curso->id)
+            @if($turma->id)
             @method('PUT')
             @endif
 
-            <input type="hidden" name="id" value="{{ $curso->id }}">
+            <input type="hidden" name="id" value="{{ $turma->id }}">
 
             <div class="form-group">
                 <label for="nome">Nome:</label>
-                <input type="text" class="form-control" name="nome" value="{{ $curso->nome }}" required>
+                <input type="text" class="form-control" name="nome" value="{{ $turma->nome }}" required>
+            </div>
+
+            <div class="form-group lista">
+                <label for="semestre">Semestre:</label>
+                <select class="form-control" name="semestre" required>
+                    <option value="1" @if($turma->semestre == 1) selected @endif>1</option>
+                    <option value="2" @if($turma->semestre == 2) selected @endif>2</option>
+                    <option value="3" @if($turma->semestre == 3) selected @endif>3</option>
+                    <option value="4" @if($turma->semestre == 4) selected @endif>4</option>
+                    <option value="5" @if($turma->semestre == 5) selected @endif>5</option>
+                    <option value="6" @if($turma->semestre == 6) selected @endif>6</option>
+                    <option value="7" @if($turma->semestre == 7) selected @endif>7</option>
+                    <option value="8" @if($turma->semestre == 8) selected @endif>8</option>
+                    <option value="9" @if($turma->semestre == 9) selected @endif>9</option>
+                    <option value="10" @if($turma->semestre == 10) selected @endif>10</option>
+                </select>
+            </div>
+
+            <div class="form-group lista">
+                <label for="ano">Ano:</label>
+                <input type="text" class="form-control" name="ano" value="{{$turma->ano}}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="curso">Escolha o Curso</label>
+                <select class="form-control" name="curso_id" required>
+                    <option value="">Selecione um curso</option>
+                    @foreach($cursos as $curso)
+                    <option {{ $curso->id == old('curso_id', $turma->curso_id) ? 'selected' : '' }}
+                        value="{{ $curso->id }}">{{ $curso->nome }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>
-            <a href="{{ route('curso.listar') }}" class="btn btn-secondary">Cancelar</a>
+            <a href="{{ route('turma.listar') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 </body>

@@ -103,7 +103,7 @@
         body {
             min-height: 75rem;
             padding-top: 4.5rem;
-            background-color: green;
+            background-color: #034811;
         }
 
         .navbar-collapse {
@@ -139,6 +139,13 @@
             padding: 8px;
             text-align: left;
         }
+
+        .logout-button {
+            position: fixed;
+            top: 10px; /* Distância do topo da página */
+            right: 20px; /* Distância da direita da página */
+            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
+        }
     </style>
 </head>
 
@@ -152,10 +159,13 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Usuarios</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{url('turma/listar')}}"><strong>Turma</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
@@ -168,7 +178,7 @@
                     <li class="nav-item">
                         @if (Auth::check())
                             <!-- Se o usuário estiver autenticado, exiba o botão para sair -->
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ route('logout') }}" class="logout-button">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Sair</button>
                             </form>

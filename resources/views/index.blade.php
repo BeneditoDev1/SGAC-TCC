@@ -104,10 +104,17 @@
             z-index: 1500;
         }
 
+        .logout-button {
+            position: fixed;
+            top: 10px; /* Distância do topo da página */
+            right: 20px; /* Distância da direita da página */
+            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
+        }
+
         body {
-            min-height: 75rem;
+            min-height: 50rem;
             padding-top: 4.5rem;
-            background-color: green;
+            background-color: #034811;
         }
 
         .navbar-collapse {
@@ -156,10 +163,13 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Usuarios</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{url('turma/listar')}}"><strong>Turma</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
@@ -172,7 +182,7 @@
                     <li class="nav-item">
                         @if (Auth::check())
                             <!-- Se o usuário estiver autenticado, exiba o botão para sair -->
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ route('logout') }}" class="logout-button">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Sair</button>
                             </form>
@@ -194,11 +204,46 @@
 
         <p>Confira os links com os documentos oficiais:</p>
         <div class="links">
-            <ul>
-                <li><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/sistemas-para-internet" target="_blank">Sistemas para Internet - IFMS</a></li>
-                <li><a href="https://www.ifms.edu.br/cidadania/consultas-publicas/rod/minuta-regulamento-da-organizacao-didatico-pedagogica-03-04-2019-revisada-para-consulta.pdf" target="_blank">Minuta Regulamento da Organização Didático-Pedagógica</a></li>
-                <li><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/sistemas-para-internet/projeto-pedagogico-do-curso-superior-sistemas-internet-campo-grande-2019.pdf" target="_blank">Projeto Pedagógico do Curso Superior de Sistemas para Internet - Campo Grande (2019)</a></li>
-                <li><a href="https://www.ifms.edu.br/centrais-de-conteudo/documentos-institucionais/projetos-pedagogicos/projetos-pedagogicos-dos-cursos-de-graduacao/projeto-pedagogico-do-curso-superior-sistemas-internet-campo-grande.pdf" target="_blank">Projeto Pedagógico do Curso Superior de Sistemas para Internet - Campo Grande (2022)</a></li>
-            </ul>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <ul>
+                                <li><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/sistemas-para-internet" target="_blank">Sistemas para Internet - IFMS</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mx-auto">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <ul>
+                                <li><a href="https://www.ifms.edu.br/cidadania/consultas-publicas/rod/minuta-regulamento-da-organizacao-didatico-pedagogica-03-04-2019-revisada-para-consulta.pdf" target="_blank">Minuta Regulamento da Organização Didático-Pedagógica</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <ul>
+                                <li><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/sistemas-para-internet/projeto-pedagogico-do-curso-superior-sistemas-internet-campo-grande-2019.pdf" target="_blank">Projeto Pedagógico do Curso Superior de Sistemas para Internet - Campo Grande (2019)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mx-auto">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <ul>
+                                <li><a href="https://www.ifms.edu.br/centrais-de-conteudo/documentos-institucionais/projetos-pedagogicos/projetos-pedagogicos-dos-cursos-de-graduacao/projeto-pedagogico-do-curso-superior-sistemas-internet-campo-grande.pdf" target="_blank">Projeto Pedagógico do Curso Superior de Sistemas para Internet - Campo Grande (2022)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
 </html>

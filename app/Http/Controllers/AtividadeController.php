@@ -9,13 +9,15 @@ use App\Models\Curso;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Storage;
 use Exception as GlobalException;
+use App\Http\Controllers\DB;
 
 class AtividadeController extends Controller
 {
     public function listar()
     {
         $atividades = Atividade::orderBy('titulo')->get();
-        return view('listarAtividade', compact('atividades'));
+        $status = $this->validacao();
+        return view('listarAtividade', compact('atividades', 'status'));
     }
 
     public function novo()
@@ -49,6 +51,7 @@ class AtividadeController extends Controller
         $atividade->data_conclusao = $request->input('data_conclusao');
         $atividade->total_horas = $request->input('total_horas');
         $atividade->arquivo = $nomeArquivo;
+        $atividade->status = 'Em análise';
 
         $atividade->save();
 
@@ -98,6 +101,119 @@ class AtividadeController extends Controller
         return redirect()->route('atividade.listar');
     }
 
+    public function validacaoListar()
+    {
+        $atividades = Atividade::orderBy('titulo')->get();
+        $status = $this->validacao();
+        return view('validacaoView', compact('atividades', 'status'));
+    }
+
+    public function validacao()
+    {
+        $status = [
+            'Em análise' => 0,
+            'Aprovado' => 0,
+            'Cancelado' => 0,
+            'Pendente' => 0,
+        ];
+
+        // Recupere os dados das atividades
+        $atividades = Atividade::all();
+
+        // Itere sobre as atividades para contar o status de cada uma
+        foreach ($atividades as $atividade) {
+            switch ($atividade->status) {
+                case 'Em análise':
+                    $status['Em análise']++;
+                    break;
+                case 'Aprovado':
+                    $status['Aprovado']++;
+                    break;
+                case 'Cancelado':
+                    $status['Cancelado']++;
+                    break;
+                case 'Pendente':
+                    $status['Pendente']++;
+                    break;
+            }
+        }
+
+        // Retorne os dados para serem utilizados na view
+        return $status;
+    }
+
+    public function validacaoView()
+    {
+        // Chame a função validacao para obter os dados necessários
+        $status = $this->validacao();
+
+        // Retorne a view 'validacao' com os dados necessários
+        return view('validacaoView', compact('status'));
+    }
+
+    public function salvarAtividadeValidada(Request $request)
+{
+    // Recupere os dados do formulário de validação
+    $dados = $request->all();
+
+    try {
+
+        // Crie ou atualize a atividade
+        $atividade = $dados['id'] ? Atividade::findOrFail($dados['id']) : new Atividade;
+
+        // Preencha os campos da atividade
+        $atividade->titulo = $dados['titulo'];
+        $atividade->credencial = $dados['credencial'];
+        $atividade->categoria = $dados['categoria'];
+        $atividade->semestre = $dados['semestre'];
+        $atividade->curso_id = $dados['curso_id'];
+        $atividade->usuario_id = $dados['usuario_id'];
+        $atividade->data_inicio = $dados['data_inicio'];
+        $atividade->data_conclusao = $dados['data_conclusao'];
+        $atividade->total_horas = $dados['total_horas'];
+        $atividade->arquivo = $dados['nome_arquivo'];
+
+        // Verifique o status e defina o status da atividade
+        $status = $dados['status'];
+        if (in_array($status, ['Aprovado', 'Cancelado', 'Pendente', 'Em análise'])) {
+            $atividade->status = $status;
+        } else {
+            // Se o status fornecido não estiver entre os valores permitidos, defina como 'Em análise' por padrão
+            $atividade->status = 'Em análise';
+        }
+
+        // Salve a atividade no banco de dados
+        $atividade->save();
+
+        // Commit da transação se tudo estiver ok
+
+        // Redirecione de volta para a lista de atividades com uma mensagem de sucesso
+        return redirect()->route('atividade.listar')->with('success', 'Atividade validada e salva com sucesso!');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Ocorreu um erro ao salvar a atividade validada. Por favor, tente novamente.');
+    }
+}
+
+public function salvarStatus(Request $request, $id)
+{
+    // Encontre a atividade pelo ID
+    $atividade = Atividade::findOrFail($id);
+
+    // Verifique se o status foi recebido corretamente
+    $status = $request->input('status');
+    // Verifique se o status é um dos valores permitidos
+    if (in_array($status, ['Em análise', 'Concluído', 'Cancelado', 'Pendente'])) {
+        // Atualize o status da atividade com o valor enviado do formulário
+        $atividade->status = $status;
+        $atividade->save();
+
+        // Redirecione de volta para a tela de listagem de atividades
+        return redirect()->route('atividade.listar')->with('success', 'Status da atividade atualizado com sucesso!');
+    } else {
+        // Se o status não for válido, redirecione de volta com uma mensagem de erro
+        return redirect()->back()->with('error', 'Status inválido!');
+    }
+}
 
     public function download(Request $request, $id)
 {

@@ -43,7 +43,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: green;
+            background-color: #034811;
             margin: 0;
             padding: 0;
         }
@@ -90,12 +90,21 @@
             border-radius: 3px;
             cursor: pointer;
             margin-top: 10px;
-            background-color: #007bff;
             color: #fff;
             border: none;
             text-align: center;
         }
 
+        .logout-button {
+            position: fixed;
+            top: 10px; /* Distância do topo da página */
+            right: 20px; /* Distância da direita da página */
+            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
+        }
+
+        .lista{
+            max-width: 15%;
+        }
     </style>
 </head>
 <body>
@@ -114,6 +123,9 @@
                         <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{url('turma/listar')}}"><strong>Turma</strong></a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link active" aria-current="page"
                             href="{{url('atividade/listar')}}"><strong>Atividades</strong></a>
                     </li>
@@ -124,7 +136,7 @@
                     <li class="nav-item">
                         @if (Auth::check())
                             <!-- Se o usuário estiver autenticado, exiba o botão para sair -->
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ route('logout') }}" class="logout-button">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">Sair</button>
                             </form>
@@ -163,7 +175,7 @@
                     value="{{ old('credencial', $atividade->credencial) }}" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group lista">
                 <label for="categoria">Categoria:</label>
                 <select class="form-control" name="categoria" required>
                     <option value="Curso" @if($atividade->tipo == 'Curso') selected @endif>Curso</option>
@@ -178,7 +190,7 @@
                 <input type="text" class="form-control" name="outro_categoria">
             </div>
 
-            <div class="form-group">
+            <div class="form-group lista">
                 <label for="semestre">Semestre:</label>
                 <select class="form-control" name="semestre" required>
                     <option value="1" @if($atividade->semestre == 1) selected @endif>1</option>
@@ -216,19 +228,19 @@
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group lista">
                 <label for="data_inicio">Data de Início:</label>
                 <input type="date" class="form-control" name="data_inicio"
                     value="{{ old('data_inicio', $atividade->data_inicio) }}" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group lista">
                 <label for="data_conclusao">Data de Conclusão:</label>
                 <input type="date" class="form-control" name="data_conclusao"
                     value="{{ old('data_conclusao', $atividade->data_conclusao) }}" required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group lista">
                 <label for="total_horas">Total de horas:</label>
                 <input type="datetime" class="form-control" name="total_horas"
                     value="{{ old('total_horas', $atividade->total_horas) }}" required>
@@ -241,8 +253,8 @@
 
             <input type="hidden" name="nome_arquivo" value="{{ old('arquivo', $atividade->arquivo) }}">
 
-            <button type="submit" class="btn-primary">Salvar</button>
-            <a href="{{ route('atividade.listar') }}" class="btn-secondary">Cancelar</a>
+            <button type="submit" style="background-color: #0d6efd" class="btn-primary">Salvar</button>
+            <button type="button" onclick="window.location='{{ route('atividade.listar') }}'" class="btn btn-secondary">Cancelar</button></form>
         </form>
 
     </div>

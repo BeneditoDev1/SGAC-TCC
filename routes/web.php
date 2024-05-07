@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\AtividadeController;
+use App\Http\Controllers\TurmaController;
 use App\Http\Controllers\AboutController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,14 @@ Route::post('/curso/atualizar/{id}', [CursoController::class, 'atualizar'])->nam
 Route::put('/curso/atualizar/{id}', [CursoController::class, 'atualizar'])->name('curso.atualizar');
 Route::get('/curso/excluir/{id}', [CursoController::class, 'excluir'])->name('curso.excluir');
 
+Route::get('/turma/listar', [TurmaController::class, 'listar'])->name('turma.listar');
+Route::get('/turma/novo', [TurmaController::class, 'novo'])->name('turma.novo');
+Route::post('/turma/salvar', [TurmaController::class, 'salvar'])->name('turma.salvar');
+Route::get('/turma/editar/{id}', [TurmaController::class, 'editar'])->name('turma.editar');
+Route::post('/turma/atualizar/{id}', [TurmaController::class, 'atualizar'])->name('turma.atualizar');
+Route::put('/turma/atualizar/{id}', [TurmaController::class, 'atualizar'])->name('turma.atualizar');
+Route::get('/turma/excluir/{id}', [TurmaController::class, 'excluir'])->name('turma.excluir');
+
 Route::get('/atividade/listar', [AtividadeController::class, 'listar'])->name('atividade.listar');
 Route::get('/atividade/novo', [AtividadeController::class, 'novo'])->name('atividade.novo');
 Route::post('/atividade/salvar', [AtividadeController::class, 'salvar'])->name('atividade.salvar');
@@ -53,8 +63,14 @@ Route::post('/atividade/atualizar/{id}', [AtividadeController::class, 'atualizar
 Route::put('/atividade/atualizar/{id}', [AtividadeController::class, 'atualizar'])->name('atividade.atualizar');
 Route::get('/atividade/excluir/{id}', [AtividadeController::class, 'excluir'])->name('atividade.excluir');
 Route::get('atividade/download/{id}', 'AtividadeController@download')->name('atividade.download');
-
+Route::get('atividade/validacaolistar', [AtividadeController::class, 'validacaoListar'])->name('atividade.validacao');
+Route::get('atividade/validacaoView', [AtividadeController::class, 'validacaoView'])->name('validacaoView');
+Route::get('atividade/validacao/status', [AtividadeController::class, 'validacao'])->name('atividade.status');
+Route::post('/atividade/salvar-status/{id}', [AtividadeController::class, 'salvarStatus'])->name('atividade.salvarStatus');
 Route::get('/about', [AboutController::class, 'index']);
+
+
+
 
 Route::get('/', function () {
     return view('index');

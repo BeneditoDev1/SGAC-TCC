@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listagem de Atividades</title>
+    <title>Listar Turma</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
@@ -12,15 +12,19 @@
 
 <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
+<meta name="theme-color" content="#712cf9">
 
 <style>
     body {
-        background-color: #034811;
+        background-color: #034811; /* Define o fundo verde */
         color: white; /* Define a cor do texto como branco */
-    }
-
-    h1 {
-        color: black;
     }
 
     .container {
@@ -31,39 +35,6 @@
         color: black; /* Define a cor do texto dentro do container como preto */
     }
 
-    .table {
-        color: black; /* Define a cor do texto da tabela como preto */
-    }
-
-    .table th,
-    .table td {
-        vertical-align: middle;
-    }
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: rgba(0, 0, 0, 0.05);
-    }
-
-    .table-bordered th,
-    .table-bordered td {
-        border: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .btn-danger {
-        background-color: #dc3545;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-
-    @media (max-width: 768px) {
-        .container {
-            max-width: 90%;
-        }
-    }
-
-    /* Navbar */
     .navbar {
         background-color: green; /* Define a cor de fundo da barra de navegação como verde */
     }
@@ -94,10 +65,6 @@
             right: 20px; /* Distância da direita da página */
             z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
         }
-
-    .row{
-        margin-bottom: 1%;
-    }
 
     .btn-primary{
         margin-bottom: 1%;
@@ -150,62 +117,44 @@
 </head>
 
 <body>
-
 <div class="container">
-    <h1>Atividades</h1>
-    <div class="row">
-        @foreach ($status as $nomeStatus => $contador)
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $nomeStatus }}</h5>
-                        <p class="card-text">Total: {{ $contador }}</p>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
-    <a href="{{ route('atividade.novo') }}" class="btn btn-primary">Nova Atividade</a>
-    <a href="{{ route('atividade.validacao') }}" class="btn btn-primary">Validar atividade</a>
+    <h1>Turmas</h1>
+    <a href="{{ route('turma.novo') }}" class="btn btn-primary">Nova Turma</a>
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>Título</th>
-                <th>Credencial</th>
+                <th>Nome</th>
                 <th>Semestre</th>
-                <th>Nome do curso</th>
-                <th>Categoria</th>
-                <th>Data de inicio</th>
-                <th>Data de conclusão</th>
-                <th>Total de horas</th>
-                <th>Usuario</th>
-                <th>Arquivo</th>
-                <th>Status</th>
+                <th>Ano</th>
+                <th>Curso</th>
                 <th>Editar</th>
                 <th>Excluir</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($atividades as $atividade)
+            @foreach($turmas as $turma)
             <tr>
-                <td>{{ $atividade->titulo }}</td>
-                <td>{{ $atividade->credencial }}</td>
-                <td>{{ $atividade->semestre }}</td>
-                <td>{{ $atividade->curso->nome }}</td>
-                <td>{{ $atividade->categoria }}</td>
-                <td>{{ $atividade->data_inicio }}</td>
-                <td>{{ $atividade->data_conclusao }}</td>
-                <td>{{ $atividade->total_horas }}</td>
-                <td>{{ $atividade->usuario->nome }}</td>
-                <td style="max-width: 150px"><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a></td>
-                <td>{{ $atividade->status }}</td>
-                <td><a class="btn btn-primary" href="editar/{{ $atividade->id }}">Editar</a></td>
-                <td><a class="btn btn-danger" href="excluir/{{ $atividade->id }}">Excluir</a></td>
-            </tr>
-            @endforeach
+                <td>{{ $turma->nome }}</td>
+                <td>{{ $turma->semestre }}</td>
+                <td>{{ $turma->ano }}</td>
+                <th>{{ $turma->curso->nome }}</th>
+                <td><a class="btn btn-primary" href="editar/{{ $turma->id }}">Editar</a></td>
+                <td>
+                    <form method="GET" action="excluir/{{ $turma->id }}">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" type="submit">Excluir</button>
+                    </form>
+                </td>
+                @endforeach
         </tbody>
     </table>
 </div>
-
 </body>
+
+<script>
+@if (session('error'))
+alert('{{ session('error') }}');
+@endif
+</script>
 </html>
