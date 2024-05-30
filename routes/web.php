@@ -30,13 +30,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/usuario/listar', [UsuarioController::class, 'listar'])->name('usuario.listar');
-Route::get('/usuario/novo', [UsuarioController::class, 'novo'])->name('usuario.novo');
-Route::post('/usuario/salvar', [UsuarioController::class, 'salvar'])->name('usuario.salvar');
-Route::get('/usuario/editar/{id}', [UsuarioController::class, 'editar'])->name('usuario.editar');
-Route::post('/usuario/atualizar/{id}', [UsuarioController::class, 'atualizar'])->name('usuario.atualizar');
-Route::put('/usuario/atualizar/{id}', [UsuarioController::class, 'atualizar'])->name('usuario.atualizar');
-Route::get('/usuario/excluir/{id}', [UsuarioController::class, 'excluir'])->name('usuario.excluir');
+    Route::get('usuario/listar', [UsuarioController::class, 'listar'])->name('usuario.listar');
+    Route::get('usuario/novo', [UsuarioController::class, 'novo'])->name('usuario.novo');
+    Route::post('usuario/salvar', [UsuarioController::class, 'salvar'])->name('usuario.salvar');
+    Route::get('usuario/editar/{id}', [UsuarioController::class, 'editar'])->name('usuario.editar');
+    Route::put('usuario/atualizar/{id}', [UsuarioController::class, 'salvar'])->name('usuario.atualizar');
+    Route::get('usuario/excluir/{id}', [UsuarioController::class, 'excluir'])->name('usuario.excluir');
 
 
 Route::get('/curso/listar', [CursoController::class, 'listar'])->name('curso.listar');

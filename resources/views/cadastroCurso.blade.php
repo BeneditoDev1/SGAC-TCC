@@ -65,11 +65,12 @@
         .btn-primary,
         .btn-secondary {
             display: block;
-            width: 100%;
+            width: 40%;
             padding: 10px;
-            border-radius: 3px;
+            border-radius: 10px;
             cursor: pointer;
-            margin-top: 10px;
+            margin: 10px auto;
+            margin-left: 60%;
         }
 
         @media (max-width: 768px) {
@@ -110,7 +111,7 @@
             z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
         }
     </style>
-
+</head>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{url('/')}}"><strong>Inicio</strong></a>
@@ -120,7 +121,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Usuarios</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
@@ -153,8 +154,6 @@
         </div>
     </div>
 </nav>
-</head>
-
 <body>
     <div class="container">
         <h1>Cadastro de Cursos</h1>
@@ -167,8 +166,18 @@
             <input type="hidden" name="id" value="{{ $curso->id }}">
 
             <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" class="form-control" name="nome" value="{{ $curso->nome }}" required>
+                <label for="nome_curso">Nome do Curso:</label>
+                <input type="text" class="form-control" name="nome_curso" value="{{ $curso->nome_curso }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ano_inicio">Ano Início:</label>
+                <input type="number" class="form-control" name="ano_inicio" value="{{ $curso->ano_inicio }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ano_fim">Ano Fim:</label>
+                <input type="number" class="form-control" name="ano_fim" value="{{ $curso->ano_fim }}" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -176,4 +185,5 @@
         </form>
     </div>
 </body>
+
 </html>

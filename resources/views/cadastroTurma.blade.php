@@ -65,11 +65,12 @@
         .btn-primary,
         .btn-secondary {
             display: block;
-            width: 100%;
+            width: 40%;
             padding: 10px;
-            border-radius: 3px;
+            border-radius: 10px;
             cursor: pointer;
-            margin-top: 10px;
+            margin: 10px auto;
+            margin-left: 60%;
         }
 
         @media (max-width: 768px) {
@@ -124,7 +125,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Usuarios</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Turmas</strong></a>

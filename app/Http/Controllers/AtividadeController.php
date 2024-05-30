@@ -13,10 +13,20 @@ use App\Http\Controllers\DB;
 
 class AtividadeController extends Controller
 {
-    public function listar()
+    public function listar(Request $request)
     {
-        $atividades = Atividade::orderBy('titulo')->get();
+        $query = Atividade::orderBy('titulo');
+
+        if ($request->has('search') && !empty($request->input('search'))) {
+            $search = $request->input('search');
+            $query->whereHas('usuario', function ($q) use ($search) {
+                $q->where('nome', 'like', '%' . $search . '%');
+            });
+        }
+
+        $atividades = $query->get();
         $status = $this->validacao();
+
         return view('listarAtividade', compact('atividades', 'status'));
     }
 

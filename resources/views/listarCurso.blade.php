@@ -116,33 +116,41 @@
 </head>
 
 <body>
-<div class="container">
-    <h1>Cursos</h1>
-    <a href="{{ route('curso.novo') }}" class="btn btn-primary">Novo Curso</a>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Editar</th>
-                <th>Excluir</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($cursos as $curso)
-            <tr>
-                <td>{{ $curso->nome }}</td>
-                <td><a class="btn btn-primary" href="editar/{{ $curso->id }}">Editar</a></td>
-                <td>
-                    <form method="GET" action="excluir/{{ $curso->id }}">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger" type="submit">Excluir</button>
-                    </form>
-                </td>
+    <div class="container">
+        <h1>Cursos</h1>
+        <a href="{{ route('curso.novo') }}" class="btn btn-primary">Novo Curso</a>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Nome do Curso</th>
+                    <th>Ano Início</th>
+                    <th>Ano Fim</th>
+                    <th>Horas</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($cursos as $curso)
+                <tr>
+                    <td>{{ $curso->nome_curso }}</td>
+                    <td>{{ $curso->ano_inicio }}</td>
+                    <td>{{ $curso->ano_fim }}</td>
+                    <td>{{ $curso->horas }}</td>
+                    <td><a class="btn btn-primary" href="editar/{{ $curso->id }}">Editar</a></td>
+                    <td>
+                        <form method="POST" action="excluir/{{ $curso->id }}">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger" type="submit">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
                 @endforeach
-        </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
+
 </body>
 
 <script>

@@ -150,6 +150,11 @@
             padding: 8px;
             text-align: left;
         }
+
+        .row{
+            margin-left: 12%;
+            margin-bottom: 5%;
+        }
     </style>
 </head>
 
@@ -202,44 +207,40 @@
         <h3>O processo de formação de Tecnologia em Sistemas para Internet de 2022, exige que, conforme o Projeto Pedagógico do Curso (PPC),
         o estudante participe de atividades de enriquecimento curricular para compor os requisitos para sua formação, as chamadas atividades complementares.</h3>
 
-        <p>Confira os links com os documentos oficiais:</p>
+        <h3>Confira as paginas dos cursos superiores e regulamento oficial da instituição:</h3>
         <div class="links">
             <div class="row">
                 <div class="col-md-6 mx-auto">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem; margin-bottom:1%">
+                        <img src="https://www.ifms.edu.br/imagens/cursos/topos-medio/topo-sistemas-para-internet.png" width="500px" height="140px" class="card-img-top" alt="Descrição da imagem 1">
                         <div class="card-body">
-                            <ul>
-                                <li><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/sistemas-para-internet" target="_blank">Sistemas para Internet - IFMS</a></li>
-                            </ul>
+                            <p class="card-text"><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/sistemas-para-internet" target="_blank">Sistemas para Internet</a></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 mx-auto">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem; margin-bottom:1%">
+                        <img src="https://www.ifms.edu.br/imagens/cursos/topos-medio/toposupengenhariaeletrica.png" width="500px" height="140px" class="card-img-top" alt="Descrição da imagem 2">
                         <div class="card-body">
-                            <ul>
-                                <li><a href="https://www.ifms.edu.br/cidadania/consultas-publicas/rod/minuta-regulamento-da-organizacao-didatico-pedagogica-03-04-2019-revisada-para-consulta.pdf" target="_blank">Minuta Regulamento da Organização Didático-Pedagógica</a></li>
-                            </ul>
+                            <p class="card-text"><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/engenharia-eletrica" target="_blank">Engenharia Eletrica</a></p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mx-auto">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem; margin-bottom:1%">
+                        <img src="https://www.ifms.edu.br/imagens/cursos/topos-superior/toposupengenhariamecanica.png" width="500px" height="140px" class="card-img-top" alt="Descrição da imagem 3">
                         <div class="card-body">
-                            <ul>
-                                <li><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/sistemas-para-internet/projeto-pedagogico-do-curso-superior-sistemas-internet-campo-grande-2019.pdf" target="_blank">Projeto Pedagógico do Curso Superior de Sistemas para Internet - Campo Grande (2019)</a></li>
-                            </ul>
+                            <p class="card-text"><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/engenharia-mecanica" target="_blank">Engenharia Mecânica</a></p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 mx-auto">
-                    <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem; margin-bottom:1%">
+                        <img src="https://www.ifms.edu.br/imagens/icones/s/2/ifms15"  width="500px" height="140px" class="card-img-top" alt="Descrição da imagem 2">
                         <div class="card-body">
-                            <ul>
-                                <li><a href="https://www.ifms.edu.br/centrais-de-conteudo/documentos-institucionais/projetos-pedagogicos/projetos-pedagogicos-dos-cursos-de-graduacao/projeto-pedagogico-do-curso-superior-sistemas-internet-campo-grande.pdf" target="_blank">Projeto Pedagógico do Curso Superior de Sistemas para Internet - Campo Grande (2022)</a></li>
-                            </ul>
+                            <p class="card-text"><a href="https://www.ifms.edu.br/cidadania/consultas-publicas/rod/minuta-regulamento-da-organizacao-didatico-pedagogica-03-04-2019-revisada-para-consulta.pdf" target="_blank">Minuta Regulamento da Organização Didático-Pedagógica</a></p>
                         </div>
                     </div>
                 </div>

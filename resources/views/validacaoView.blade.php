@@ -109,7 +109,7 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Usuarios</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
@@ -148,25 +148,6 @@
 <body>
     <div class="container">
         <h1>Validar atividades</h1>
-        <div class="row">
-            @foreach ($status as $nomeStatus => $contador)
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $nomeStatus }}</h5>
-                            <p class="card-text">Total: {{ $contador }}</p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
-        <form class="mb-3" action="{{ route('atividade.listar') }}" method="GET">
-            <div class="input-group">
-                <input type="text" class="form-control" name="search" placeholder="Buscar...">
-                <button class="btn btn-primary" type="submit">Buscar</button>
-            </div>
-        </form>
 
         <table class="table table-bordered table-striped mt-4">
             <thead>

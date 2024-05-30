@@ -102,6 +102,11 @@
     .btn-primary{
         margin-bottom: 1%;
     }
+
+    .buscador{
+        margin-top: 1%;
+    }
+
 </style>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -150,62 +155,71 @@
 </head>
 
 <body>
-
-<div class="container">
-    <h1>Atividades</h1>
-    <div class="row">
-        @foreach ($status as $nomeStatus => $contador)
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $nomeStatus }}</h5>
-                        <p class="card-text">Total: {{ $contador }}</p>
+    <div class="container">
+        <h1>Atividades</h1>
+        <div class="row">
+            @foreach ($status as $nomeStatus => $contador)
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $nomeStatus }}</h5>
+                            <p class="card-text">Total: {{ $contador }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
-    <a href="{{ route('atividade.novo') }}" class="btn btn-primary">Nova Atividade</a>
-    <a href="{{ route('atividade.validacao') }}" class="btn btn-primary">Validar atividade</a>
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Credencial</th>
-                <th>Semestre</th>
-                <th>Nome do curso</th>
-                <th>Categoria</th>
-                <th>Data de inicio</th>
-                <th>Data de conclusão</th>
-                <th>Total de horas</th>
-                <th>Usuario</th>
-                <th>Arquivo</th>
-                <th>Status</th>
-                <th>Editar</th>
-                <th>Excluir</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($atividades as $atividade)
-            <tr>
-                <td>{{ $atividade->titulo }}</td>
-                <td>{{ $atividade->credencial }}</td>
-                <td>{{ $atividade->semestre }}</td>
-                <td>{{ $atividade->curso->nome }}</td>
-                <td>{{ $atividade->categoria }}</td>
-                <td>{{ $atividade->data_inicio }}</td>
-                <td>{{ $atividade->data_conclusao }}</td>
-                <td>{{ $atividade->total_horas }}</td>
-                <td>{{ $atividade->usuario->nome }}</td>
-                <td style="max-width: 150px"><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a></td>
-                <td>{{ $atividade->status }}</td>
-                <td><a class="btn btn-primary" href="editar/{{ $atividade->id }}">Editar</a></td>
-                <td><a class="btn btn-danger" href="excluir/{{ $atividade->id }}">Excluir</a></td>
-            </tr>
             @endforeach
-        </tbody>
-    </table>
-</div>
+        </div>
+        <form action="{{ route('atividade.listar') }}" method="GET">
+            <div class="form-group">
+                <label for="search">Buscar por Nome do Usuário:</label>
+                <input type="text" class="form-control" id="search" name="search" placeholder="Digite o nome do usuário">
+            </div>
+            <button type="submit" class="btn btn-primary buscador">Buscar</button>
+        </form>
+        <a href="{{ route('atividade.novo') }}" class="btn btn-primary">Nova Atividade</a>
+        <a href="{{ route('atividade.validacao') }}" class="btn btn-primary">Validar atividade</a>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Credencial</th>
+                    <th>Semestre</th>
+                    <th>Nome do curso</th>
+                    <th>Categoria</th>
+                    <th>Data de inicio</th>
+                    <th>Data de conclusão</th>
+                    <th>Total de horas</th>
+                    <th>Usuario</th>
+                    <th>Arquivo</th>
+                    <th>Status</th>
+                    <th>Horas Pendentes</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($atividades as $atividade)
+                <tr>
+                    <td>{{ $atividade->titulo }}</td>
+                    <td>{{ $atividade->credencial }}</td>
+                    <td>{{ $atividade->semestre }}</td>
+                    <td>{{ $atividade->curso->nome }}</td>
+                    <td>{{ $atividade->categoria }}</td>
+                    <td>{{ $atividade->data_inicio }}</td>
+                    <td>{{ $atividade->data_conclusao }}</td>
+                    <td>{{ $atividade->total_horas }}</td>
+                    <td>{{ $atividade->usuario->nome }}</td>
+                    <td style="max-width: 150px"><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a></td>
+                    <td>{{ $atividade->status }}</td>
+                    <td><a class="btn btn-primary" href="editar/{{ $atividade->id }}">Editar</a></td>
+                    <td><a class="btn btn-danger" href="excluir/{{ $atividade->id }}">Excluir</a></td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    </body>
+
 
 </body>
 </html>

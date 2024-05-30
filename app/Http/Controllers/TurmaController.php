@@ -64,14 +64,15 @@ public function excluir($id)
 {
     try {
         $turma = Turma::findOrFail($id);
-        if (Usuario::where('turma_id', $id)->count() > 0) {
-            throw new GlobalException('Não é possível excluir o turma, pois ele está vinculado a um ou mais usuários.');
+        if ($turma->usuario) {
+            throw new GlobalException('Não é possível excluir a usuario, pois ela está vinculada a um usuário');
         }
+
         $turma->delete();
+
+        return redirect()->route('turma.listar')->with('success', 'usuario excluída com sucesso.');
     } catch (GlobalException $e) {
         return redirect()->back()->with('error', $e->getMessage());
     }
-
-    return redirect()->route('turma.listar');
 }
 }

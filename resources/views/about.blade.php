@@ -104,6 +104,7 @@
             min-height: 75rem;
             padding-top: 4.5rem;
             background-color: #034811;
+            margin-bottom: 1%;
         }
 
         .navbar-collapse {

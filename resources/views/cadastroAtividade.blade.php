@@ -85,14 +85,17 @@
         .btn-primary,
         .btn-secondary {
             display: block;
-            width: 100%;
+            width: 40%;
             padding: 10px;
-            border-radius: 3px;
+            border-radius: 10px;
             cursor: pointer;
             margin-top: 10px;
             color: #fff;
             border: none;
             text-align: center;
+            cursor: pointer;
+            margin: 10px auto;
+            margin-left: 60%;
         }
 
         .logout-button {
@@ -107,8 +110,7 @@
         }
     </style>
 </head>
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{url('/')}}"><strong>Inicio</strong></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -117,7 +119,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Usuarios</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
@@ -147,10 +149,10 @@
                     </li>
                     </li>
                 </ul>
-            </div>
-        </div>
-    </nav>
-
+         </div>
+    </div>
+</nav>
+<body>
     <div class="container">
 
         <h1>Cadastrar Atividade</h1>
@@ -178,10 +180,20 @@
             <div class="form-group lista">
                 <label for="categoria">Categoria:</label>
                 <select class="form-control" name="categoria" required>
-                    <option value="Curso" @if($atividade->tipo == 'Curso') selected @endif>Curso</option>
-                    <option value="Palestra" @if($atividade->tipo == 'Palestra') selected @endif>Palestra</option>
-                    <option value="Evento" @if($atividade->tipo == 'Evento') selected @endif>Evento</option>
-                    <option value="Outros">Outros</option>
+                    <option value="Atividades culturais" @if($atividade->tipo == 'Atividades culturais') selected @endif>Atividades culturais</option>
+                    <option value="Monitoria remunerada ou voluntária" @if($atividade->tipo == 'Monitoria remunerada ou voluntária') selected @endif>Monitoria remunerada ou voluntária</option>
+                    <option value="Membro atuante em atividades técnico-científicas" @if($atividade->tipo == 'Membro atuante em atividades técnico-científicas') selected @endif>Membro atuante em atividades técnico-científicas</option>
+                    <option value="Participação em atividades pedagógicas de observação para cursos de licenciatura" @if($atividade->tipo == 'Participação em atividades pedagógicas de observação para cursos de licenciatura') selected @endif>Participação em atividades pedagógicas de observação para cursos de licenciatura</option>
+                    <option value="Representação discente em Conselhos e Entidades estudantis, liderança de turma, órgãos de classe e conselhos representativos" @if($atividade->tipo == 'Representação discente em Conselhos e Entidades estudantis, liderança de turma, órgãos de classe e conselhos representativos') selected @endif>Representação discente em Conselhos e Entidades estudantis, liderança de turma, órgãos de classe e conselhos representativos</option>
+                    <option value="Participação como ouvinte em eventos acadêmicos, tais como bancas de TCC, dissertação, teses" @if($atividade->tipo == 'Participação como ouvinte em eventos acadêmicos, tais como bancas de TCC, dissertação, teses') selected @endif>Participação como ouvinte em eventos acadêmicos, tais como bancas de TCC, dissertação, teses</option>
+                    <option value="Participação como ouvinte em congressos, seminários, simpósios e demais eventos relacionados ao curso ou áreas afins" @if($atividade->tipo == 'Participação como ouvinte em congressos, seminários, simpósios e demais eventos relacionados ao curso ou áreas afins') selected @endif>Participação como ouvinte em congressos, seminários, simpósios e demais eventos relacionados ao curso ou áreas afins</option>
+                    <option value="Participação em visita técnica, relacionada à área de atuação" @if($atividade->tipo == 'Participação em visita técnica, relacionada à área de atuação') selected @endif>Participação em visita técnica, relacionada à área de atuação</option>
+                    <option value="Participação em projetos de incubação" @if($atividade->tipo == 'Participação em projetos de incubação') selected @endif>Participação em projetos de incubação</option>
+                    <option value="Participação em projetos e grupos de pesquisa" @if($atividade->tipo == 'Participação em projetos e grupos de pesquisa') selected @endif>Participação em projetos e grupos de pesquisa</option>
+                    <option value="Participação em projetos e grupos de extensão" @if($atividade->tipo == 'Participação em projetos e grupos de extensão') selected @endif>Participação em projetos e grupos de extensão</option>
+                    <option value="Publicação de artigo científico completo em revista ou periódico" @if($atividade->tipo == 'Publicação de artigo científico completo em revista ou periódico') selected @endif>Publicação de artigo científico completo em revista ou periódico</option>
+                    <option value="Publicação de resumos de artigo científico em revista ou periódicos" @if($atividade->tipo == 'Publicação de resumos de artigo científico em revista ou periódicos') selected @endif>Publicação de resumos de artigo científico em revista ou periódicos</option>
+                    <option value="Publicação de matérias ou notas em jornais e meios eletrônicos" @if($atividade->tipo == 'Publicação de matérias ou notas em jornais e meios eletrônicos') selected @endif>Publicação de matérias ou notas em jornais e meios eletrônicos</option>
                 </select>
             </div>
 

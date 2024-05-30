@@ -117,44 +117,51 @@
         </div>
     </nav>
 
-<div class="container">
-    <h1 >Alunos</h1> <!-- Adicionado a classe display-4 para aumentar o tamanho do título -->
-    <a href="{{ route('usuario.novo') }}" class="btn btn-primary">Novo Aluno</a>
-    <div class="table-responsive"> <!-- Adicionado o wrapper .table-responsive -->
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Matricula</th>
-                    <th>Sexo</th>
-                    <th>Data de ativação</th>
-                    <th>RA</th>
-                    <th>Semestre</th>
-                    <th>Nome do Curso</th>
-                    <th>Editar</th>
-                    <th>Excluir</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($usuarios as $usuario)
-                <tr>
-                    <td>{{ $usuario->nome }}</td>
-                    <td>{{ $usuario->cpf }}</td>
-                    <td>{{ $usuario-> matricula}}</td>
-                    <td>{{ $usuario->sexo }}</td>
-                    <th>{{ $usuario->data_ativacao}}</th>
-                    <th>{{ $usuario->ra}}</th>
-                    <th>{{ $usuario->semestre}}</th>
-                    <th>{{ $usuario->curso->nome}}</th>
-                    <td><a class="btn btn-primary" href="editar/{{ $usuario->id }}">Editar</a></td>
-                    <td><a class="btn btn-danger" href="excluir/{{ $usuario->id }}">Excluir</a></td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <div class="container">
+        <h1>Alunos</h1>
+        <a href="{{ route('usuario.novo') }}" class="btn btn-primary">Novo Aluno</a>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Matricula</th>
+                        <th>Email</th>
+                        <th>Sexo</th>
+                        <th>Data de ativação</th>
+                        <th>RA</th>
+                        <th>Semestre</th>
+                        <th>Nome do Curso</th>
+                        <th>Turma</th>
+                        <th>Total de horas</th>
+                        <th>Editar</th>
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($usuarios as $usuario)
+                    <tr>
+                        <td>{{ $usuario->nome }}</td>
+                        <td>{{ $usuario->cpf }}</td>
+                        <td>{{ $usuario->matricula }}</td>
+                        <td>{{ $usuario->email }}</td>
+                        <td>{{ $usuario->sexo }}</td>
+                        <td>{{ $usuario->data_ativacao }}</td>
+                        <td>{{ $usuario->ra }}</td>
+                        <td>{{ $usuario->semestre }}</td>
+                        <td>{{ $usuario->curso->nome }}</td>
+                        <td>{{ $usuario->turma->nome }}</td>
+                        <td>{{ $usuario->curso->horas}}</td>
+                        <td><a class="btn btn-primary" href="editar/{{ $usuario->id }}">Editar</a></td>
+                        <td><a class="btn btn-danger" href="excluir/{{ $usuario->id }}">Excluir</a></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
