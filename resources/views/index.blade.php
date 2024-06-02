@@ -41,7 +41,13 @@
             }
         }
 
-        h1{
+        @media (max-width: 767px){
+            .logout-button {
+                display: none;
+            }
+        }
+
+        h1 {
             text-align: center;
         }
 
@@ -104,13 +110,6 @@
             z-index: 1500;
         }
 
-        .logout-button {
-            position: fixed;
-            top: 10px; /* Distância do topo da página */
-            right: 20px; /* Distância da direita da página */
-            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
-        }
-
         body {
             min-height: 50rem;
             padding-top: 4.5rem;
@@ -151,9 +150,28 @@
             text-align: left;
         }
 
-        .row{
+        .row {
             margin-left: 12%;
             margin-bottom: 5%;
+        }
+
+        .usuario {
+            margin-right: 10px;
+            color: white;
+        }
+
+        .logout-button {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .usuario{
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
         }
     </style>
 </head>
@@ -162,11 +180,11 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{url('/')}}"><strong>Inicio</strong></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
                     </li>
@@ -177,25 +195,35 @@
                         <a class="nav-link active" aria-current="page" href="{{url('turma/listar')}}"><strong>Turma</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="{{url('atividade/listar')}}"><strong>Atividades</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{url('atividade/listar')}}"><strong>Atividades</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="{{url('about')}}"><strong>Regras</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{url('about')}}"><strong>Regras</strong></a>
                     </li>
-                    <li class="nav-item">
+                    <!-- Add logout button as a menu item on smaller screens -->
+                    <li class="nav-item d-md-none">
                         @if (Auth::check())
-                            <!-- Se o usuário estiver autenticado, exiba o botão para sair -->
-                            <form method="POST" action="{{ route('logout') }}" class="logout-button">
+                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
                                 @csrf
-                                <button type="submit" class="btn btn-danger">Sair</button>
+                                <button type="submit" class="nav-link active">Sair</button>
                             </form>
                         @else
-                            <!-- Se o usuário não estiver autenticado, exiba o botão para entrar -->
-                            <a href="{{ route('login') }}" class="btn btn-primary">Entrar</a>
+                            <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
                         @endif
                     </li>
+                </ul>
+                <!-- Show logout button on larger screens -->
+                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+                    <li class="nav-item d-flex align-items-center">
+                        <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
+                        @if (Auth::check())
+                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-primary btn-sm logout-button">Entrar</a>
+                        @endif
                     </li>
                 </ul>
             </div>
@@ -204,10 +232,10 @@
     <div class="container">
         <h1><strong>Bem-vindo ao SGAC</strong></h1>
         <p></p>
-        <h3>O processo de formação de Tecnologia em Sistemas para Internet de 2022, exige que, conforme o Projeto Pedagógico do Curso (PPC),
+        <h3>O processo de formação dos cursos superiores, exige que, conforme o Projeto Pedagógico do Curso (PPC),
         o estudante participe de atividades de enriquecimento curricular para compor os requisitos para sua formação, as chamadas atividades complementares.</h3>
 
-        <h3>Confira as paginas dos cursos superiores e regulamento oficial da instituição:</h3>
+        <h3>Confira as páginas dos cursos superiores e regulamento oficial da instituição:</h3>
         <div class="links">
             <div class="row">
                 <div class="col-md-6 mx-auto">
@@ -222,7 +250,7 @@
                     <div class="card" style="width: 18rem; margin-bottom:1%">
                         <img src="https://www.ifms.edu.br/imagens/cursos/topos-medio/toposupengenhariaeletrica.png" width="500px" height="140px" class="card-img-top" alt="Descrição da imagem 2">
                         <div class="card-body">
-                            <p class="card-text"><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/engenharia-eletrica" target="_blank">Engenharia Eletrica</a></p>
+                            <p class="card-text"><a href="https://www.ifms.edu.br/campi/campus-campo-grande/cursos/graduacao/engenharia-eletrica" target="_blank">Engenharia Elétrica</a></p>
                         </div>
                     </div>
                 </div>
@@ -238,7 +266,7 @@
                 </div>
                 <div class="col-md-6 mx-auto">
                     <div class="card" style="width: 18rem; margin-bottom:1%">
-                        <img src="https://www.ifms.edu.br/imagens/icones/s/2/ifms15"  width="500px" height="140px" class="card-img-top" alt="Descrição da imagem 2">
+                        <img src="https://www.ifms.edu.br/imagens/icones/s/2/ifms15" width="500px" height="140px" class="card-img-top" alt="Descrição da imagem 2">
                         <div class="card-body">
                             <p class="card-text"><a href="https://www.ifms.edu.br/cidadania/consultas-publicas/rod/minuta-regulamento-da-organizacao-didatico-pedagogica-03-04-2019-revisada-para-consulta.pdf" target="_blank">Minuta Regulamento da Organização Didático-Pedagógica</a></p>
                         </div>
@@ -247,4 +275,7 @@
             </div>
         </div>
     </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
 </html>

@@ -198,9 +198,9 @@
                 </select>
             </div>
 
-            <div class="form-group lista">
-                <label for="dataAtiv">Data de ativação:</label>
-                <input type="date" class="form-control" name="dataAtiv" value="{{ old('dataAtiv', $usuario->data_ativacao) }}" required>
+            <div class="form-group">
+                <label for="data_ativacao">Data de Ativação:</label>
+                <input type="text" class="form-control datepicker" name="data_ativacao" value="{{ old('data_ativacao', $usuario->data_ativacao ? $usuario->data_ativacao->format('Y-m-d') : '') }}" required>
             </div>
 
             <div class="form-group">
@@ -254,6 +254,7 @@
     </div>
 
     <script>
+
         document.getElementById('usuarioForm').addEventListener('submit', function(event) {
             var cpfInput = document.querySelector('input[name="cpf"]');
             var cpfError = document.getElementById('cpfError');

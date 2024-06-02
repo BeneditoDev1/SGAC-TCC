@@ -34,7 +34,6 @@ class TurmaController extends Controller
 
         $turma->nome = $request->input('nome');
         $turma->semestre = $request->input('semestre');
-        $turma->ano = $request->input('ano');
         $turma->curso_id = $request->input('curso_id');
 
         $turma->save();
@@ -54,7 +53,6 @@ public function atualizar(Request $request, $id)
     $turma = Turma::find($id);
     $turma->nome = $request->input('nome');
     $turma->semestre = $request->input('semestre');
-    $turma->ano = $request->input('ano');
     $turma->save();
 
     return redirect()->route('turma.listar');

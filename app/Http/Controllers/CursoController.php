@@ -23,30 +23,31 @@ class CursoController extends Controller
     }
 
     public function salvar(Request $request)
-    {
-        if ($request->input('id') == 0) {
-            $curso = new Curso();
-        } else {
-            $curso = Curso::find($request->input('id'));
-        }
-
-        $curso->nome = $request->input('nome');
-        $curso->ano_inicio = $request->input('ano_inicio');
-        $curso->ano_fim = $request->input('ano_fim');
-
-        // Define as horas com base no ano do curso
-        if ($curso->ano_inicio >= 2019 && $curso->ano_fim <= 2022) {
-            $curso->horas = 120;
-        } elseif ($curso->ano_inicio > 2022) {
-            $curso->horas = 80;
-        } else {
-            $curso->horas = 0; // Valor padrão para anos não especificados
-        }
-
-        $curso->save();
-
-        return redirect('curso/listar');
+{
+    if ($request->input('id') == 0) {
+        $curso = new Curso();
+    } else {
+        $curso = Curso::find($request->input('id'));
     }
+
+    $curso->nome = $request->input('nome');
+    $curso->ano_inicio = $request->input('ano_inicio');
+    $curso->ano_fim = $request->input('ano_fim');
+
+    // Define as horas com base no ano do curso
+    if ($curso->ano_inicio >= 2019 && $curso->ano_fim <= 2022) {
+        $curso->horas = 120;
+    } elseif ($curso->ano_inicio > 2022) {
+        $curso->horas = 80;
+    } else {
+        $curso->horas = 0; // Valor padrão para anos não especificados
+    }
+
+    $curso->save();
+
+    return redirect('curso/listar');
+}
+
 
     public function editar($id)
     {

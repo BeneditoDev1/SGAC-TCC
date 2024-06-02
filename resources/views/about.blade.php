@@ -41,6 +41,12 @@
             }
         }
 
+        @media (max-width: 767px){
+            .logout-button {
+                display: none;
+            }
+        }
+
         .b-example-divider {
             width: 100%;
             height: 3rem;
@@ -147,47 +153,52 @@
             right: 20px; /* Distância da direita da página */
             z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
         }
+
+        .usuario {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{url('/')}}"><strong>Inicio</strong></a>
+            <a class="navbar-brand" href="{{ url('/') }}"><strong>Inicio</strong></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Alunos</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Cursos</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('turma/listar')}}"><strong>Turma</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turma</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="{{url('atividade/listar')}}"><strong>Atividades</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="{{url('about')}}"><strong>Regras</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Regras</strong></a>
                     </li>
-                    <li class="nav-item">
+                </ul>
+                <ul class="navbar-nav ml-auto d-flex align-items-center">
+                    <li class="nav-item d-flex align-items-center">
+                        <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
                         @if (Auth::check())
-                            <!-- Se o usuário estiver autenticado, exiba o botão para sair -->
-                            <form method="POST" action="{{ route('logout') }}" class="logout-button">
+                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
                                 @csrf
-                                <button type="submit" class="btn btn-danger">Sair</button>
+                                <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
                             </form>
                         @else
-                            <!-- Se o usuário não estiver autenticado, exiba o botão para entrar -->
-                            <a href="{{ route('login') }}" class="btn btn-primary">Entrar</a>
+                            <a href="{{ route('login') }}" class="btn btn-primary btn-sm logout-button">Entrar</a>
                         @endif
-                    </li>
                     </li>
                 </ul>
             </div>

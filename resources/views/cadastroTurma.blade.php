@@ -192,11 +192,6 @@
                 </select>
             </div>
 
-            <div class="form-group lista">
-                <label for="ano">Ano:</label>
-                <input type="text" class="form-control" name="ano" value="{{$turma->ano}}" required>
-            </div>
-
             <div class="form-group">
                 <label for="curso">Escolha o Curso</label>
                 <select class="form-control" name="curso_id" required>
