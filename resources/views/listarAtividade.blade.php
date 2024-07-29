@@ -231,7 +231,6 @@
                     <th>Horas Pendentes</th>
                     <th>Editar</th>
                     <th>Excluir</th>
-                    <th>Validar</th>
                 </tr>
             </thead>
             <tbody>
@@ -257,9 +256,6 @@
                                 <button type="submit" class="btn btn-danger">Excluir</button>
                             </form>
                         </td>
-                        @if (Auth::id() == 2)
-                        <td><a class="btn btn-primary" href="{{ route('atividade.validacao', $atividade->id) }}">Validar</a></td>
-                    @endif
                 </tr>
                 @endforeach
             </tbody>

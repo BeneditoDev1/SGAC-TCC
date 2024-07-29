@@ -176,8 +176,8 @@
         <h1>Cadastrar Atividade</h1>
 
         <form enctype="multipart/form-data"
-            action="{{ $atividade->id ? route('atividade.atualizar', $atividade->id) : route('atividade.salvar') }}"
-            method="POST">
+              action="{{ $atividade->id ? route('atividade.atualizar', $atividade->id) : route('atividade.salvar') }}"
+              method="POST">
             @csrf
             @if($atividade->id)
             @method('PUT')
@@ -185,14 +185,12 @@
 
             <div class="form-group">
                 <label for="titulo">Título:</label>
-                <input type="text" class="form-control" name="titulo" value="{{ old('titulo', $atividade->titulo) }}"
-                    required>
+                <input type="text" class="form-control" name="titulo" value="{{ old('titulo', $atividade->titulo) }}" required>
             </div>
 
             <div class="form-group">
                 <label for="credencial">Número do Certificado:</label>
-                <input type="text" class="form-control" name="credencial"
-                    value="{{ old('credencial', $atividade->credencial) }}" required>
+                <input type="text" class="form-control" name="credencial" value="{{ old('credencial', $atividade->credencial) }}" required>
             </div>
 
             <div class="form-group lista">
@@ -237,43 +235,30 @@
             </div>
 
             <div class="form-group">
-                <label for="curso">Escolha o curso:</label>
-                <select class="form-control" name="curso_id" required>
-                    <option value="">Selecione um curso</option>
-                    @foreach($cursos as $curso)
-                    <option {{ $curso->id == old('curso_id', $atividade->curso_id) ? 'selected' : '' }}
-                        value="{{ $curso->id }}">{{ $curso->nome }}</option>
-                    @endforeach
-                </select>
+                <label for="curso">Curso:</label>
+                <input type="text" class="form-control" value="{{ Auth::user()->curso->nome }}" disabled>
+                <input type="hidden" name="curso_id" value="{{ Auth::user()->curso->id }}">
             </div>
 
             <div class="form-group">
-                <label for="usuario">Escolha o usuário:</label>
-                <select class="form-control" name="usuario_id" required>
-                    <option value="">Selecione um usuário</option>
-                    @foreach($usuarios as $usuario)
-                    <option {{ $usuario->id == old('usuario_id', $atividade->usuario_id) ? 'selected' : '' }}
-                        value="{{ $usuario->id }}">{{ $usuario->name }}</option>
-                    @endforeach
-                </select>
+                <label for="usuario">Usuário:</label>
+                <input type="text" class="form-control" value="{{ Auth::user()->name }}" disabled>
+                <input type="hidden" name="usuario_id" value="{{ Auth::user()->id }}">
             </div>
 
             <div class="form-group lista">
                 <label for="data_inicio">Data de Início:</label>
-                <input type="date" class="form-control" name="data_inicio"
-                    value="{{ old('data_inicio', $atividade->data_inicio) }}" required>
+                <input type="date" class="form-control" name="data_inicio" value="{{ old('data_inicio', $atividade->data_inicio) }}" required>
             </div>
 
             <div class="form-group lista">
                 <label for="data_conclusao">Data de Conclusão:</label>
-                <input type="date" class="form-control" name="data_conclusao"
-                    value="{{ old('data_conclusao', $atividade->data_conclusao) }}" required>
+                <input type="date" class="form-control" name="data_conclusao" value="{{ old('data_conclusao', $atividade->data_conclusao) }}" required>
             </div>
 
             <div class="form-group lista">
                 <label for="total_horas">Total de horas:</label>
-                <input type="datetime" class="form-control" name="total_horas"
-                    value="{{ old('total_horas', $atividade->total_horas) }}" required>
+                <input type="datetime" class="form-control" name="total_horas" value="{{ old('total_horas', $atividade->total_horas) }}" required>
             </div>
 
             <div class="form-group">
@@ -284,7 +269,7 @@
             <input type="hidden" name="nome_arquivo" value="{{ old('arquivo', $atividade->arquivo) }}">
 
             <button type="submit" class="btn btn-primary">Salvar</button>
-    <button type="button" onclick="window.location='{{ route('usuario.listar') }}'" class="btn btn-secondary">Cancelar</button>
+            <button type="button" onclick="window.location='{{ route('usuario.listar') }}'" class="btn btn-secondary">Cancelar</button>
         </form>
 
     </div>

@@ -245,7 +245,7 @@ public function listarAtividadesUsuario($id)
 {
     $usuario = User::findOrFail($id);
     $atividades = $usuario->atividades;
-    return view('validacao', compact('usuario', 'atividades'));
+    return view('validacaoView', compact('usuario', 'atividades'));
 }
 
 public function validacaoUsuario($id)

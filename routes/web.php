@@ -70,10 +70,15 @@ Route::middleware(['auth', 'checkSuperUser'])->group(function () {
         Route::get('/atividades/usuario/{id}', [AtividadeController::class, 'listarAtividadesUsuario'])->name('atividade.listarAtividadesUsuario');
         Route::get('/validar/usuario/{id}', [AtividadeController::class, 'validacaoUsuario'])->name('atividade.validacaoUsuario');
 
+        Route::get('/alterar-senha', [UsuarioController::class, 'showChangePasswordForm'])->name('alterar.senha.form');
+        Route::post('/alterar-senha', [UsuarioController::class, 'changePassword'])->name('alterar.senha');
+
         Route::get('/alunos', [AtividadeController::class, 'Alunos'])->name('listarAlunos');
 });
 
 Route::get('usuario/listar', [UsuarioController::class, 'listar'])->name('usuario.listar');
+Route::get('/alterar-senha', [UsuarioController::class, 'showChangePasswordForm'])->name('alterar.senha.form');
+Route::post('/alterar-senha', [UsuarioController::class, 'changePassword'])->name('alterar.senha');
 
 Route::get('/atividade/listar', [AtividadeController::class, 'listar'])->name('atividade.listar');
 Route::get('/atividade/novo', [AtividadeController::class, 'novo'])->name('atividade.novo');
