@@ -105,9 +105,11 @@
                         <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turmas</strong></a>
                     </li>
                     @endif
+                    @if (Auth::id() !== 2)
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
                     </li>
+                    @endif
                     @if (Auth::id() == 2)
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
