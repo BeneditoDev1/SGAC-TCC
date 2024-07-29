@@ -6,13 +6,11 @@
     <title>Listar Usuario</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
     <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-    <link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
     <link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
     <link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
     <meta name="theme-color" content="#712cf9">
@@ -92,29 +90,49 @@
             <a class="navbar-brand" href="{{ url('/') }}"><strong>Inicio</strong></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Alunos</strong></a>
                     </li>
+                    @if (Auth::id() == 2)
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Cursos</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turma</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turmas</strong></a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
                     </li>
+                    @if (Auth::id() == 2)
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
+                    </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Regras</strong></a>
                     </li>
-                </ul>
-                <ul class="navbar-nav ml-auto d-flex align-items-center">
-                    <li class="nav-item d-flex align-items-center">
-                        <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
+                    <!-- Add logout button as a menu item on smaller screens -->
+                    <li class="nav-item d-md-none">
                         @if (Auth::check())
+                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                                @csrf
+                                <button type="submit" class="nav-link active">Sair</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
+                        @endif
+                    </li>
+                </ul>
+                <!-- Show logout button on larger screens -->
+                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+                    <li class="nav-item d-flex align-items-center">
+                        @if (Auth::check())
+                            <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
                             <form method="POST" action="{{ route('logout') }}" class="mb-0">
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
@@ -130,7 +148,22 @@
 
     <div class="container">
         <h1>Alunos</h1>
+        @if (Auth::id() == 2)
         <a href="{{ route('usuario.novo') }}" class="btn btn-primary">Novo Aluno</a>
+        @endif
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead>
@@ -146,14 +179,17 @@
                         <th>Nome do Curso</th>
                         <th>Turma</th>
                         <th>Total de horas</th>
+                        @if (Auth::id() == 2)
                         <th>Editar</th>
                         <th>Excluir</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($usuarios as $usuario)
+                    @if(Auth::id() == 2 || Auth::user()->id == $usuario->id)
                     <tr>
-                        <td>{{ $usuario->nome }}</td>
+                        <td>{{ $usuario->name }}</td>
                         <td>{{ $usuario->cpf }}</td>
                         <td>{{ $usuario->matricula }}</td>
                         <td>{{ $usuario->email }}</td>
@@ -162,19 +198,35 @@
                         <td>{{ $usuario->ra }}</td>
                         <td>{{ $usuario->semestre }}</td>
                         <td>{{ $usuario->curso->nome }}</td>
-                        <td>{{ $usuario->turma->nome }}</td>
+                        <td>{{ $usuario->turma ? $usuario->turma->nome : 'Sem turma' }}</td>
                         <td>{{ $usuario->curso->horas}}</td>
-                        <td><a class="btn btn-primary" href="editar/{{ $usuario->id }}">Editar</a></td>
-                        <td><a class="btn btn-danger" href="excluir/{{ $usuario->id }}">Excluir</a></td>
+                        @endif
+                        @if (Auth::id() == 2)
+                            <td><a class="btn btn-primary" href="{{ route('usuario.editar', $usuario->id) }}">Editar</a></td>
+                            <td>
+                                <form action="{{ route('usuario.destroy', $usuario->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Excluir</button>
+                                </form>
+                            </td>
+                        @endif
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
+    <script>
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                console.log('Form submission started');
+            });
+        });
+    </script>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 </body>
 </html>

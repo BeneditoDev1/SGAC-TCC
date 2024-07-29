@@ -12,5 +12,11 @@ class Curso extends Model
     protected $table = 'curso';
     protected $fillable = ['nome', 'ano_inicio', 'ano_fim', 'horas'];
     public $timestamps = false;
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'curso_user');
+    }
+
 }
 

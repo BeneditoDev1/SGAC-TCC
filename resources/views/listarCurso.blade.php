@@ -92,29 +92,49 @@
             <a class="navbar-brand" href="{{ url('/') }}"><strong>Inicio</strong></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Alunos</strong></a>
                     </li>
+                    @if (Auth::id() == 2)
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Cursos</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turma</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turmas</strong></a>
                     </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
                     </li>
+                    @if (Auth::id() == 2)
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
+                    </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Regras</strong></a>
                     </li>
-                </ul>
-                <ul class="navbar-nav ml-auto d-flex align-items-center">
-                    <li class="nav-item d-flex align-items-center">
-                        <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
+                    <!-- Add logout button as a menu item on smaller screens -->
+                    <li class="nav-item d-md-none">
                         @if (Auth::check())
+                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                                @csrf
+                                <button type="submit" class="nav-link active">Sair</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
+                        @endif
+                    </li>
+                </ul>
+                <!-- Show logout button on larger screens -->
+                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+                    <li class="nav-item d-flex align-items-center">
+                        @if (Auth::check())
+                            <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
                             <form method="POST" action="{{ route('logout') }}" class="mb-0">
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
@@ -130,7 +150,9 @@
 
     <div class="container">
         <h1>Cursos</h1>
+        @if (Auth::id() == 2)
         <a href="{{ route('curso.novo') }}" class="btn btn-primary">Novo Curso</a>
+        @endif
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -138,17 +160,23 @@
                     <th>Ano Início</th>
                     <th>Ano Fim</th>
                     <th>Horas</th>
-                    <th>Editar</th>
-                    <th>Excluir</th>
+                    @if (Auth::id() == 2)
+                        <th>Editar</th>
+                        <th>Excluir</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
                 @foreach($cursos as $curso)
+                {{-- Comentando a linha para depuração --}}
+                {{-- @if(Auth::user()->is_superuser || Auth::user()->cursos->contains($curso->id)) --}}
                 <tr>
                     <td>{{ $curso->nome }}</td>
                     <td>{{ $curso->ano_inicio }}</td>
                     <td>{{ $curso->ano_fim }}</td>
                     <td>{{ $curso->horas }}</td>
+                    {{-- @endif --}}
+                    @if (Auth::id() == 2)
                     <td><a class="btn btn-primary" href="editar/{{ $curso->id }}">Editar</a></td>
                     <td>
                         <form method="POST" action="excluir/{{ $curso->id }}">
@@ -157,6 +185,7 @@
                             <button class="btn btn-danger" type="submit">Excluir</button>
                         </form>
                     </td>
+                    @endif
                 </tr>
                 @endforeach
             </tbody>

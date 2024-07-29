@@ -21,8 +21,10 @@ class Atividade extends Model
         return $this->belongsTo(Curso::class);
     }
 
-    public function usuario(){
-        return $this->belongsTo(Usuario::class);
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'usuario_id');
     }
+
 }
 

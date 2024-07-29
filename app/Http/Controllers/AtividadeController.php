@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Atividade;
 use Illuminate\Validation\Rule;
 use App\Models\Curso;
-use App\Models\Usuario;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Exception as GlobalException;
 use App\Http\Controllers\DB;
@@ -14,20 +14,20 @@ use App\Http\Controllers\DB;
 class AtividadeController extends Controller
 {
     public function listar(Request $request)
-    {
-        $query = Atividade::orderBy('titulo');
+{
+    $query = Atividade::with('usuario')->orderBy('titulo');
 
-        if ($request->has('search') && !empty($request->input('search'))) {
-            $search = $request->input('search');
-            $query->whereHas('usuario', function ($q) use ($search) {
-                $q->where('nome', 'like', '%' . $search . '%');
-            });
-        }
+    if ($request->has('search') && !empty($request->input('search'))) {
+        $search = $request->input('search');
+        $query->whereHas('usuario', function ($q) use ($search) {
+            $q->where('nome', 'like', '%' . $search . '%');
+        });
+    }
 
-        $atividades = $query->get();
-        $status = $this->validacao();
+    $atividades = $query->get();
+    $status = $this->validacao();
 
-        return view('listarAtividade', compact('atividades', 'status'));
+    return view('listarAtividade', compact('atividades', 'status'));
     }
 
     public function novo()
@@ -35,8 +35,14 @@ class AtividadeController extends Controller
         $atividade = new Atividade();
         $atividade->id = 0;
         $cursos = Curso::all();
-        $usuarios = Usuario::all();
+        $usuarios = User::all();
         return view('cadastroAtividade', compact('atividade', 'cursos', 'usuarios'));
+    }
+
+    public function Alunos(Request $request)
+    {
+        $usuarios = User::has('atividades')->get();
+        return view('listarAlunosAtividade', compact('usuarios'));
     }
 
     public function salvar(Request $request)
@@ -154,12 +160,15 @@ class AtividadeController extends Controller
 
     public function validacaoView()
     {
+
+        $atividades = Atividade::with('usuario')->orderBy('titulo')->get();
         // Chame a função validacao para obter os dados necessários
         $status = $this->validacao();
 
         // Retorne a view 'validacao' com os dados necessários
-        return view('validacaoView', compact('status'));
+        return view('validacaoView', compact('atividades', 'status'));
     }
+
 
     public function salvarAtividadeValidada(Request $request)
 {
@@ -230,6 +239,21 @@ public function salvarStatus(Request $request, $id)
     $atividade = Atividade::findOrFail($id);
 
     return response()->download(public_path('uploads/' . $atividade->arquivo), $atividade->arquivo);
+}
+
+public function listarAtividadesUsuario($id)
+{
+    $usuario = User::findOrFail($id);
+    $atividades = $usuario->atividades;
+    return view('validacao', compact('usuario', 'atividades'));
+}
+
+public function validacaoUsuario($id)
+{
+    $usuario = User::findOrFail($id);
+    $atividades = $usuario->atividades;
+    $status = $this->validacao(); // Supondo que você tenha esse método para obter o status
+    return view('validacaoView', compact('usuario', 'atividades', 'status'));
 }
 
 }

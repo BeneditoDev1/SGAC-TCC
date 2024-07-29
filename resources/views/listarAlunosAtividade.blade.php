@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listagem de Atividades</title>
+    <title>Alunos com Atividades</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
@@ -13,65 +12,93 @@
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
     <style>
-        body {
-            background-color: #034811;
-            color: white;
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
         }
 
-        @media (max-width: 767px){
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 767px) {
             .logout-button {
                 display: none;
             }
         }
 
         h1 {
-            color: black;
+            text-align: center;
         }
 
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 70px;
-            color: black;
+        .b-example-divider {
+            width: 100%;
+            height: 3rem;
+            background-color: rgba(0, 0, 0, 0);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
         }
 
-        .table {
-            color: black;
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
         }
 
-        .table th,
-        .table td {
-            vertical-align: middle;
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
         }
 
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: rgba(0, 0, 0, 0.05);
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
         }
 
-        .table-bordered th,
-        .table-bordered td {
-            border: 1px solid rgba(0, 0, 0, 0.1);
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
         }
 
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
+        .btn-bd-primary {
+            --bd-violet-bg: #712cf9;
+            --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+            --bs-btn-font-weight: 600;
+            --bs-btn-color: var(--bs-white);
+            --bs-btn-bg: var(--bd-violet-bg);
+            --bs-btn-border-color: var(--bd-violet-bg);
+            --bs-btn-hover-color: var(--bs-white);
+            --bs-btn-hover-bg: #6528e0;
+            --bs-btn-hover-border-color: #6528e0;
+            --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+            --bs-btn-active-color: var(--bs-btn-hover-color);
+            --bs-btn-active-bg: #5a23c8;
+            --bs-btn-active-border-color: #5a23c8;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                max-width: 90%;
-            }
+        .bd-mode-toggle {
+            z-index: 1500;
         }
 
-        /* Navbar */
-        .navbar {
-            background-color: green;
+        body {
+            min-height: 50rem;
+            padding-top: 4.5rem;
+            background-color: #034811;
         }
 
         .navbar-collapse {
@@ -91,23 +118,31 @@
         .navbar-collapse li a {
             display: inline-block;
             vertical-align: middle;
-            color: white;
         }
 
-        .logout-button {
-            margin: 0;
+        .container {
+            background-color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
         }
 
         .row {
-            margin-bottom: 1%;
+            margin-left: 12%;
+            margin-bottom: 5%;
         }
 
-        .btn-primary {
-            margin-bottom: 1%;
-        }
-
-        .buscador {
-            margin-top: 1%;
+        .usuario {
+            margin-right: 10px;
+            color: white;
         }
 
         .logout-button {
@@ -117,7 +152,7 @@
             z-index: 1000;
         }
 
-        .usuario{
+        .usuario {
             position: fixed;
             top: 10px;
             right: 80px;
@@ -125,7 +160,6 @@
         }
     </style>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
@@ -147,14 +181,14 @@
                         <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turmas</strong></a>
                     </li>
                     @endif
+                    @if (Auth::id() != 2)
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
                     </li>
-                    @if (Auth::id() == 2)
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
                     </li>
-                    @endif
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Regras</strong></a>
                     </li>
@@ -187,84 +221,29 @@
             </div>
         </div>
     </nav>
-
     <div class="container">
-        <h1>Atividades</h1>
-        <div class="row">
-            @foreach ($status as $nomeStatus => $contador)
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $nomeStatus }}</h5>
-                            <p class="card-text">Total: {{ $contador }}</p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-        <form action="{{ route('atividade.listar') }}" method="GET">
-            @if (Auth::id() == 2)
-            <div class="form-group">
-                <label for="search">Buscar por Nome do Usuário:</label>
-                <input type="text" class="form-control" id="search" name="search" placeholder="Digite o nome do usuário">
-            </div>
-            <button type="submit" class="btn btn-primary buscador">Buscar</button>
-        </form>
-        @endif
-        <a href="{{ route('atividade.novo') }}" class="btn btn-primary">Nova Atividade</a>
+        <h1>Alunos com Atividades</h1>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>Título</th>
-                    <th>Credencial</th>
-                    <th>Semestre</th>
-                    <th>Nome do curso</th>
-                    <th>Categoria</th>
-                    <th>Data de inicio</th>
-                    <th>Data de conclusão</th>
-                    <th>Total de horas</th>
-                    <th>Usuário</th>
-                    <th>Arquivo</th>
-                    <th>Status</th>
-                    <th>Horas Pendentes</th>
-                    <th>Editar</th>
-                    <th>Excluir</th>
-                    <th>Validar</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($atividades as $atividade)
+                @foreach($usuarios as $usuario)
                 <tr>
-                    <td>{{ $atividade->titulo }}</td>
-                    <td>{{ $atividade->credencial }}</td>
-                    <td>{{ $atividade->semestre }}</td>
-                    <td>{{ $atividade->curso->nome }}</td>
-                    <td>{{ $atividade->categoria }}</td>
-                    <td>{{ $atividade->data_inicio }}</td>
-                    <td>{{ $atividade->data_conclusao }}</td>
-                    <td>{{ $atividade->total_horas }}</td>
-                    <td>{{ $atividade->usuario->name }}</td> <!-- Alterado para exibir o nome do usuário -->
-                    <td style="max-width: 150px"><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a></td>
-                    <td>{{ $atividade->status }}</td>
-                    <td>{{ $atividade->horas_pendentes }}</td>
-                        <td><a class="btn btn-primary" href="{{ route('atividade.editar', $atividade->id) }}">Editar</a></td>
-                        <td>
-                            <form action="{{ route('atividade.excluir', $atividade->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Excluir</button>
-                            </form>
-                        </td>
-                        @if (Auth::id() == 2)
-                        <td><a class="btn btn-primary" href="{{ route('atividade.validacao', $atividade->id) }}">Validar</a></td>
-                    @endif
+                    <td><a href="{{ route('atividade.listarAtividadesUsuario', $usuario->id) }}">{{ $usuario->name }}</a></td>
+                    <td>{{ $usuario->email }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ route('atividade.listarAtividadesUsuario', $usuario->id) }}">Ver Atividades</a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-q3hX2rJ6Zc+70Y+YOG3E1QV34k7dI3YxrD+68kXcDgMBBmrK4EPYvBRJ5GV3yLtw" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
-
 </html>

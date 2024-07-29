@@ -3,25 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Usuario;
+use App\Models\User;
 use App\Models\Curso;
 use App\Models\Turma;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Exception as GlobalException;
 
 class UsuarioController extends Controller
 {
     public function listar()
     {
-        $usuarios = Usuario::orderBy('nome')->get();
+        $usuarios = User::orderBy('name')->get();
         return view('listarUsuario', compact('usuarios'));
+    }
+
+    public function listarCurso()
+    {
+        $cursos = Auth::user()->is_superuser ? Curso::all() : Auth::user()->cursos;
+        return view('curso.listar', compact('cursos'));
+    }
+
+    public function listarTurma()
+    {
+        $turmas = Auth::user()->is_superuser ? Turma::all() : Auth::user()->turmas;
+        return view('turma.listar', compact('turmas'));
     }
 
     public function novo()
     {
-        $usuario = new Usuario();
-        $usuario->id = 0;
+        $usuario = new User();
         $cursos = Curso::all();
         $turmas = Turma::all();
         return view('cadastroUsuario', compact('usuario', 'cursos', 'turmas'));
@@ -32,59 +43,55 @@ class UsuarioController extends Controller
         $request->validate([
             'cpf' => 'required|string|size:11',
             'matricula' => 'required|string|size:15',
-            'email' => 'required|email|unique:usuario,email',
-            'password' => 'required|string|min:8|confirmed',
+            'email' => 'required|email|unique:users,email,' . ($request->input('id') ?: 'NULL') . ',id',
+            'password' => 'nullable|string|min:8|confirmed',
+            'name' => 'required|string',
         ]);
 
-        if ($request->input('id') == 0) {
-            $usuario = new Usuario();
+        $usuario = $request->input('id') ? User::find($request->input('id')) : new User();
+
+        if ($request->filled('password')) {
             $usuario->password = Hash::make($request->input('password'));
-            $usuario->data_ativacao = now(); // Definir data_ativacao como a data atual
-        } else {
-            $usuario = Usuario::find($request->input('id'));
-            if ($request->filled('password')) {
-                $usuario->password = Hash::make($request->input('password'));
-            }
         }
 
-        $usuario->fill($request->except('password'));
-        $usuario->tipo_usuario = $request->input('tipo_usuario', 2); // Default to student (2) if not provided
+        $usuario->fill($request->except(['password', 'password_confirmation']));
+        $usuario->tipo_usuario = $request->input('tipo_usuario', 2);
 
-        // Ensure data_ativacao is set if not already set (for updates)
         if (is_null($usuario->data_ativacao)) {
             $usuario->data_ativacao = now();
         }
 
-        // Set horas_obrigatorias based on curso
         $curso = Curso::find($request->input('curso_id'));
-        if ($curso->ano_inicio >= 2019 && $curso->ano_fim <= 2022) {
-            $usuario->horas_obrigatorias = 120;
-        } elseif ($curso->ano_inicio > 2022) {
-            $usuario->horas_obrigatorias = 80;
+        if ($curso) {
+            if ($curso->ano_inicio >= 2019 && $curso->ano_fim <= 2022) {
+                $usuario->horas_obrigatorias = 120;
+            } elseif ($curso->ano_inicio > 2022) {
+                $usuario->horas_obrigatorias = 80;
+            } else {
+                $usuario->horas_obrigatorias = 0;
+            }
         } else {
-            $usuario->horas_obrigatorias = 0; // Valor padrão para anos não especificados
+            $usuario->horas_obrigatorias = 0;
         }
-
-        $usuario->password = Hash::make($request->input('password'));
 
         $usuario->save();
 
-        return redirect()->route('usuario.listar');
+        return redirect()->route('usuario.listar')->with('success', 'Usuário salvo com sucesso.');
     }
 
     public function editar($id)
     {
-        $usuario = Usuario::find($id);
+        $usuario = User::find($id);
         $cursos = Curso::all();
         $turmas = Turma::all();
         return view('cadastroUsuario', compact('usuario', 'cursos', 'turmas'));
     }
 
-    public function excluir($id)
+    public function destroy($id)
     {
         try {
-            $usuario = Usuario::findOrFail($id);
-            if ($usuario->atividade) {
+            $usuario = User::findOrFail($id);
+            if ($usuario->atividade()->exists()) {
                 throw new GlobalException('Não é possível excluir o usuário, pois ele está vinculado a uma atividade.');
             }
 
@@ -92,6 +99,9 @@ class UsuarioController extends Controller
             return redirect()->route('usuario.listar')->with('success', 'Usuário excluído com sucesso.');
         } catch (GlobalException $e) {
             return redirect()->back()->with('error', $e->getMessage());
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Erro ao excluir o usuário.');
         }
     }
 }
+

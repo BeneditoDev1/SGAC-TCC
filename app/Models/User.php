@@ -12,6 +12,32 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'users'; // Nome da tabela
+
+    public $timestamps = false;
+
+    public function curso(){
+        return $this->belongsTo(Curso::class);
+    }
+
+    public function turma(){
+        return $this->belongsTo(Turma::class);
+    }
+
+    public function cursos()
+    {
+        return $this->belongsToMany(Curso::class, 'curso_user');
+    }
+
+    public function turmas()
+    {
+        return $this->belongsToMany(Turma::class, 'turma_user'); // Supondo que a relação entre User e Turma siga o mesmo padrão
+    }
+
+    protected $primaryKey = 'id';
+
+    protected $unique = ['cpf'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,9 +45,18 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'cpf',
+        'matricula',
+        'sexo',
+        'data_ativacao',
+        'semestre',
+        'ra',
+        'curso_id',
+        'horas_obrigatorias',
+        'turma_id',
         'email',
         'password',
-        'arquivo',
+        'tipo_usuario',
     ];
 
     /**
@@ -43,4 +78,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function atividade()
+    {
+        return $this->hasMany(Atividade::class);
+    }
+
+    public function atividades()
+    {
+        return $this->hasMany(Atividade::class, 'usuario_id');
+    }
 }

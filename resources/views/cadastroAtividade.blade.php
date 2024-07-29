@@ -54,13 +54,11 @@
 
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 60px auto 50px;
             padding: 20px;
-            background-color: #fff;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
-            margin-top: 60px;
-            margin-bottom: 50px;
+            background-color: #fff;
         }
 
         .form-group {
@@ -111,45 +109,63 @@
     </style>
 </head>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{url('/')}}"><strong>Inicio</strong></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('turma/listar')}}"><strong>Turma</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="{{url('atividade/listar')}}"><strong>Atividades</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                            href="{{url('about')}}"><strong>Regras</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        @if (Auth::check())
-                            <!-- Se o usuário estiver autenticado, exiba o botão para sair -->
-                            <form method="POST" action="{{ route('logout') }}" class="logout-button">
-                                @csrf
-                                <button type="submit" class="btn btn-danger">Sair</button>
-                            </form>
-                        @else
-                            <!-- Se o usuário não estiver autenticado, exiba o botão para entrar -->
-                            <a href="{{ route('login') }}" class="btn btn-primary">Entrar</a>
-                        @endif
-                    </li>
-                    </li>
-                </ul>
-         </div>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url('/') }}"><strong>Inicio</strong></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Alunos</strong></a>
+                </li>
+                @if (Auth::id() == 2)
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Cursos</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turmas</strong></a>
+                </li>
+                @endif
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
+                </li>
+                @if (Auth::id() == 2)
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
+                </li>
+                @endif
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Regras</strong></a>
+                </li>
+                <!-- Add logout button as a menu item on smaller screens -->
+                <li class="nav-item d-md-none">
+                    @if (Auth::check())
+                        <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                            @csrf
+                            <button type="submit" class="nav-link active">Sair</button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
+                    @endif
+                </li>
+            </ul>
+            <!-- Show logout button on larger screens -->
+            <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+                <li class="nav-item d-flex align-items-center">
+                    @if (Auth::check())
+                        <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
+                        <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-primary btn-sm logout-button">Entrar</a>
+                    @endif
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 <body>
@@ -235,7 +251,7 @@
                     <option value="">Selecione um usuário</option>
                     @foreach($usuarios as $usuario)
                     <option {{ $usuario->id == old('usuario_id', $atividade->usuario_id) ? 'selected' : '' }}
-                        value="{{ $usuario->id }}">{{ $usuario->nome }}</option>
+                        value="{{ $usuario->id }}">{{ $usuario->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -265,8 +281,8 @@
 
             <input type="hidden" name="nome_arquivo" value="{{ old('arquivo', $atividade->arquivo) }}">
 
-            <button type="submit" style="background-color: #0d6efd" class="btn-primary">Salvar</button>
-            <button type="button" onclick="window.location='{{ route('atividade.listar') }}'" class="btn btn-secondary">Cancelar</button></form>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+    <button type="button" onclick="window.location='{{ route('usuario.listar') }}'" class="btn btn-secondary">Cancelar</button>
         </form>
 
     </div>

@@ -102,41 +102,59 @@
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{url('/')}}"><strong>Inicio</strong></a>
+        <a class="navbar-brand" href="{{ url('/') }}"><strong>Inicio</strong></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('usuario/listar')}}"><strong>Alunos</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Alunos</strong></a>
+                </li>
+                @if (Auth::id() == 2)
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Cursos</strong></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('curso/listar')}}"><strong>Cursos</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turmas</strong></a>
                 </li>
+                @endif
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('turma/listar')}}"><strong>Turma</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
                 </li>
+                @if (Auth::id() == 2)
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page"
-                        href="{{url('atividade/listar')}}"><strong>Atividades</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
                 </li>
+                @endif
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page"
-                        href="{{url('about')}}"><strong>Regras</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Regras</strong></a>
                 </li>
-                <li class="nav-item">
+                <!-- Add logout button as a menu item on smaller screens -->
+                <li class="nav-item d-md-none">
                     @if (Auth::check())
-                        <!-- Se o usuário estiver autenticado, exiba o botão para sair -->
-                        <form method="POST" action="{{ route('logout') }}" class="logout-button">
+                        <form method="POST" action="{{ route('logout') }}" class="mb-0">
                             @csrf
-                            <button type="submit" class="btn btn-danger">Sair</button>
+                            <button type="submit" class="nav-link active">Sair</button>
                         </form>
                     @else
-                        <!-- Se o usuário não estiver autenticado, exiba o botão para entrar -->
-                        <a href="{{ route('login') }}" class="btn btn-primary">Entrar</a>
+                        <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
                     @endif
                 </li>
+            </ul>
+            <!-- Show logout button on larger screens -->
+            <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+                <li class="nav-item d-flex align-items-center">
+                    @if (Auth::check())
+                        <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
+                        <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-primary btn-sm logout-button">Entrar</a>
+                    @endif
                 </li>
             </ul>
         </div>
@@ -147,7 +165,7 @@
 
 <body>
     <div class="container">
-        <h1>Validar atividades</h1>
+        <h1>Validar atividades de {{ $usuario->name }}</h1>
 
         <table class="table table-bordered table-striped mt-4">
             <thead>
@@ -157,10 +175,10 @@
                     <th>Semestre</th>
                     <th>Nome do curso</th>
                     <th>Categoria</th>
-                    <th>Data de inicio</th>
+                    <th>Data de início</th>
                     <th>Data de conclusão</th>
                     <th>Total de horas</th>
-                    <th>Usuario</th>
+                    <th>Usuário</th>
                     <th>Arquivo</th>
                     <th>Status</th>
                     <th>Salvar</th>
@@ -168,35 +186,35 @@
             </thead>
             <tbody>
                 @foreach($atividades as $atividade)
-<tr>
-    <td>{{ $atividade->titulo }}</td>
-    <td>{{ $atividade->credencial }}</td>
-    <td>{{ $atividade->semestre }}</td>
-    <td>{{ $atividade->curso->nome }}</td>
-    <td>{{ $atividade->categoria }}</td>
-    <td>{{ $atividade->data_inicio }}</td>
-    <td>{{ $atividade->data_conclusao }}</td>
-    <td>{{ $atividade->total_horas }}</td>
-    <td>{{ $atividade->usuario->nome }}</td>
-    <td style="max-width: 150px"><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a></td>
-    <td>
-        <form action="{{ route('atividade.salvarStatus', ['id' => $atividade->id]) }}" method="POST">
-            @csrf
-            <div class="input-group">
-                <select class="form-select" name="status">
-                    <option value="Em análise" selected>Em análise</option>
-                    <option value="Concluído">Concluído</option>
-                    <option value="Cancelado">Cancelado</option>
-                    <option value="Pendente">Pendente</option>
-                </select>
-            </div>
-            <td>
-                <button type="submit" class="btn btn-primary" name="salvar">Salvar</button>
-            </td>
-        </form>
-    </td>
-</tr>
-@endforeach
+                <tr>
+                    <td>{{ $atividade->titulo }}</td>
+                    <td>{{ $atividade->credencial }}</td>
+                    <td>{{ $atividade->semestre }}</td>
+                    <td>{{ $atividade->curso->nome }}</td>
+                    <td>{{ $atividade->categoria }}</td>
+                    <td>{{ $atividade->data_inicio }}</td>
+                    <td>{{ $atividade->data_conclusao }}</td>
+                    <td>{{ $atividade->total_horas }}</td>
+                    <td>{{ $atividade->usuario->name }}</td>
+                    <td style="max-width: 150px"><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a></td>
+                    <td>
+                        <form action="{{ route('atividade.salvarStatus', ['id' => $atividade->id]) }}" method="POST">
+                            @csrf
+                            <div class="input-group">
+                                <select class="form-select" name="status">
+                                    <option value="Em análise" selected>Em análise</option>
+                                    <option value="Concluído">Concluído</option>
+                                    <option value="Cancelado">Cancelado</option>
+                                    <option value="Pendente">Pendente</option>
+                                </select>
+                            </div>
+                            <td>
+                                <button type="submit" class="btn btn-primary" name="salvar">Salvar</button>
+                            </td>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
