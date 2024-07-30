@@ -53,13 +53,6 @@ Route::middleware(['auth', 'checkSuperUser'])->group(function () {
         Route::put('/turma/atualizar/{id}', [TurmaController::class, 'atualizar'])->name('turma.atualizar');
         Route::get('/turma/excluir/{id}', [TurmaController::class, 'excluir'])->name('turma.excluir');
 
-        Route::get('/atividade/listar', [AtividadeController::class, 'listar'])->name('atividade.listar');
-        Route::get('/atividade/novo', [AtividadeController::class, 'novo'])->name('atividade.novo');
-        Route::post('/atividade/salvar', [AtividadeController::class, 'salvar'])->name('atividade.salvar');
-        Route::get('/atividade/editar/{id}', [AtividadeController::class, 'editar'])->name('atividade.editar');
-        Route::post('/atividade/atualizar/{id}', [AtividadeController::class, 'atualizar'])->name('atividade.atualizar');
-        Route::put('/atividade/atualizar/{id}', [AtividadeController::class, 'atualizar'])->name('atividade.atualizar');
-        Route::get('/atividade/excluir/{id}', [AtividadeController::class, 'excluir'])->name('atividade.excluir');
         Route::get('atividade/download/{id}', 'AtividadeController@download')->name('atividade.download');
         Route::get('atividade/validacaolistar', [AtividadeController::class, 'validacaoListar'])->name('atividade.validacao');
         Route::get('atividade/validacaoView', [AtividadeController::class, 'validacaoView'])->name('validacaoView');

@@ -227,7 +227,7 @@ public function salvarStatus(Request $request, $id)
         $atividade->save();
 
         // Redirecione de volta para a tela de listagem de atividades
-        return redirect()->route('atividade.listar')->with('success', 'Status da atividade atualizado com sucesso!');
+        return redirect()->route('listarAlunos')->with('success', 'Status da atividade atualizado com sucesso!');
     } else {
         // Se o status não for válido, redirecione de volta com uma mensagem de erro
         return redirect()->back()->with('error', 'Status inválido!');

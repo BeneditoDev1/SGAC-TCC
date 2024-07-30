@@ -226,6 +226,15 @@
     <div class="container">
         <h1>Alunos com Atividades</h1>
         <table class="table table-bordered table-striped">
+            <form action="{{ route('atividade.listar') }}" method="GET">
+                @if (Auth::id() == 2)
+                <div class="form-group">
+                    <label for="search"><h3>Buscar por Nome do Usuário:</h3></label>
+                    <input type="text" class="form-control" id="search" name="search" placeholder="Digite o nome do usuário">
+                </div>
+                <button type="submit" class="btn btn-primary buscador">Buscar</button>
+            </form>
+            @endif
             <thead>
                 <tr>
                     <th>Nome</th>

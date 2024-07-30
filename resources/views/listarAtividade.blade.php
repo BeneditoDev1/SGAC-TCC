@@ -204,15 +204,6 @@
                 </div>
             @endforeach
         </div>
-        <form action="{{ route('atividade.listar') }}" method="GET">
-            @if (Auth::id() == 2)
-            <div class="form-group">
-                <label for="search">Buscar por Nome do Usuário:</label>
-                <input type="text" class="form-control" id="search" name="search" placeholder="Digite o nome do usuário">
-            </div>
-            <button type="submit" class="btn btn-primary buscador">Buscar</button>
-        </form>
-        @endif
         <a href="{{ route('atividade.novo') }}" class="btn btn-primary">Nova Atividade</a>
         <table class="table table-bordered table-striped">
             <thead>
@@ -228,7 +219,6 @@
                     <th>Usuário</th>
                     <th>Arquivo</th>
                     <th>Status</th>
-                    <th>Horas Pendentes</th>
                     <th>Editar</th>
                     <th>Excluir</th>
                 </tr>
@@ -247,7 +237,6 @@
                     <td>{{ $atividade->usuario->name }}</td> <!-- Alterado para exibir o nome do usuário -->
                     <td style="max-width: 150px"><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a></td>
                     <td>{{ $atividade->status }}</td>
-                    <td>{{ $atividade->horas_pendentes }}</td>
                         <td><a class="btn btn-primary" href="{{ route('atividade.editar', $atividade->id) }}">Editar</a></td>
                         <td>
                             <form action="{{ route('atividade.excluir', $atividade->id) }}" method="POST">
