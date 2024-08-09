@@ -21,4 +21,13 @@ class Turma extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function setHorasAttribute($value)
+    {
+        if ($this->ano_inicio <= 2022) {
+            $this->attributes['horas'] = 150;
+        } else {
+            $this->attributes['horas'] = 80;
+        }
+    }
+
 }

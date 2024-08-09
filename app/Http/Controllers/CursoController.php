@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Curso;
-use App\Models\Usuario;
+use App\Models\User;
 use Exception as GlobalException;
 
 class CursoController extends Controller
@@ -23,29 +23,18 @@ class CursoController extends Controller
     }
 
     public function salvar(Request $request)
-{
-    if ($request->input('id') == 0) {
-        $curso = new Curso();
-    } else {
-        $curso = Curso::find($request->input('id'));
-    }
+    {
+        if ($request->input('id') == 0) {
+            $curso = new Curso();
+        } else {
+            $curso = Curso::find($request->input('id'));
+        }
 
-    $curso->nome = $request->input('nome');
-    $curso->ano_inicio = $request->input('ano_inicio');
-    $curso->ano_fim = $request->input('ano_fim');
+        $curso->nome = $request->input('nome');
 
-    // Define as horas com base no ano do curso
-    if ($curso->ano_inicio >= 2019 && $curso->ano_fim <= 2022) {
-        $curso->horas = 120;
-    } elseif ($curso->ano_inicio > 2022) {
-        $curso->horas = 80;
-    } else {
-        $curso->horas = 0; // Valor padrão para anos não especificados
-    }
+        $curso->save();
 
-    $curso->save();
-
-    return redirect('curso/listar');
+        return redirect()->route('curso.listar');
 }
 
 
@@ -59,8 +48,6 @@ class CursoController extends Controller
     {
         $curso = Curso::find($id);
         $curso->nome = $request->input('nome');
-        $curso->ano_inicio = $request->input('ano_inicio');
-        $curso->ano_fim = $request->input('ano_fim');
         $curso->save();
 
         return redirect()->route('curso.listar');
@@ -68,17 +55,20 @@ class CursoController extends Controller
 
     public function excluir($id)
     {
-        try {
-            $curso = Curso::findOrFail($id);
-            if (Usuario::where('curso_id', $id)->count() > 0) {
-                throw new GlobalException('Não é possível excluir o curso, pois ele está vinculado a um ou mais usuários.');
-            }
-            $curso->delete();
-        } catch (GlobalException $e) {
-            return redirect()->back()->with('error', $e->getMessage());
+    try {
+        $curso = Curso::findOrFail($id);
+        if ($curso->usuarios()->exists()) {
+            throw new GlobalException('Não é possível excluir o curso, pois ele está vinculado a um ou mais usuários.');
         }
 
-        return redirect()->route('curso.listar');
+        $curso->delete();
+
+        return redirect()->route('curso.listar')->with('success', 'Curso excluído com sucesso.');
+        } catch (GlobalException $e) {
+        return redirect()->back()->with('error', $e->getMessage());
+        } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Erro ao excluir o curso.');
+        }
     }
 }
 

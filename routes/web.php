@@ -25,17 +25,18 @@ Route::get('/dashboard', function () {
     return view('index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth', 'checkSuperUser'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::middleware(['auth', 'checkSuperUser'])->group(function () {
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/usuario/listar', [UsuarioController::class, 'listar'])->name('usuario.listar');
-    Route::get('/usuario/novo', [UsuarioController::class, 'novo'])->name('usuario.novo');
-    Route::post('/usuario/salvar', [UsuarioController::class, 'salvar'])->name('usuario.salvar');
-    Route::get('/usuario/editar/{id}', [UsuarioController::class, 'editar'])->name('usuario.editar');
-    Route::put('/usuario/atualizar/{id}', [UsuarioController::class, 'salvar'])->name('usuario.atualizar');
-    Route::delete('/usuario/destroy/{id}', [UsuarioController::class, 'destroy'])->name('usuario.destroy');
+        Route::get('/usuario/listar', [UsuarioController::class, 'listar'])->name('usuario.listar');
+        Route::get('/usuario/novo', [UsuarioController::class, 'novo'])->name('usuario.novo');
+        Route::get('/usuario/salvar', [UsuarioController::class, 'salvar'])->name('usuario.salvar');
+        Route::post('/usuario/salvar', [UsuarioController::class, 'salvar'])->name('usuario.salvar');
+        Route::get('/usuario/editar/{id}', [UsuarioController::class, 'editar'])->name('usuario.editar');
+        Route::put('/usuario/atualizar/{id}', [UsuarioController::class, 'salvar'])->name('usuario.atualizar');
+        Route::delete('/usuario/excluir/{id}', [UsuarioController::class, 'excluir'])->name('usuario.excluir');
 
         Route::get('/curso/listar', [CursoController::class, 'listar'])->name('curso.listar');
         Route::get('/curso/novo', [CursoController::class, 'novo'])->name('curso.novo');
@@ -43,7 +44,7 @@ Route::middleware(['auth', 'checkSuperUser'])->group(function () {
         Route::get('/curso/editar/{id}', [CursoController::class, 'editar'])->name('curso.editar');
         Route::post('/curso/atualizar/{id}', [CursoController::class, 'atualizar'])->name('curso.atualizar');
         Route::put('/curso/atualizar/{id}', [CursoController::class, 'atualizar'])->name('curso.atualizar');
-        Route::get('/curso/excluir/{id}', [CursoController::class, 'excluir'])->name('curso.excluir');
+        Route::delete('/curso/excluir/{id}', [CursoController::class, 'excluir'])->name('curso.excluir');
 
         Route::get('/turma/listar', [TurmaController::class, 'listar'])->name('turma.listar');
         Route::get('/turma/novo', [TurmaController::class, 'novo'])->name('turma.novo');

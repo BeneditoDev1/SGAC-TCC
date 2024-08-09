@@ -86,8 +86,8 @@
     </style>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url('/') }}"><strong>Inicio</strong></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
@@ -148,8 +148,8 @@
                 </ul>
             </div>
         </div>
-    </nav>
-
+   </nav>
+<body>
     <div class="container">
         <h1>Cursos</h1>
         @if (Auth::id() == 2)
@@ -159,9 +159,6 @@
             <thead>
                 <tr>
                     <th>Nome do Curso</th>
-                    <th>Ano Início</th>
-                    <th>Ano Fim</th>
-                    <th>Horas</th>
                     @if (Auth::id() == 2)
                         <th>Editar</th>
                         <th>Excluir</th>
@@ -174,14 +171,11 @@
                 {{-- @if(Auth::user()->is_superuser || Auth::user()->cursos->contains($curso->id)) --}}
                 <tr>
                     <td>{{ $curso->nome }}</td>
-                    <td>{{ $curso->ano_inicio }}</td>
-                    <td>{{ $curso->ano_fim }}</td>
-                    <td>{{ $curso->horas }}</td>
                     {{-- @endif --}}
                     @if (Auth::id() == 2)
                     <td><a class="btn btn-primary" href="editar/{{ $curso->id }}">Editar</a></td>
                     <td>
-                        <form method="POST" action="excluir/{{ $curso->id }}">
+                        <form method="POST" action="{{ route('curso.excluir', $curso->id) }}">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger" type="submit">Excluir</button>

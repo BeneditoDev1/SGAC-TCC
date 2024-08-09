@@ -98,6 +98,13 @@
     .mb-3{
         margin-top: 2%;
     }
+
+    .usuario {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
+    }
 </style>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">

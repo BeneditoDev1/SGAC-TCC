@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Curso;
-use App\Models\Usuario;
+use App\Models\User;
 use App\Models\Turma;
 use Exception as GlobalException;
 
@@ -32,34 +32,49 @@ class TurmaController extends Controller
             $turma = Turma::find($request->input('id'));
         }
 
+        $request->validate([
+            'ano_inicio' => 'required|integer',
+            'ano_fim' => 'required|integer',
+        ]);
+
+        $turma = new Turma();
         $turma->nome = $request->input('nome');
         $turma->semestre = $request->input('semestre');
         $turma->curso_id = $request->input('curso_id');
+        $turma->ano_inicio = $request->input('ano_inicio');
+        $turma->ano_fim = $request->input('ano_fim');
 
+        $turma->setHorasAttribute(null);
         $turma->save();
 
         return redirect('turma/listar');
     }
 
     public function editar($id)
-{
+    {
     $turma = Turma::find($id);
-    $curso = Curso::all();
-    return view('cadastroturma', compact('turma', 'cursos'));
-}
+    $cursos = Curso::all(); // mudar para $cursos
 
-public function atualizar(Request $request, $id)
-{
+    return view('cadastroturma', compact('turma', 'cursos'));
+    }
+
+    public function atualizar(Request $request, $id)
+    {
     $turma = Turma::find($id);
     $turma->nome = $request->input('nome');
     $turma->semestre = $request->input('semestre');
+    $turma->curso_id = $request->input('curso_id');
+    $turma->ano_inicio = $request->input('ano_inicio');
+    $turma->ano_fim = $request->input('ano_fim');
+
+    $turma->setHorasAttribute(null);
     $turma->save();
 
     return redirect()->route('turma.listar');
-}
+    }
 
-public function excluir($id)
-{
+    public function excluir($id)
+    {
     try {
         $turma = Turma::findOrFail($id);
         if ($turma->usuario) {
@@ -71,6 +86,6 @@ public function excluir($id)
         return redirect()->route('turma.listar')->with('success', 'usuario excluída com sucesso.');
     } catch (GlobalException $e) {
         return redirect()->back()->with('error', $e->getMessage());
+        }
     }
-}
 }

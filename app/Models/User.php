@@ -16,22 +16,24 @@ class User extends Authenticatable
 
     public $timestamps = false;
 
-    public function curso(){
-        return $this->belongsTo(Curso::class);
+    public function curso()
+    {
+    return $this->belongsTo(Curso::class);
     }
 
-    public function turma(){
-        return $this->belongsTo(Turma::class);
+    public function turma()
+    {
+    return $this->belongsTo(Turma::class);
     }
 
     public function cursos()
     {
-        return $this->belongsToMany(Curso::class, 'curso_user');
+    return $this->belongsToMany(Curso::class, 'curso_user');
     }
 
     public function turmas()
     {
-        return $this->belongsToMany(Turma::class, 'turma_user'); // Supondo que a relação entre User e Turma siga o mesmo padrão
+    return $this->belongsToMany(Turma::class, 'turma_user');
     }
 
     protected $primaryKey = 'id';
@@ -55,8 +57,7 @@ class User extends Authenticatable
         'horas_obrigatorias',
         'turma_id',
         'email',
-        'password',
-        'tipo_usuario',
+        'password'
     ];
 
     /**

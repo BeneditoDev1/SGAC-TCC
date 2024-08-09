@@ -111,6 +111,13 @@
         right: 20px;
         z-index: 1000;
     }
+
+    .usuario {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
+    }
 </style>
 </head>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -189,16 +196,6 @@
             <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" class="form-control" name="nome" value="{{ $curso->nome }}" required>
-            </div>
-
-            <div class="form-group">
-                <label for="ano_inicio">Ano Início:</label>
-                <input type="text" class="form-control datepicker" name="ano_inicio" value="{{ $curso->ano_inicio }}" required>
-            </div>
-
-            <div class="form-group">
-                <label for="ano_fim">Ano Fim:</label>
-                <input type="text" class="form-control datepicker" name="ano_fim" value="{{ $curso->ano_fim }}" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>

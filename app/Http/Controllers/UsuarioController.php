@@ -39,45 +39,51 @@ class UsuarioController extends Controller
     }
 
     public function salvar(Request $request)
-    {
-        $request->validate([
-            'cpf' => 'required|string|size:11',
-            'matricula' => 'required|string|size:15',
-            'email' => 'required|email|unique:users,email,' . ($request->input('id') ?: 'NULL') . ',id',
-            'password' => 'nullable|string|min:8|confirmed',
-            'name' => 'required|string',
-        ]);
+{
+    //$request->validate([
+       // 'cpf' => 'required|string|size:11',
+        //'matricula' => 'required|string|size:15',
+        //'email' => 'required|email|unique:users,email,' . ($request->input('id') ?: 'NULL') . ',id',
+        //'password' => 'nullable|string|min:8|confirmed',
+        //'name' => 'required|string',
+    //]);
 
-        $usuario = $request->input('id') ? User::find($request->input('id')) : new User();
+    $usuario = $request->input('id') ? User::find($request->input('id')) : new User();
 
-        if ($request->filled('password')) {
-            $usuario->password = Hash::make($request->input('password'));
-        }
+    if ($request->filled('password')) {
+        $usuario->password = Hash::make($request->input('password'));
+    }
 
-        $usuario->fill($request->except(['password', 'password_confirmation']));
-        $usuario->tipo_usuario = $request->input('tipo_usuario', 2);
+    $usuario->fill($request->except(['password', 'password_confirmation']));
+    $usuario->tipo_usuario = $request->input('tipo_usuario', 2);
 
-        if (is_null($usuario->data_ativacao)) {
-            $usuario->data_ativacao = now();
-        }
+    if (is_null($usuario->data_ativacao)) {
+        $usuario->data_ativacao = now();
+    }
 
-        $curso = Curso::find($request->input('curso_id'));
-        if ($curso) {
-            if ($curso->ano_inicio >= 2019 && $curso->ano_fim <= 2022) {
-                $usuario->horas_obrigatorias = 120;
-            } elseif ($curso->ano_inicio > 2022) {
-                $usuario->horas_obrigatorias = 80;
-            } else {
-                $usuario->horas_obrigatorias = 0;
-            }
+    if (is_null($usuario->data_ativacao)) {
+        $usuario->data_ativacao = now();
+    }
+
+    $turma = Turma::find($request->input('turma_id'));
+    if ($turma) {
+        if ($turma->ano_inicio >= 2019 && $turma->ano_fim <= 2022) {
+            $usuario->horas_obrigatorias = 150;
+        } elseif ($turma->ano_inicio > 2022) {
+            $usuario->horas_obrigatorias = 80;
         } else {
             $usuario->horas_obrigatorias = 0;
         }
-
-        $usuario->save();
-
-        return redirect()->route('usuario.listar')->with('success', 'Usuário salvo com sucesso.');
+    } else {
+        $usuario->horas_obrigatorias = 0;
     }
+
+    $usuario->turma_id = $request->input('turma_id');
+
+    $usuario->save();
+
+    return redirect()->route('usuario.listar')->with('success', 'Usuário salvo com sucesso.');
+}
 
     public function editar($id)
     {
@@ -87,16 +93,17 @@ class UsuarioController extends Controller
         return view('cadastroUsuario', compact('usuario', 'cursos', 'turmas'));
     }
 
-    public function destroy($id)
+    public function excluir($id)
     {
-        try {
-            $usuario = User::findOrFail($id);
-            if ($usuario->atividade()->exists()) {
-                throw new GlobalException('Não é possível excluir o usuário, pois ele está vinculado a uma atividade.');
-            }
+    try {
+        $usuario = User::findOrFail($id);
+        if ($usuario->atividade) {
+            throw new GlobalException('Não é possível excluir o usuário, pois ele está vinculado a uma atividade.');
+        }
 
-            $usuario->delete();
-            return redirect()->route('usuario.listar')->with('success', 'Usuário excluído com sucesso.');
+        $usuario->delete();
+
+        return redirect()->route('usuario.listar')->with('success', 'Usuário excluído com sucesso.');
         } catch (GlobalException $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } catch (\Exception $e) {

@@ -91,73 +91,78 @@
             right: 20px; /* Distância da direita da página */
             z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
         }
+
+        .usuario {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
+        }
     </style>
 </head>
-
-<body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}"><strong>Inicio</strong></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Alunos</strong></a>
-                    </li>
-                    @if (Auth::id() == 2)
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Cursos</strong></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turmas</strong></a>
-                    </li>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url('/') }}"><strong>Inicio</strong></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Alunos</strong></a>
+                </li>
+                @if (Auth::id() == 2)
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Cursos</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turmas</strong></a>
+                </li>
+                @endif
+                @if (Auth::id() !== 2)
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
+                </li>
+                @endif
+                @if (Auth::id() == 2)
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
+                </li>
+                @endif
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Regras</strong></a>
+                </li>
+                <!-- Add logout button as a menu item on smaller screens -->
+                <li class="nav-item d-md-none">
+                    @if (Auth::check())
+                        <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                            @csrf
+                            <button type="submit" class="nav-link active">Sair</button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
                     @endif
-                    @if (Auth::id() !== 2)
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
-                    </li>
+                </li>
+            </ul>
+            <!-- Show logout button on larger screens -->
+            <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+                <li class="nav-item d-flex align-items-center">
+                    @if (Auth::check())
+                        <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
+                        <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-primary btn-sm logout-button">Entrar</a>
                     @endif
-                    @if (Auth::id() == 2)
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
-                    </li>
-                    @endif
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Regras</strong></a>
-                    </li>
-                    <!-- Add logout button as a menu item on smaller screens -->
-                    <li class="nav-item d-md-none">
-                        @if (Auth::check())
-                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
-                                @csrf
-                                <button type="submit" class="nav-link active">Sair</button>
-                            </form>
-                        @else
-                            <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
-                        @endif
-                    </li>
-                </ul>
-                <!-- Show logout button on larger screens -->
-                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
-                    <li class="nav-item d-flex align-items-center">
-                        @if (Auth::check())
-                            <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
-                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
-                            </form>
-                        @else
-                            <a href="{{ route('login') }}" class="btn btn-primary btn-sm logout-button">Entrar</a>
-                        @endif
-                    </li>
-                </ul>
-            </div>
+                </li>
+            </ul>
         </div>
-    </nav>
-
+    </div>
+</nav>
+<body>
     <div class="container">
         <h1>Cadastrar Aluno</h1>
 
@@ -171,7 +176,7 @@
             </div>
         @endif
 
-        <form action="{{ $usuario->id ? route('usuario.atualizar', $usuario->id) : route('usuario.salvar') }}" method="POST">
+        <form id="usuarioForm" action="{{ $usuario->id ? route('usuario.atualizar', $usuario->id) : route('usuario.salvar') }}" method="POST">
             @csrf
             @if($usuario->id)
                 @method('PUT')
@@ -185,6 +190,7 @@
             <div class="form-group">
                 <label for="cpf">CPF:</label>
                 <input type="text" class="form-control" name="cpf" value="{{ old('cpf', $usuario->cpf) }}" required>
+                <div id="cpfError" class="text-danger" style="display:none;"></div>
             </div>
 
             <div class="form-group">
@@ -217,8 +223,7 @@
 
             <div class="form-group lista">
                 <label for="data_ativacao">Data de Ativação:</label>
-                <input type="date" class="form-control" name="data_ativacao"
-                    value="{{ old('data_ativacao', $usuario->data_ativacao) }}" required>
+                <input type="date" class="form-control" name="data_ativacao" value="{{ old('data_ativacao', $usuario->data_ativacao) }}" required>
             </div>
 
             <div class="form-group">
@@ -229,8 +234,24 @@
             <div class="form-group lista">
                 <label for="semestre">Semestre:</label>
                 <select class="form-control" name="semestre" required>
+                    <option value="1" @if($usuario->semestre == 1) selected @endif>1</option>
+                    <option value="2" @if($usuario->semestre == 2) selected @endif>2</option>
+                    <option value="3" @if($usuario->semestre == 3) selected @endif>3</option>
+                    <option value="4" @if($usuario->semestre == 4) selected @endif>4</option>
+                    <option value="5" @if($usuario->semestre == 5) selected @endif>5</option>
+                    <option value="6" @if($usuario->semestre == 6) selected @endif>6</option>
+                    <option value="7" @if($usuario->semestre == 7) selected @endif>7</option>
+                    <option value="8" @if($usuario->semestre == 8) selected @endif>8</option>
+                    <option value="9" @if($usuario->semestre == 9) selected @endif>9</option>
+                    <option value="10" @if($usuario->semestre == 10) selected @endif>10</option>
+                </select>
+            </div>
+
+            <div class="form-group lista">
+                <label for="turma_id">Turma:</label>
+                <select class="form-control" name="turma_id" required>
                     @foreach ($turmas as $turma)
-                        <option value="{{ $turma->id }}" @if(old('semestre', $usuario->turma_id) == $turma->id) selected @endif>
+                        <option value="{{ $turma->id }}" @if(old('turma_id', $usuario->turma_id) == $turma->id) selected @endif>
                             {{ $turma->nome }}
                         </option>
                     @endforeach
@@ -249,11 +270,11 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="{{ route('usuario.listar') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 
     <script>
-
         document.getElementById('usuarioForm').addEventListener('submit', function(event) {
             var cpfInput = document.querySelector('input[name="cpf"]');
             var cpfError = document.getElementById('cpfError');
@@ -266,14 +287,13 @@
             }
         });
 
-        <script>
         $(function() {
             $(".datepicker").datepicker({
                 dateFormat: "yy-mm-dd" // Define o formato da data
             });
         });
     </script>
-
 </body>
+
 
 </html>

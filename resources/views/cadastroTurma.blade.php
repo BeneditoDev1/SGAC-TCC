@@ -8,9 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
-<link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -113,6 +113,13 @@
 
         .lista{
             max-width: 15%;
+        }
+
+        .usuario {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
         }
     </style>
 
@@ -221,6 +228,16 @@
                         value="{{ $curso->id }}">{{ $curso->nome }}</option>
                     @endforeach
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ano_inicio">Ano Inicio</label>
+                <input type="text" class="form-control" name="ano_inicio" value="{{ $turma->ano_inicio }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ano_fim">Ano Fim</label>
+                <input type="text" class="form-control" name="ano_fim" value="{{ $turma->ano_fim }}" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>
