@@ -95,20 +95,20 @@ class UsuarioController extends Controller
 
     public function excluir($id)
     {
-    try {
+    //try {
         $usuario = User::findOrFail($id);
-        if ($usuario->atividade) {
-            throw new GlobalException('Não é possível excluir o usuário, pois ele está vinculado a uma atividade.');
-        }
+        //if ($usuario->atividade) {
+          //  throw new GlobalException('Não é possível excluir o usuário, pois ele está vinculado a uma atividade.');
+        //}
 
         $usuario->delete();
 
         return redirect()->route('usuario.listar')->with('success', 'Usuário excluído com sucesso.');
-        } catch (GlobalException $e) {
+        //} catch (GlobalException $e) {
             return redirect()->back()->with('error', $e->getMessage());
-        } catch (\Exception $e) {
+        //} catch (\Exception $e) {
             return redirect()->back()->with('error', 'Erro ao excluir o usuário.');
-        }
+        //}
     }
 }
 

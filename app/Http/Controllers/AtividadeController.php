@@ -125,38 +125,38 @@ class AtividadeController extends Controller
     }
 
     public function validacao()
-    {
-        $status = [
-            'Em análise' => 0,
-            'Aprovado' => 0,
-            'Cancelado' => 0,
-            'Pendente' => 0,
-        ];
+{
+    $status = [
+        'Em análise' => 0,
+        'Concluído' => 0,
+        'Cancelado' => 0,
+        'Pendente' => 0,
+    ];
 
-        // Recupere os dados das atividades
-        $atividades = Atividade::all();
+    // Recupere os dados das atividades
+    $atividades = Atividade::all();
 
-        // Itere sobre as atividades para contar o status de cada uma
-        foreach ($atividades as $atividade) {
-            switch ($atividade->status) {
-                case 'Em análise':
-                    $status['Em análise']++;
-                    break;
-                case 'Aprovado':
-                    $status['Aprovado']++;
-                    break;
-                case 'Cancelado':
-                    $status['Cancelado']++;
-                    break;
-                case 'Pendente':
-                    $status['Pendente']++;
-                    break;
-            }
+    // Itere sobre as atividades para acumular as horas para cada status
+    foreach ($atividades as $atividade) {
+        switch ($atividade->status) {
+            case 'Em análise':
+                $status['Em análise'] += $atividade->total_horas;
+                break;
+            case 'Concluído':
+                $status['Concluído'] += $atividade->total_horas;
+                break;
+            case 'Cancelado':
+                $status['Cancelado'] += $atividade->total_horas;
+                break;
+            case 'Pendente':
+                $status['Pendente'] += $atividade->total_horas;
+                break;
         }
-
-        // Retorne os dados para serem utilizados na view
-        return $status;
     }
+
+    // Retorne os dados para serem utilizados na view
+    return $status;
+}
 
     public function validacaoView()
     {

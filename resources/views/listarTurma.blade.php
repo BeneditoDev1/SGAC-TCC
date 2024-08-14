@@ -162,6 +162,7 @@
                     <th>Curso</th>
                     <th>Ano Inicio</th>
                     <th>Ano Fim</th>
+                    <th>PPC</th>
                     @if (Auth::id() == 2)
                         <th>Editar</th>
                         <th>Excluir</th>
@@ -177,6 +178,7 @@
                     <td>{{ $turma->curso->nome }}</td>
                     <th>{{ $turma->ano_inicio }}</th>
                     <th>{{ $turma->ano_fim }}</th>
+                    <th>{{ $turma->horas }}</th>
                     @endif
                     @if (Auth::id() == 2)
                     <td><a class="btn btn-primary" href="editar/{{ $turma->id }}">Editar</a></td>

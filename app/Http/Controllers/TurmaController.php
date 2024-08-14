@@ -78,12 +78,12 @@ class TurmaController extends Controller
     try {
         $turma = Turma::findOrFail($id);
         if ($turma->usuario) {
-            throw new GlobalException('Não é possível excluir a usuario, pois ela está vinculada a um usuário');
+            throw new GlobalException('Não é possível excluir a turma, pois ela está vinculada a um usuário');
         }
 
         $turma->delete();
 
-        return redirect()->route('turma.listar')->with('success', 'usuario excluída com sucesso.');
+        return redirect()->route('turma.listar')->with('success', 'Turma excluída com sucesso.');
     } catch (GlobalException $e) {
         return redirect()->back()->with('error', $e->getMessage());
         }

@@ -199,12 +199,12 @@
                         <td>{{ $usuario->semestre }}</td>
                         <td>{{ $usuario->curso->nome }}</td>
                         <td>{{ $usuario->turma ? $usuario->turma->nome : 'Sem turma' }}</td>
-                        <td>{{ $usuario->turma->horas}}</td>
+                        <td>{{ $usuario->turma ? $usuario->turma->horas : 'Sem horas' }}</td>
                         @endif
                         @if (Auth::id() == 2)
                             <td><a class="btn btn-primary" href="{{ route('usuario.editar', $usuario->id) }}">Editar</a></td>
                             <td>
-                                <form action="{{ route('usuario.excluir', $usuario->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este usuário?');">
+                                <form action="{{ route('usuario.excluir', $usuario->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Excluir</button>
