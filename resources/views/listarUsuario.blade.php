@@ -92,6 +92,11 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
+                @if (Auth::id() == 2)
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
+                </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Alunos</strong></a>
                 </li>
@@ -106,11 +111,6 @@
                 @if (Auth::id() !== 2)
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
-                </li>
-                @endif
-                @if (Auth::id() == 2)
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
                 </li>
                 @endif
                 <li class="nav-item">
@@ -147,9 +147,9 @@
 </nav>
 <body>
     <div class="container">
-        <h1>Alunos</h1>
+        <h1 style="text-align: center">Alunos</h1>
         @if (Auth::id() == 2)
-        <a href="{{ route('usuario.novo') }}" class="btn btn-primary">Novo Aluno</a>
+        <a href="{{ route('usuario.novo') }}" class="btn btn-primary" style="margin-left: 87%">Novo Aluno</a>
         @endif
 
         @if(session('success'))

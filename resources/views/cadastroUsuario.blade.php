@@ -70,20 +70,37 @@
 
         .btn-primary,
         .btn-secondary {
-            display: block;
+            display: inline-block;
             width: 40%;
             padding: 10px;
             border-radius: 10px;
             cursor: pointer;
-            margin: 10px auto;
-            margin-left: 60%;
+            margin: 10px;
+            margin-left: 60px;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                max-width: 90%;
-            }
-        }
+        @media (min-width: 500px) and (max-width: 768px) {
+            .btn-primary,
+            .btn-secondary {
+            display: inline-block;
+            width: 40%;
+            margin-left: 0;
+            margin-right: 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .btn-primary,
+    .btn-secondary {
+        display: block;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .container {
+        max-width: 459px;
+    }
+}
 
         .logout-button {
             position: fixed;
@@ -109,6 +126,11 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
+                @if (Auth::id() == 2)
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
+                </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Alunos</strong></a>
                 </li>
@@ -123,11 +145,6 @@
                 @if (Auth::id() !== 2)
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
-                </li>
-                @endif
-                @if (Auth::id() == 2)
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
                 </li>
                 @endif
                 <li class="nav-item">
@@ -164,7 +181,7 @@
 </nav>
 <body>
     <div class="container">
-        <h1>Cadastrar Aluno</h1>
+        <h1 style="text-align: center">Cadastrar Aluno</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -269,8 +286,10 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            <a href="{{ route('usuario.listar') }}" class="btn btn-secondary">Cancelar</a>
+            <div>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a href="{{ route('usuario.listar') }}" class="btn btn-secondary">Cancelar</a>
+           </div>
         </form>
     </div>
 

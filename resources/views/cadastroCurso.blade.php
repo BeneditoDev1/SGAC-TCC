@@ -64,22 +64,48 @@
         border-radius: 3px;
     }
 
+    input[type="text"],
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            display: inline-block;
+            width: 40%;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            margin-left: 60px;
+        }
+
+        @media (min-width: 500px) and (max-width: 768px) {
+            .btn-primary,
+            .btn-secondary {
+            display: inline-block;
+            width: 40%;
+            margin-left: 0;
+            margin-right: 10px;
+    }
+}
+
+@media (max-width: 500px) {
     .btn-primary,
     .btn-secondary {
         display: block;
-        width: 40%;
-        padding: 10px;
-        border-radius: 10px;
-        cursor: pointer;
-        margin: 10px auto;
-        margin-left: 60%;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
     }
-
-    @media (max-width: 768px) {
-        .container {
-            max-width: 90%;
-        }
+    .container {
+        max-width: 459px;
     }
+}
 
     .navbar {
         background-color: green;
@@ -129,6 +155,11 @@
         </button>
         <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
+                @if (Auth::id() == 2)
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
+                </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Alunos</strong></a>
                 </li>
@@ -143,11 +174,6 @@
                 @if (Auth::id() !== 2)
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
-                </li>
-                @endif
-                @if (Auth::id() == 2)
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
                 </li>
                 @endif
                 <li class="nav-item">
@@ -184,7 +210,7 @@
 </nav>
 <body>
     <div class="container">
-        <h1>Cadastro de Cursos</h1>
+        <h1 style="text-align: center">Cadastro de Cursos</h1>
         <form action="{{ $curso->id ? route('curso.atualizar', $curso->id) : route('curso.salvar') }}" method="POST">
             @csrf
             @if($curso->id)
