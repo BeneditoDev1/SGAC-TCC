@@ -117,7 +117,7 @@
 </head>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url('/') }}"><strong>Inicio</strong></a>
+        <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -146,7 +146,7 @@
                 </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Regras</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Consultar Regras</strong></a>
                 </li>
                 <!-- Add logout button as a menu item on smaller screens -->
                 <li class="nav-item d-md-none">

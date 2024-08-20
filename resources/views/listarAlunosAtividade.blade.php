@@ -163,7 +163,7 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}"><strong>Inicio</strong></a>
+            <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -192,7 +192,7 @@
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Regras</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Consultar Regras</strong></a>
                     </li>
                     <!-- Add logout button as a menu item on smaller screens -->
                     <li class="nav-item d-md-none">
@@ -228,11 +228,12 @@
         <table class="table table-bordered table-striped">
             <form action="{{ route('atividade.listar') }}" method="GET">
                 @if (Auth::id() == 2)
-                <div class="form-group">
-                    <label for="search"><h3>Buscar por Nome do Usuário:</h3></label>
-                    <input type="text" class="form-control" id="search" name="search" placeholder="Digite o nome do usuário">
-                </div>
-                <button type="submit" class="btn btn-primary buscador">Buscar</button>
+                <div class="input-group rounded" style="margin-bottom: 2%">
+                    <input type="search" class="form-control rounded" id="search" name="search" placeholder="Digite o nome do usuário" aria-label="Search" aria-describedby="search-addon" style="width: 40%"/>
+                    <button class="btn btn-primary" type="submit" style="width: 10%">
+                      <i class="fas fa-search"></i> Buscar
+                    </button>
+                  </div>
             </form>
             @endif
             <thead>

@@ -78,6 +78,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'data_ativacao' => 'datetime:Y-m-d',
     ];
 
     public function atividade()

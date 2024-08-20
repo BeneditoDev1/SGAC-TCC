@@ -85,7 +85,7 @@
 </head>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url('/') }}"><strong>Inicio</strong></a>
+        <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -114,7 +114,7 @@
                 </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Regras</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Consultar Regras</strong></a>
                 </li>
                 <!-- Add logout button as a menu item on smaller screens -->
                 <li class="nav-item d-md-none">
@@ -171,7 +171,7 @@
                         <th>Nome</th>
                         <th>CPF</th>
                         <th>Matricula</th>
-                        <th>Email</th>
+                        <th>E-mail</th>
                         <th>Sexo</th>
                         <th>Data de ativação</th>
                         <th>RA</th>
@@ -194,7 +194,7 @@
                         <td>{{ $usuario->matricula }}</td>
                         <td>{{ $usuario->email }}</td>
                         <td>{{ $usuario->sexo }}</td>
-                        <td>{{ $usuario->data_ativacao }}</td>
+                        <td>{{ $usuario->data_ativacao->format('d/m/Y') }}</td>
                         <td>{{ $usuario->ra }}</td>
                         <td>{{ $usuario->semestre }}</td>
                         <td>{{ $usuario->curso->nome }}</td>

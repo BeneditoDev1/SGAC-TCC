@@ -10,19 +10,14 @@ use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 use Exception as GlobalException;
 use App\Http\Controllers\DB;
+use Illuminate\Support\Facades\Auth;
 
 class AtividadeController extends Controller
 {
     public function listar(Request $request)
 {
-    $query = Atividade::with('usuario')->orderBy('titulo');
 
-    if ($request->has('search') && !empty($request->input('search'))) {
-        $search = $request->input('search');
-        $query->whereHas('usuario', function ($q) use ($search) {
-            $q->where('nome', 'like', '%' . $search . '%');
-        });
-    }
+    $query = Atividade::with('usuario')->where('usuario_id', '=', Auth::user()->id)->orderBy('titulo');
 
     $atividades = $query->get();
     $status = $this->validacao();

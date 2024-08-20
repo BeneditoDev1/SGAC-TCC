@@ -35,6 +35,7 @@ class UsuarioController extends Controller
         $usuario = new User();
         $cursos = Curso::all();
         $turmas = Turma::all();
+        $usuario->data_ativacao = now();
         return view('cadastroUsuario', compact('usuario', 'cursos', 'turmas'));
     }
 
