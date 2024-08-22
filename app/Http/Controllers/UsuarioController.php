@@ -40,27 +40,24 @@ class UsuarioController extends Controller
     }
 
     public function salvar(Request $request)
-{
-    //$request->validate([
-       // 'cpf' => 'required|string|size:11',
-        //'matricula' => 'required|string|size:15',
-        //'email' => 'required|email|unique:users,email,' . ($request->input('id') ?: 'NULL') . ',id',
-        //'password' => 'nullable|string|min:8|confirmed',
-        //'name' => 'required|string',
-    //]);
+    {
+        if ($request->input('id') == 0) {
+            $usuario = User::find($request->input('id'));
+        } else {
+            $usuario = new User();
+        }
 
-    $usuario = $request->input('id') ? User::find($request->input('id')) : new User();
+        if ($request->filled('password') && $usuario) {
+            $usuario->password = Hash::make($request->input('password'));
+        }
 
-    if ($request->filled('password')) {
-        $usuario->password = Hash::make($request->input('password'));
-    }
+        if ($request->filled('password') && $usuario) {
+            $usuario->password = Hash::make($request->input('password'));
+        }
 
-    $usuario->fill($request->except(['password', 'password_confirmation']));
-    $usuario->tipo_usuario = $request->input('tipo_usuario', 2);
-
-    if (is_null($usuario->data_ativacao)) {
-        $usuario->data_ativacao = now();
-    }
+        if ($usuario) {
+            $usuario->fill($request->except(['password', 'password_confirmation']));
+        }
 
     if (is_null($usuario->data_ativacao)) {
         $usuario->data_ativacao = now();

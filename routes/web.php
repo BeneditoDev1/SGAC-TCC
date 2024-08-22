@@ -60,6 +60,7 @@ Route::get('/dashboard', function () {
         Route::get('atividade/validacaoView', [AtividadeController::class, 'validacaoView'])->name('validacaoView');
         Route::get('atividade/validacao/status', [AtividadeController::class, 'validacao'])->name('atividade.status');
         Route::post('/atividade/salvar-status/{id}', [AtividadeController::class, 'salvarStatus'])->name('atividade.salvarStatus');
+        Route::get('/atividade/relatorio/{id}', [AtividadeController::class, 'relatorio'])->name('atividade.relatorio');
         Route::get('/about', [AboutController::class, 'index']);
 
         Route::get('/atividades/usuario/{id}', [AtividadeController::class, 'listarAtividadesUsuario'])->name('atividade.listarAtividadesUsuario');

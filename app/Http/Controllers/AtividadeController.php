@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Exception as GlobalException;
 use App\Http\Controllers\DB;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AtividadeController extends Controller
 {
@@ -71,8 +72,11 @@ class AtividadeController extends Controller
 
     public function editar($id)
     {
-        $atividade = Atividade::find($id);
-        return view('cadastroAtividade', compact('atividade'));
+    $atividade = Atividade::find($id);
+    if ($atividade->status == 'Concluído') {
+        return redirect()->back()->with('error', 'Não é possível editar uma atividade concluída!');
+    }
+    return view('cadastroAtividade', compact('atividade'));
     }
 
     public function atualizar(Request $request, $id)
@@ -106,10 +110,12 @@ class AtividadeController extends Controller
 
     public function excluir($id)
     {
-        $atividade = Atividade::find($id);
-        $atividade->delete();
-
-        return redirect()->route('atividade.listar');
+    $atividade = Atividade::find($id);
+    if ($atividade->status == 'Concluído') {
+        return redirect()->back()->with('error', 'Não é possível excluir uma atividade concluída!');
+    }
+    $atividade->delete();
+    return redirect()->route('atividade.listar');
     }
 
     public function validacaoListar()
@@ -153,16 +159,22 @@ class AtividadeController extends Controller
     return $status;
 }
 
-    public function validacaoView()
-    {
+public function validacaoView()
+{
+    // ...
 
-        $atividades = Atividade::with('usuario')->orderBy('titulo')->get();
-        // Chame a função validacao para obter os dados necessários
-        $status = $this->validacao();
+    $atividades = Atividade::with('usuario')->orderBy('titulo')->get();
+    $status = $this->validacao();
 
-        // Retorne a view 'validacao' com os dados necessários
-        return view('validacaoView', compact('atividades', 'status'));
+    // Recupere os status armazenados na sessão
+    $atividadeStatus = [];
+    foreach ($atividades as $atividade) {
+        $atividadeStatus[$atividade->id] = session()->get("atividade_{$atividade->id}_status");
     }
+
+    // Retorne a view 'validacao' com os dados necessários
+    return view('validacaoView', compact('atividades', 'status', 'atividadeStatus'));
+}
 
 
     public function salvarAtividadeValidada(Request $request)
@@ -212,6 +224,9 @@ public function salvarStatus(Request $request, $id)
 {
     // Encontre a atividade pelo ID
     $atividade = Atividade::findOrFail($id);
+    if ($atividade->status == 'Concluído') {
+        return redirect()->back()->with('error', 'Não é possível alterar o status de uma atividade concluída!');
+    }
 
     // Verifique se o status foi recebido corretamente
     $status = $request->input('status');
@@ -220,6 +235,9 @@ public function salvarStatus(Request $request, $id)
         // Atualize o status da atividade com o valor enviado do formulário
         $atividade->status = $status;
         $atividade->save();
+
+        // Armazene o status na sessão
+        session()->put("atividade_{$id}_status", $status);
 
         // Redirecione de volta para a tela de listagem de atividades
         return redirect()->route('listarAlunos')->with('success', 'Status da atividade atualizado com sucesso!');
@@ -249,6 +267,21 @@ public function validacaoUsuario($id)
     $atividades = $usuario->atividades;
     $status = $this->validacao(); // Supondo que você tenha esse método para obter o status
     return view('validacaoView', compact('usuario', 'atividades', 'status'));
+}
+
+public function relatorio($id)
+{
+    $usuario = User::findOrFail($id);
+    $atividades = $usuario->atividades;
+    $totalHoras = $atividades->sum('total_horas');
+    $horasObrigatórias = $usuario->horas_obrigatorias;
+
+    if ($totalHoras >= $horasObrigatórias) {
+        $pdf = Pdf::loadView('relatorioUsuario', compact('usuario', 'atividades'));
+        return $pdf->download('atividades.pdf');
+    } else {
+        return redirect()->back()->with('error', 'O aluno não atingiu o total de horas necessário para gerar o relatório.');
+    }
 }
 
 }

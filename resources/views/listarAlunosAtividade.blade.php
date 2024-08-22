@@ -241,6 +241,7 @@
                     <th>Nome</th>
                     <th>Email</th>
                     <th>Ações</th>
+                    <th>Relatório</th>
                 </tr>
             </thead>
             <tbody>
@@ -250,6 +251,9 @@
                     <td>{{ $usuario->email }}</td>
                     <td>
                         <a class="btn btn-primary" href="{{ route('atividade.listarAtividadesUsuario', $usuario->id) }}">Ver Atividades</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ route('atividade.relatorio', $usuario->id) }}">Gerar Relatório</a>
                     </td>
                 </tr>
                 @endforeach

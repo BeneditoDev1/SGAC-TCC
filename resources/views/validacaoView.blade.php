@@ -211,10 +211,9 @@
                             @csrf
                             <div class="input-group">
                                 <select class="form-select" name="status">
-                                    <option value="Em análise" selected>Em análise</option>
-                                    <option value="Concluído">Concluído</option>
-                                    <option value="Cancelado">Cancelado</option>
-                                    <option value="Pendente">Pendente</option>
+                                    @foreach(['Em análise', 'Concluído', 'Cancelado', 'Pendente'] as $statusOption)
+                                        <option value="{{ $statusOption }}" {{ isset($atividadeStatus[$atividade->id]) && $atividadeStatus[$atividade->id] == $statusOption ? 'selected' : '' }}>{{ $statusOption }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <td>
