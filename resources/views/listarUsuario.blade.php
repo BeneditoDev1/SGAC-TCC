@@ -98,7 +98,7 @@
                 </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Alunos</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Aluno</strong></a>
                 </li>
                 @if (Auth::id() == 2)
                 <li class="nav-item">
@@ -147,7 +147,7 @@
 </nav>
 <body>
     <div class="container">
-        <h1 style="text-align: center">Alunos</h1>
+        <h1 style="text-align: center">Aluno</h1>
         @if (Auth::id() == 2)
         <a href="{{ route('usuario.novo') }}" class="btn btn-primary" style="margin-left: 87%">Novo Aluno</a>
         @endif

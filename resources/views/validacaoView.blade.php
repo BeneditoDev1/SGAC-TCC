@@ -122,7 +122,7 @@
                 </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Alunos</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Aluno</strong></a>
                 </li>
                 @if (Auth::id() == 2)
                 <li class="nav-item">
