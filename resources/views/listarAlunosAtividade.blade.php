@@ -122,6 +122,10 @@
 
         .container {
             background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            color: black;
         }
 
         table {
@@ -158,9 +162,9 @@
             right: 80px;
             z-index: 1000;
         }
+
     </style>
 </head>
-<body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
@@ -223,43 +227,71 @@
             </div>
         </div>
     </nav>
-    <div class="container">
-        <h1>Alunos com Atividades</h1>
-        <table class="table table-bordered table-striped">
-            <form action="{{ route('atividade.listar') }}" method="GET">
+    <body>
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+        <div class="container">
+            <h1>Alunos com Atividades</h1>
+            <table class="table table-bordered table-striped">
                 @if (Auth::id() == 2)
-                <div class="input-group rounded" style="margin-bottom: 2%">
-                    <input type="search" class="form-control rounded" id="search" name="search" placeholder="Digite o nome do usuário" aria-label="Search" aria-describedby="search-addon" style="width: 40%"/>
-                    <button class="btn btn-primary" type="submit" style="width: 10%">
-                      <i class="fas fa-search"></i> Buscar
-                    </button>
-                  </div>
-            </form>
-            @endif
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Ações</th>
-                    <th>Relatório</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($usuarios as $usuario)
-                <tr>
-                    <td><a href="{{ route('atividade.listarAtividadesUsuario', $usuario->id) }}">{{ $usuario->name }}</a></td>
-                    <td>{{ $usuario->email }}</td>
-                    <td>
-                        <a class="btn btn-primary" href="{{ route('atividade.listarAtividadesUsuario', $usuario->id) }}">Ver Atividades</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-primary" href="{{ route('atividade.relatorio', $usuario->id) }}">Gerar Relatório</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-    <script src="{{ asset('js/app.js') }}"></script>
-</body>
+                    <form action="{{ route('atividade.listar') }}" method="GET">
+                        <div class="input-group rounded" style="margin-bottom: 2%">
+                            <input type="search" class="form-control rounded" id="search" name="search" placeholder="Digite o nome do usuário" aria-label="Search" aria-describedby="search-addon" style="width: 40%"/>
+                            <button class="btn btn-primary" type="submit" style="width: 10%">
+                              <i class="fas fa-search"></i> Buscar
+                            </button>
+                        </div>
+                    </form>
+                @endif
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Horas Concluídas</th>
+                        <th>Ações</th>
+                        <th>Relatório</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($usuarios as $usuario)
+                    @php
+                        // Calcular totalHorasObrigatorias baseado na turma
+                        $turma = $usuario->turma; // Supondo que você tem uma relação turma no usuário
+                        $totalHorasObrigatorias = 0;
+
+                        if ($turma) {
+                            if ($turma->ano_inicio >= 2019 && $turma->ano_fim <= 2022) {
+                                $totalHorasObrigatorias = 150;
+                            } elseif ($turma->ano_inicio > 2022) {
+                                $totalHorasObrigatorias = 80;
+                            }
+                        }
+
+                        // Calcular total de horas concluídas pelo usuário
+                        $horasConcluidas = $horasConcluidasPorUsuario[$usuario->id] ?? 0;
+
+                        // Verificar se o total de horas concluídas é igual ao total de horas obrigatórias
+                        $todasConcluidas = $totalHorasObrigatorias > 0 && $horasConcluidas >= $totalHorasObrigatorias;
+                    @endphp
+                    <tr>
+                        <td><a href="{{ route('atividade.listarAtividadesUsuario', $usuario->id) }}">{{ $usuario->name }}</a></td>
+                        <td>{{ $usuario->email }}</td>
+                        <td style="{{ $todasConcluidas ? 'color: green; font-weight: bolder;' : '' }}">
+                            {{ $horasConcluidas }}
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ route('atividade.listarAtividadesUsuario', $usuario->id) }}">Ver Atividades</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ route('atividade.relatorio', $usuario->id) }}">Gerar Relatório</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <script src="{{ asset('js/app.js') }}"></script>
 </html>

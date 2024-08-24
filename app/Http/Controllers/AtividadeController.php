@@ -17,9 +17,9 @@ class AtividadeController extends Controller
 {
     public function listar(Request $request)
 {
+    $user = auth()->user();
 
     $query = Atividade::with('usuario')->where('usuario_id', '=', Auth::user()->id)->orderBy('titulo');
-
     $atividades = $query->get();
     $status = $this->validacao();
 
@@ -36,10 +36,22 @@ class AtividadeController extends Controller
     }
 
     public function Alunos(Request $request)
-    {
-        $usuarios = User::has('atividades')->get();
-        return view('listarAlunosAtividade', compact('usuarios'));
+{
+    // Recupere todos os usuários que têm atividades
+    $usuarios = User::has('atividades')->get();
+
+    // Array para armazenar as horas concluídas por usuário
+    $horasConcluidasPorUsuario = [];
+
+    // Itere sobre os usuários e calcule as horas concluídas para cada um
+    foreach ($usuarios as $usuario) {
+        $statusHoras = $this->validacao($usuario->id);
+        $horasConcluidasPorUsuario[$usuario->id] = $statusHoras['Concluído'] ?? 0;
     }
+
+    // Passe os usuários e as horas concluídas para a view
+    return view('listarAlunosAtividade', compact('usuarios', 'horasConcluidasPorUsuario'));
+}
 
     public function salvar(Request $request)
     {
@@ -125,7 +137,7 @@ class AtividadeController extends Controller
         return view('validacaoView', compact('atividades', 'status'));
     }
 
-    public function validacao()
+    public function validacao($usuario_id = null)
 {
     $status = [
         'Em análise' => 0,
@@ -134,8 +146,11 @@ class AtividadeController extends Controller
         'Pendente' => 0,
     ];
 
-    // Recupere os dados das atividades
-    $atividades = Atividade::all();
+    // Use o ID do usuário passado como parâmetro ou o ID do usuário autenticado
+    $usuario_id = $usuario_id ?? Auth::id();
+
+    // Recupere as atividades do usuário especificado
+    $atividades = Atividade::where('usuario_id', $usuario_id)->get();
 
     // Itere sobre as atividades para acumular as horas para cada status
     foreach ($atividades as $atividade) {
@@ -280,7 +295,7 @@ public function relatorio($id)
         $pdf = Pdf::loadView('relatorioUsuario', compact('usuario', 'atividades'));
         return $pdf->download('atividades.pdf');
     } else {
-        return redirect()->back()->with('error', 'O aluno não atingiu o total de horas necessário para gerar o relatório.');
+        return redirect()->back()->with('error', 'O aluno ainda tem atividades pendentes e não atingiu o total de horas necessário para gerar o relatório.');
     }
 }
 
