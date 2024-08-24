@@ -35,7 +35,8 @@ Route::get('/dashboard', function () {
         Route::get('/usuario/salvar', [UsuarioController::class, 'salvar'])->name('usuario.salvar');
         Route::post('/usuario/salvar', [UsuarioController::class, 'salvar'])->name('usuario.salvar');
         Route::get('/usuario/editar/{id}', [UsuarioController::class, 'editar'])->name('usuario.editar');
-        Route::put('/usuario/atualizar/{id}', [UsuarioController::class, 'salvar'])->name('usuario.atualizar');
+        Route::put('/usuario/{id}', [UsuarioController::class, 'salvar'])->name('usuario.atualizar');
+        Route::put('/usuario/editar/{id}', [UsuarioController::class, 'editar'])->name('usuario.editar');
         Route::get('/usuario/excluir/{id}', [UsuarioController::class, 'excluir'])->name('usuario.excluir');
         Route::delete('/usuario/excluir/{id}', [UsuarioController::class, 'excluir'])->name('usuario.excluir');
 

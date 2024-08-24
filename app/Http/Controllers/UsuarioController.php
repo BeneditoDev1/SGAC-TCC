@@ -41,18 +41,22 @@ class UsuarioController extends Controller
 
     public function salvar(Request $request)
     {
-        if ($request->input('id') == 0) {
+        if ($request->input('id') != 0) {
             $usuario = User::find($request->input('id'));
         } else {
             $usuario = new User();
         }
 
-        if ($request->filled('password') && $usuario) {
-            $usuario->password = Hash::make($request->input('password'));
-        }
+        //$cpfExistente = User::where('cpf', $request->input('cpf'))->where('id', '!=', $usuario->id)->first();
+        //if ($cpfExistente) {
+        //return redirect()->back()->withErrors(['cpf' => 'O CPF informado já está cadastrado.'])->withInput();
+        //}
 
-        if ($request->filled('password') && $usuario) {
+        if ($request->filled('password')) {
             $usuario->password = Hash::make($request->input('password'));
+        } elseif (!$usuario->exists) {
+            // Se é um novo usuário e nenhuma senha foi fornecida, defina uma senha padrão ou gere uma aleatória
+            $usuario->password = Hash::make('senha-padrao'); // ou use uma senha gerada
         }
 
         if ($usuario) {
@@ -83,13 +87,19 @@ class UsuarioController extends Controller
     return redirect()->route('usuario.listar')->with('success', 'Usuário salvo com sucesso.');
 }
 
-    public function editar($id)
-    {
-        $usuario = User::find($id);
-        $cursos = Curso::all();
-        $turmas = Turma::all();
-        return view('cadastroUsuario', compact('usuario', 'cursos', 'turmas'));
+public function editar($id)
+{
+    $usuario = User::find($id);
+
+    if (!$usuario) {
+        return redirect()->route('usuario.listar')->with('error', 'Usuário não encontrado.');
     }
+
+    $cursos = Curso::all();
+    $turmas = Turma::all();
+    return view('cadastroUsuario', compact('usuario', 'cursos', 'turmas'));
+}
+
 
     public function excluir($id)
     {

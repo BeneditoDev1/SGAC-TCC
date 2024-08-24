@@ -86,7 +86,7 @@ class AtividadeController extends Controller
         $atividade->credencial = $request->input('credencial');
         $atividade->categoria = $request->input('categoria');
         $atividade->semestre = $request->input('semestre');
-        $atividade->usuario = $request->input('usuario');
+        $atividade->usuario_id = $request->input('usuario_id');
         $atividade->data_inicio = $request->input('data_inicio');
         $atividade->total_horas = $request->input('total_horas');
         $atividade->data_conclusao = $request->input('data_conclusao');

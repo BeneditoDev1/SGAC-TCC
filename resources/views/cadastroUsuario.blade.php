@@ -193,11 +193,16 @@
             </div>
         @endif
 
-        <form id="usuarioForm" action="{{ $usuario->id ? route('usuario.atualizar', $usuario->id) : route('usuario.salvar') }}" method="POST">
+        <form id="usuarioForm" action="{{route('usuario.salvar')}}" method="POST">
             @csrf
             @if($usuario->id)
                 @method('PUT')
             @endif
+
+            <div class="form-group">
+                <label for="id">Id</label>
+                <input type="text" class="form-control" name="id" value="{{ old('id', $usuario->id)}}" readonly>
+            </div>
 
             <div class="form-group">
                 <label for="name">Nome:</label>
@@ -222,7 +227,7 @@
 
             <div class="form-group">
                 <label for="password">Senha:</label>
-                <input type="password" class="form-control" name="password">
+                <input type="password" class="form-control" name="password" @if(!$usuario->exists) required @endif>
             </div>
 
             <div class="form-group">
@@ -240,7 +245,7 @@
 
             <div class="form-group lista">
                 <label for="data_ativacao">Data de Ativação:</label>
-                <input type="date" class="form-control" name="data_ativacao" value="{{ old('data_ativacao', $usuario->data_ativacao->format('Y-m-d')) }}" required>
+                <input type="date" class="form-control" name="data_ativacao" value="{{ old('data_ativacao', $usuario->data_ativacao ? $usuario->data_ativacao->format('Y-m-d') : '') }}" required>
             </div>
 
             <div class="form-group">
@@ -251,16 +256,16 @@
             <div class="form-group lista">
                 <label for="semestre">Semestre:</label>
                 <select class="form-control" name="semestre" required>
-                    <option value="1" @if($usuario->semestre == 1) selected @endif>1</option>
-                    <option value="2" @if($usuario->semestre == 2) selected @endif>2</option>
-                    <option value="3" @if($usuario->semestre == 3) selected @endif>3</option>
-                    <option value="4" @if($usuario->semestre == 4) selected @endif>4</option>
-                    <option value="5" @if($usuario->semestre == 5) selected @endif>5</option>
-                    <option value="6" @if($usuario->semestre == 6) selected @endif>6</option>
-                    <option value="7" @if($usuario->semestre == 7) selected @endif>7</option>
-                    <option value="8" @if($usuario->semestre == 8) selected @endif>8</option>
-                    <option value="9" @if($usuario->semestre == 9) selected @endif>9</option>
-                    <option value="10" @if($usuario->semestre == 10) selected @endif>10</option>
+                    <option value="1" @if(old('semestre', $usuario->semestre) == 1) selected @endif>1</option>
+                    <option value="2" @if(old('semestre', $usuario->semestre) == 2) selected @endif>2</option>
+                    <option value="3" @if(old('semestre', $usuario->semestre) == 3) selected @endif>3</option>
+                    <option value="4" @if(old('semestre', $usuario->semestre) == 4) selected @endif>4</option>
+                    <option value="5" @if(old('semestre', $usuario->semestre) == 5) selected @endif>5</option>
+                    <option value="6" @if(old('semestre', $usuario->semestre) == 6) selected @endif>6</option>
+                    <option value="7" @if(old('semestre', $usuario->semestre) == 7) selected @endif>7</option>
+                    <option value="8" @if(old('semestre', $usuario->semestre) == 8) selected @endif>8</option>
+                    <option value="9" @if(old('semestre', $usuario->semestre) == 9) selected @endif>9</option>
+                    <option value="10" @if(old('semestre', $usuario->semestre) == 10) selected @endif>10</option>
                 </select>
             </div>
 
@@ -313,6 +318,4 @@
         });
     </script>
 </body>
-
-
 </html>
