@@ -12,6 +12,8 @@
     <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
+    <link rel="icon" href="{{ asset('ifms.ico') }}" type="image/x-icon">
+
     <style>
         body {
             background-color: #034811;
@@ -202,7 +204,7 @@
                 </div>
             @endforeach
         </div>
-        <a href="{{ route('atividade.novo') }}" class="btn btn-primary">Nova Atividade</a>
+        <a href="{{ route('atividade.novo') }}" class="btn btn-primary" style="margin-left: 87%">Nova Atividade</a>
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>

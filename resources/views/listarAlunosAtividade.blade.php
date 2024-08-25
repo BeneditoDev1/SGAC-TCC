@@ -11,6 +11,8 @@
     <link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
+    <link rel="icon" href="{{ asset('ifms.ico') }}" type="image/x-icon">
+
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
