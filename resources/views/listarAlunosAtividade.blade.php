@@ -279,7 +279,7 @@
                         $todasConcluidas = $totalHorasObrigatorias > 0 && $horasConcluidas >= $totalHorasObrigatorias;
                     @endphp
                     <tr>
-                        <td><a href="{{ route('atividade.listarAtividadesUsuario', $usuario->id) }}">{{ $usuario->name }}</a></td>
+                        <td>{{ $usuario->name }}</td>
                         <td>{{ $usuario->email }}</td>
                         <td style="{{ $todasConcluidas ? 'color: green; font-weight: bolder;' : '' }}">
                             {{ $horasConcluidas }}
