@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validar atividades</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" href="{{ asset('ifms.ico') }}" type="image/x-icon">
 
     <style>
@@ -27,7 +27,8 @@
             border-collapse: collapse;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid black;
             padding: 8px;
             text-align: center;
@@ -54,20 +55,62 @@
             margin-bottom: 20px;
         }
 
+        .navbar-collapse {
+            text-align: center;
+        }
+
+        .navbar-collapse ul {
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+        }
+
+        .navbar-collapse li {
+            display: inline-block;
+        }
+
+        .navbar-collapse li a {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
         @media (max-width: 767px) {
             .container {
                 width: 100%;
                 margin-bottom: 5%;
             }
 
-            .logout-button, .usuario {
-                position: static;
-                margin: 12px 0;
-                text-align: center;
-                display: block;
+            .logout-button {
+                display: none;
             }
 
-            .table th, .table td {
+            .usuario {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
+            }
+
+            .table th,
+            .table td {
                 font-size: 0.875rem;
                 padding: 6px;
             }
@@ -77,9 +120,9 @@
             }
 
             h1 {
-                text-align: center; /* Garante que o título continue centralizado */
-                font-size: 1.5rem; /* Ajusta o tamanho da fonte para telas menores */
-                word-wrap: break-word; /* Permite a quebra de linha se necessário */
+                text-align: center;
+                font-size: 1.5rem;
+                word-wrap: break-word;
             }
         }
     </style>
@@ -89,7 +132,8 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
@@ -100,7 +144,7 @@
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Aluno</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}" id="listarUsuarioLink"><strong>Aluno</strong></a>
                     </li>
                     @if (Auth::id() == 2)
                     <li class="nav-item">
@@ -118,6 +162,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Consultar Regras</strong></a>
                     </li>
+                    <!-- Add logout button as a menu item on smaller screens -->
                     <li class="nav-item d-md-none">
                         @if (Auth::check())
                             <form method="POST" action="{{ route('logout') }}" class="mb-0">
@@ -129,6 +174,7 @@
                         @endif
                     </li>
                 </ul>
+                <!-- Show logout button on larger screens -->
                 <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
                     <li class="nav-item d-flex align-items-center">
                         @if (Auth::check())
@@ -145,6 +191,7 @@
             </div>
         </div>
     </nav>
+
     <div class="container table-responsive">
         <h1>Validar atividades de {{ $usuario->name }}</h1>
 
@@ -173,14 +220,18 @@
                     <td>{{ \Carbon\Carbon::parse($atividade->data_inicio)->format('d/m/Y') }}</td>
                     <td>{{ \Carbon\Carbon::parse($atividade->data_conclusao)->format('d/m/Y') }}</td>
                     <td>{{ $atividade->total_horas }}</td>
-                    <td style="max-width: 150px"><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a></td>
+                    <td style="max-width: 150px">
+                        <a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a>
+                    </td>
                     <td>
                         <form action="{{ route('atividade.salvarStatus', ['id' => $atividade->id]) }}" method="POST">
                             @csrf
                             <div class="input-group">
                                 <select class="form-select" name="status">
                                     @foreach(['Em análise', 'Concluído', 'Cancelado', 'Pendente'] as $statusOption)
-                                        <option value="{{ $statusOption }}" {{ isset($atividadeStatus[$atividade->id]) && $atividadeStatus[$atividade->id] == $statusOption ? 'selected' : '' }}>{{ $statusOption }}</option>
+                                    <option value="{{ $statusOption }}" {{ isset($atividadeStatus[$atividade->id]) && $atividadeStatus[$atividade->id] == $statusOption ? 'selected' : '' }}>
+                                        {{ $statusOption }}
+                                    </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -195,6 +246,8 @@
         </table>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
+
 </html>

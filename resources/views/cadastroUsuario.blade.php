@@ -41,6 +41,43 @@
             border-radius: 3px;
         }
 
+        .navbar-collapse {
+            text-align: center;
+        }
+
+        .navbar-collapse ul {
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+        }
+
+        .navbar-collapse li {
+            display: inline-block;
+        }
+
+        .navbar-collapse li a {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .btn-primary,
         .btn-secondary {
             display: inline-block;
@@ -102,7 +139,8 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
@@ -113,7 +151,7 @@
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Aluno</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}" id="listarUsuarioLink"><strong>Aluno</strong></a>
                     </li>
                     @if (Auth::id() == 2)
                     <li class="nav-item">
@@ -271,7 +309,7 @@
             </div>
         </form>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById('usuarioForm').addEventListener('submit', function(event) {
             var cpfInput = document.querySelector('input[name="cpf"]');

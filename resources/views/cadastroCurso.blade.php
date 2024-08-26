@@ -125,18 +125,15 @@
     }
 
     .logout-button {
-        position: fixed;
-        top: 10px;
-        right: 20px;
-        z-index: 1000;
-    }
+                display: none;
+            }
 
-    .usuario {
+            .usuario {
             position: fixed;
             top: 10px;
             right: 80px;
             z-index: 1000;
-    }
+            }
 </style>
 </head>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -221,6 +218,6 @@
             <a href="{{ route('curso.listar') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

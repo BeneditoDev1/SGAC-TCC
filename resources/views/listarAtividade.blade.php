@@ -111,10 +111,7 @@
         }
 
         .logout-button {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-            z-index: 1000;
+            display: none;
         }
 
         .usuario {
@@ -256,7 +253,6 @@
             </table>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-q3hX2rJ6Zc+70Y+YOG3E1QV34k7dI3YxrD+68kXcDgMBBmrK4EPYvBRJ5GV3yLtw" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

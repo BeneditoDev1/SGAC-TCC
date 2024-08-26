@@ -11,6 +11,142 @@
     <link rel="icon" href="{{ asset('ifms.ico') }}" type="image/x-icon">
 
     <style>
+        body {
+            background-color: #034811;
+            color: white;
+        }
+
+        h1 {
+            color: black;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 70px;
+            color: black;
+        }
+
+        .table {
+            color: black;
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: green;
+        }
+
+        .navbar-collapse {
+            text-align: center;
+        }
+
+        .navbar-collapse ul {
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+        }
+
+        .navbar-collapse li {
+            display: inline-block;
+        }
+
+        .navbar-collapse li a {
+            display: inline-block;
+            vertical-align: middle;
+            color: white;
+        }
+
+        .logout-button {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .mb-3 {
+            margin-top: 2%;
+        }
+
+        .usuario {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
+        }
+
+        @media (max-width: 767px) {
+            .container {
+                max-width: 100%;
+                margin-top: 20px;
+            }
+
+            .table th, .table td {
+                font-size: 0.875rem;
+                padding: 6px;
+            }
+
+            .table th {
+                font-weight: bold;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .logout-button {
+                display: none;
+            }
+
+            .usuario {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
+            }
+
+            .navbar-collapse {
+            text-align: center;
+        }
+
+        .navbar-collapse ul {
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+        }
+
+        .navbar-collapse li {
+            display: inline-block;
+        }
+
+        .navbar-collapse li a {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
         .nav-scroller {
             position: relative;
             z-index: 2;
@@ -28,104 +164,8 @@
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
         }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #034811;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            color: black;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 60px auto 50px;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            background-color: #fff;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="file"],
-        select,
-        input[type="date"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            margin-top: 5px;
-        }
-
-        .btn-primary,
-        .btn-secondary {
-            display: inline-block;
-            width: 40%;
-            padding: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 10px;
-            margin-left: 60px;
-        }
-
-        .logout-button {
-            position: fixed;
-            top: 10px; /* Distância do topo da página */
-            right: 20px; /* Distância da direita da página */
-            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
-        }
-
-        .lista {
-            max-width: 15%;
-        }
-
-        .usuario {
-            position: fixed;
-            top: 10px;
-            right: 80px;
-            z-index: 1000;
-        }
-
-        /* Media query para ajustar a responsividade para max-width: 767px */
-        @media (max-width: 767px) {
-            .container {
-                max-width: 100%;
-                margin: 10px auto;
-                padding: 10px;
-            }
-
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
-                margin-left: 0;
-            }
-
-            .lista {
-                max-width: 100%;
-            }
-
-            .logout-button {
-                top: 5px;
-                right: 10px;
-            }
-
-            .usuario {
-                right: 10px;
-            }
         }
     </style>
-
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
@@ -242,6 +282,7 @@
         </table>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         @if (session('error'))
         alert('{{ session('error') }}');

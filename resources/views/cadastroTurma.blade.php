@@ -124,10 +124,7 @@
         }
 
         .logout-button {
-            position: fixed;
-            top: 10px; /* Distância do topo da página */
-            right: 20px; /* Distância da direita da página */
-            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
+            display: none;
         }
 
         .lista{
@@ -263,5 +260,6 @@
             <a href="{{ route('turma.listar') }}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -43,6 +43,43 @@
             z-index: 1000;
         }
 
+        .navbar-collapse {
+            text-align: center;
+        }
+
+        .navbar-collapse ul {
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+        }
+
+        .navbar-collapse li {
+            display: inline-block;
+        }
+
+        .navbar-collapse li a {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
         .usuario {
             position: fixed;
             top: 10px;
@@ -52,11 +89,15 @@
         }
 
         @media (max-width: 767px) {
-            .logout-button, .usuario {
-                position: static;
-                margin: 12px 0;
-                text-align: center;
-                display: block;
+            .logout-button {
+                display: none;
+            }
+
+            .usuario {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
             }
 
             .table th, .table td {
@@ -200,6 +241,7 @@
             </tbody>
         </table>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

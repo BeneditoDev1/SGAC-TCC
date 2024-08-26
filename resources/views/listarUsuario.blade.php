@@ -110,7 +110,7 @@
                     </li>
                     @endif
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Aluno</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}" id="listarUsuarioLink"><strong>Aluno</strong></a>
                     </li>
                     @if (Auth::id() == 2)
                     <li class="nav-item">
@@ -141,19 +141,6 @@
                     </li>
                 </ul>
                 <!-- Show logout button on larger screens -->
-                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
-                    <li class="nav-item d-flex align-items-center">
-                        @if (Auth::check())
-                            <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
-                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
-                                @csrf
-                                <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
-                            </form>
-                        @else
-                            <a href="{{ route('login') }}" class="btn btn-primary btn-sm logout-button">Entrar</a>
-                        @endif
-                    </li>
-                </ul>
                 <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
                     <li class="nav-item d-flex align-items-center">
                         @if (Auth::check())
@@ -247,6 +234,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76A2I7S91i8JEC0doQeqx5cO4tcFpo4JbN8oQ78dxD/r82jvn5i4kk6o1U7BhR5a" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

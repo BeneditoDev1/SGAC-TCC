@@ -28,15 +28,16 @@
             user-select: none;
         }
 
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-
         @media (max-width: 767px){
             .logout-button {
                 display: none;
+            }
+
+            .usuario {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
             }
         }
 
@@ -389,8 +390,6 @@
         </table>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

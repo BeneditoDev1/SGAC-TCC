@@ -15,23 +15,42 @@
 <link rel="icon" href="{{ asset('ifms.ico') }}" type="image/x-icon">
 
 <style>
-    .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-    }
+    .navbar-collapse {
+            text-align: center;
+        }
 
-    .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-    }
+        .navbar-collapse ul {
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+        }
+
+        .navbar-collapse li {
+            display: inline-block;
+        }
+
+        .navbar-collapse li a {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
 
     body {
         font-family: Arial, sans-serif;
@@ -46,8 +65,9 @@
 
     .container {
         max-width: 1200px;
-        margin: 60px auto 50px;
         padding: 20px;
+        margin-top: 5%;
+        margin-bottom: 5%;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         border-radius: 5px;
         background-color: #fff;
@@ -105,8 +125,9 @@
     @media (max-width: 767px) {
         .container {
             max-width: 100%;
-            margin: 10px auto;
+            margin-top: 14%;
             padding: 10px;
+            margin-bottom: 5%;
         }
 
         .btn-primary,
@@ -120,12 +141,14 @@
         }
 
         .logout-button {
-            top: 5px;
-            right: 10px;
-        }
+                display: none;
+            }
 
-        .usuario {
-            right: 10px;
+            .usuario {
+            position: fixed;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
         }
     }
 </style>
@@ -313,6 +336,7 @@
         </form>
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById('searchCategoria').addEventListener('keyup', function() {
         var searchText = this.value.toLowerCase();
