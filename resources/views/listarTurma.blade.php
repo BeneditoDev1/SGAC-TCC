@@ -11,47 +11,72 @@
     <link rel="icon" href="{{ asset('ifms.ico') }}" type="image/x-icon">
 
     <style>
-        body {
-            background-color: #034811; /* Define o fundo verde */
-            color: white; /* Define a cor do texto como branco */
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
         }
 
-        @media (max-width: 767px){
-            .logout-button {
-                display: none;
-            }
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #034811;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: black;
         }
 
         .container {
-            background-color: white; /* Define o fundo do container como branco */
-            padding: 20px; /* Adiciona algum espaçamento interno ao container */
-            border-radius: 10px; /* Adiciona bordas arredondadas ao container */
-            margin-top: 70px; /* Adiciona um espaço acima do container para a barra de navegação */
-            color: black; /* Define a cor do texto dentro do container como preto */
+            max-width: 1200px;
+            margin: 60px auto 50px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            background-color: #fff;
         }
 
-        .navbar {
-            background-color: green; /* Define a cor de fundo da barra de navegação como verde */
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .navbar-collapse {
-            text-align: center;
+        label {
+            font-weight: bold;
         }
 
-        .navbar-collapse ul {
+        input[type="text"],
+        input[type="file"],
+        select,
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-top: 5px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
             display: inline-block;
-            vertical-align: middle;
-            float: none;
-        }
-
-        .navbar-collapse li {
-            display: inline-block;
-        }
-
-        .navbar-collapse li a {
-            display: inline-block;
-            vertical-align: middle;
-            color: white; /* Define a cor do texto dos links da barra de navegação como branco */
+            width: 40%;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+            margin-left: 60px;
         }
 
         .logout-button {
@@ -61,12 +86,8 @@
             z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
         }
 
-        .btn-primary {
-            margin-bottom: 1%;
-        }
-
-        .logout-button button {
-            padding: 5px 10px; /* Reduz o tamanho do botão Sair */
+        .lista {
+            max-width: 15%;
         }
 
         .usuario {
@@ -75,7 +96,36 @@
             right: 80px;
             z-index: 1000;
         }
+
+        /* Media query para ajustar a responsividade para max-width: 767px */
+        @media (max-width: 767px) {
+            .container {
+                max-width: 100%;
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .lista {
+                max-width: 100%;
+            }
+
+            .logout-button {
+                top: 5px;
+                right: 10px;
+            }
+
+            .usuario {
+                right: 10px;
+            }
+        }
     </style>
+
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
@@ -142,11 +192,14 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1 style="text-align: center">Turma</h1>
+    <div class="container table-responsive">
+        <h1 class="text-center">Turma</h1>
         @if (Auth::id() == 2)
-        <a href="{{ route('turma.novo') }}" class="btn btn-primary" style="margin-left: 80%">Nova Turma</a>
+            <div class="text-end mb-3">
+                <a href="{{ route('turma.novo') }}" class="btn btn-primary">Nova Turma</a>
         @endif
+    </div>
+        <div class="table-responsive">
         <table class="table table-bordered table-striped" style="text-align: center">
             <thead>
                 <tr>
@@ -188,7 +241,7 @@
             </tbody>
         </table>
     </div>
-
+</div>
     <script>
         @if (session('error'))
         alert('{{ session('error') }}');

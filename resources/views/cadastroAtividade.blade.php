@@ -14,95 +14,122 @@
 
 <link rel="icon" href="{{ asset('ifms.ico') }}" type="image/x-icon">
 
-    <style>
+<style>
+    .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+    }
 
-        .nav-scroller {
-            position: relative;
-            z-index: 2;
-            height: 2.75rem;
-            overflow-y: hidden;
-        }
+    .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
 
-        .nav-scroller .nav {
-            display: flex;
-            flex-wrap: nowrap;
-            padding-bottom: 1rem;
-            margin-top: -1px;
-            overflow-x: auto;
-            text-align: center;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-        }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #034811;
+        margin: 0;
+        padding: 0;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #034811;
-            margin: 0;
-            padding: 0;
-        }
+    h1 {
+        color: black;
+    }
 
-        h1 {
-            color: black;
-        }
+    .container {
+        max-width: 1200px;
+        margin: 60px auto 50px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        background-color: #fff;
+    }
 
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    select,
+    input[type="date"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        margin-top: 5px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        display: inline-block;
+        width: 40%;
+        padding: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+        margin: 10px;
+        margin-left: 60px;
+    }
+
+    .logout-button {
+        position: fixed;
+        top: 10px; /* Distância do topo da página */
+        right: 20px; /* Distância da direita da página */
+        z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
+    }
+
+    .lista {
+        max-width: 15%;
+    }
+
+    .usuario {
+        position: fixed;
+        top: 10px;
+        right: 80px;
+        z-index: 1000;
+    }
+
+    /* Media query para ajustar a responsividade para max-width: 767px */
+    @media (max-width: 767px) {
         .container {
-            max-width: 1200px;
-            margin: 60px auto 50px;
-            padding: 20px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            background-color: #fff;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        input[type="text"],
-        input[type="file"],
-        select,
-        input[type="date"] {
-            width: 100%;
+            max-width: 100%;
+            margin: 10px auto;
             padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            margin-top: 5px;
         }
 
         .btn-primary,
         .btn-secondary {
-            display: inline-block;
-            width: 40%;
-            padding: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 10px;
-            margin-left: 60px;
+            width: 100%;
+            margin-left: 0;
         }
 
+        .lista {
+            max-width: 100%;
+        }
 
         .logout-button {
-            position: fixed;
-            top: 10px; /* Distância do topo da página */
-            right: 20px; /* Distância da direita da página */
-            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
-        }
-
-        .lista{
-            max-width: 15%;
+            top: 5px;
+            right: 10px;
         }
 
         .usuario {
-            position: fixed;
-            top: 10px;
-            right: 80px;
-            z-index: 1000;
+            right: 10px;
         }
-    </style>
+    }
+</style>
+
 </head>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">

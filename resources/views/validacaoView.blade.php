@@ -7,177 +7,148 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
 
+    <link rel="icon" href="{{ asset('ifms.ico') }}" type="image/x-icon">
 
+    <style>
+        body {
+            background-color: #034811;
+            min-height: 50rem;
+            padding-top: 4.5rem;
+        }
 
-
-<link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-
-<link rel="icon" href="{{ asset('ifms.ico') }}" type="image/x-icon">
-
-<style>
-    body {
-        background-color: #034811;
-        color: white; /* Define a cor do texto como branco */
-    }
-
-    h1 {
-        color: black;
-    }
-
-    .container {
-        background-color: white; /* Define o fundo do container como branco */
-        padding: 20px; /* Adiciona algum espaçamento interno ao container */
-        border-radius: 10px; /* Adiciona bordas arredondadas ao container */
-        margin-top: 70px; /* Adiciona um espaço acima do container para a barra de navegação */
-        color: black; /* Define a cor do texto dentro do container como preto */
-    }
-
-    .table {
-        color: black; /* Define a cor do texto da tabela como preto */
-    }
-
-    .table th,
-    .table td {
-        vertical-align: middle;
-    }
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: rgba(0, 0, 0, 0.05);
-    }
-
-    .table-bordered th,
-    .table-bordered td {
-        border: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .btn-danger {
-        background-color: #dc3545;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 3px;
-        cursor: pointer;
-    }
-
-    @media (max-width: 768px) {
         .container {
-            max-width: 90%;
+            background-color: white;
+            padding: 20px;
+            color: black;
         }
-    }
 
-    /* Navbar */
-    .navbar {
-        background-color: green; /* Define a cor de fundo da barra de navegação como verde */
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-    .navbar-collapse {
-        text-align: center;
-    }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
 
-    .navbar-collapse ul {
-        display: inline-block;
-        vertical-align: middle;
-        float: none;
-    }
-
-    .navbar-collapse li {
-        display: inline-block;
-    }
-
-    .navbar-collapse li a {
-        display: inline-block;
-        vertical-align: middle;
-        color: white; /* Define a cor do texto dos links da barra de navegação como branco */
-    }
-
-    .logout-button {
+        .logout-button {
             position: fixed;
-            top: 10px; /* Distância do topo da página */
-            right: 20px; /* Distância da direita da página */
-            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
+            top: 10px;
+            right: 20px;
+            z-index: 1000;
         }
 
-    .mb-3{
-        margin-top: 2%;
-    }
-
-    .usuario {
+        .usuario {
             position: fixed;
             top: 10px;
             right: 80px;
             z-index: 1000;
-    }
-</style>
+            color: white;
+        }
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                @if (Auth::id() == 2)
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Aluno com Atividades</strong></a>
-                </li>
-                @endif
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Aluno</strong></a>
-                </li>
-                @if (Auth::id() == 2)
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Curso</strong></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turma</strong></a>
-                </li>
-                @endif
-                @if (Auth::id() !== 2)
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
-                </li>
-                @endif
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Consultar Regras</strong></a>
-                </li>
-                <!-- Add logout button as a menu item on smaller screens -->
-                <li class="nav-item d-md-none">
-                    @if (Auth::check())
-                        <form method="POST" action="{{ route('logout') }}" class="mb-0">
-                            @csrf
-                            <button type="submit" class="nav-link active">Sair</button>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
-                    @endif
-                </li>
-            </ul>
-            <!-- Show logout button on larger screens -->
-            <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
-                <li class="nav-item d-flex align-items-center">
-                    @if (Auth::check())
-                        <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
-                        <form method="POST" action="{{ route('logout') }}" class="mb-0">
-                            @csrf
-                            <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="btn btn-primary btn-sm logout-button">Entrar</a>
-                    @endif
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+        /* CSS para manter o título centralizado */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
+        @media (max-width: 767px) {
+            .container {
+                width: 100%;
+                margin-bottom: 5%;
+            }
+
+            .logout-button, .usuario {
+                position: static;
+                margin: 12px 0;
+                text-align: center;
+                display: block;
+            }
+
+            .table th, .table td {
+                font-size: 0.875rem;
+                padding: 6px;
+            }
+
+            .table th {
+                font-weight: bold;
+            }
+
+            h1 {
+                text-align: center; /* Garante que o título continue centralizado */
+                font-size: 1.5rem; /* Ajusta o tamanho da fonte para telas menores */
+                word-wrap: break-word; /* Permite a quebra de linha se necessário */
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1 style="text-align: center">Validar atividades de {{ $usuario->name }}</h1>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    @if (Auth::id() == 2)
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Aluno com Atividades</strong></a>
+                    </li>
+                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Aluno</strong></a>
+                    </li>
+                    @if (Auth::id() == 2)
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Curso</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turma</strong></a>
+                    </li>
+                    @endif
+                    @if (Auth::id() !== 2)
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
+                    </li>
+                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Consultar Regras</strong></a>
+                    </li>
+                    <li class="nav-item d-md-none">
+                        @if (Auth::check())
+                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                                @csrf
+                                <button type="submit" class="nav-link active">Sair</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
+                        @endif
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+                    <li class="nav-item d-flex align-items-center">
+                        @if (Auth::check())
+                            <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
+                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-primary btn-sm logout-button">Entrar</a>
+                        @endif
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container table-responsive">
+        <h1>Validar atividades de {{ $usuario->name }}</h1>
 
-        <table class="table table-bordered table-striped mt-4" style="text-align: center">
+        <table class="table table-bordered table-striped mt-4">
             <thead>
                 <tr>
                     <th>Título</th>
@@ -223,5 +194,7 @@
             </tbody>
         </table>
     </div>
+
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

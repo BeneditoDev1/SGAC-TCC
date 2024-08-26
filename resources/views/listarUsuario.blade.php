@@ -11,27 +11,17 @@
 
     <style>
         body {
-            background-color: #034811; /* Define o fundo verde */
-            color: white; /* Define a cor do texto como branco */
+            background-color: #034811; /* Fundo verde */
+            color: white; /* Texto branco */
             margin-bottom: 70px;
         }
 
-        @media (max-width: 767px){
-            .logout-button {
-                display: none;
-            }
-        }
-
         .container {
-            background-color: white; /* Define o fundo do container como branco */
-            padding: 20px; /* Adiciona algum espaçamento interno ao container */
-            border-radius: 10px; /* Adiciona bordas arredondadas ao container */
-            margin-top: 70px; /* Adiciona um espaço acima do container para a barra de navegação */
-            color: black; /* Define a cor do texto dentro do container como preto */
-        }
-
-        .navbar {
-            background-color: green; /* Define a cor de fundo da barra de navegação como verde */
+            background-color: white; /* Fundo branco */
+            padding: 20px; /* Espaçamento interno */
+            border-radius: 10px; /* Bordas arredondadas */
+            margin-top: 70px; /* Espaçamento acima para a barra de navegação */
+            color: black; /* Texto preto */
         }
 
         .navbar-collapse {
@@ -51,14 +41,31 @@
         .navbar-collapse li a {
             display: inline-block;
             vertical-align: middle;
-            color: white; /* Define a cor do texto dos links da barra de navegação como branco */
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
         }
 
         .logout-button {
             position: fixed;
-            top: 10px; /* Distância do topo da página */
-            right: 20px; /* Distância da direita da página */
-            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
+            top: 10px; /* Distância do topo */
+            right: 20px; /* Distância da direita */
+            z-index: 1000; /* Acima de outros elementos */
         }
 
         .btn-primary {
@@ -66,7 +73,7 @@
         }
 
         .logout-button button {
-            padding: 5px 10px; /* Reduz o tamanho do botão Sair */
+            padding: 5px 10px; /* Tamanho do botão Sair */
         }
 
         .usuario {
@@ -75,75 +82,101 @@
             right: 80px;
             z-index: 1000;
         }
+
+        @media (max-width: 767px) {
+            .logout-button {
+                display: none;
+            }
+            .btn-primary {
+                margin-left: 0;
+                width: 100%; /* Botão ocupa toda a largura */
+            }
+        }
     </style>
 </head>
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                @if (Auth::id() == 2)
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Aluno com Atividades</strong></a>
-                </li>
-                @endif
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Aluno</strong></a>
-                </li>
-                @if (Auth::id() == 2)
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Curso</strong></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turma</strong></a>
-                </li>
-                @endif
-                @if (Auth::id() !== 2)
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
-                </li>
-                @endif
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Consultar Regras</strong></a>
-                </li>
-                <!-- Add logout button as a menu item on smaller screens -->
-                <li class="nav-item d-md-none">
-                    @if (Auth::check())
-                        <form method="POST" action="{{ route('logout') }}" class="mb-0">
-                            @csrf
-                            <button type="submit" class="nav-link active">Sair</button>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
-                    @endif
-                </li>
-            </ul>
-            <!-- Show logout button on larger screens -->
-            <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
-                <li class="nav-item d-flex align-items-center">
-                    @if (Auth::check())
-                        <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
-                        <form method="POST" action="{{ route('logout') }}" class="mb-0">
-                            @csrf
-                            <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="btn btn-primary btn-sm logout-button">Entrar</a>
-                    @endif
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 <body>
-    <div class="container">
-        <h1 style="text-align: center">Aluno</h1>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    @if (Auth::id() == 2)
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Aluno com Atividades</strong></a>
+                    </li>
+                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('usuario/listar') }}"><strong>Aluno</strong></a>
+                    </li>
+                    @if (Auth::id() == 2)
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Curso</strong></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turma</strong></a>
+                    </li>
+                    @endif
+                    @if (Auth::id() !== 2)
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('atividade/listar') }}"><strong>Atividades</strong></a>
+                    </li>
+                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url('about') }}"><strong>Consultar Regras</strong></a>
+                    </li>
+                    <!-- Add logout button as a menu item on smaller screens -->
+                    <li class="nav-item d-md-none">
+                        @if (Auth::check())
+                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                                @csrf
+                                <button type="submit" class="nav-link active">Sair</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
+                        @endif
+                    </li>
+                </ul>
+                <!-- Show logout button on larger screens -->
+                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+                    <li class="nav-item d-flex align-items-center">
+                        @if (Auth::check())
+                            <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
+                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-primary btn-sm logout-button">Entrar</a>
+                        @endif
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+                    <li class="nav-item d-flex align-items-center">
+                        @if (Auth::check())
+                            <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
+                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm logout-button">Sair</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-primary btn-sm logout-button">Entrar</a>
+                        @endif
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container table-responsive">
+        <h1 class="text-center">Aluno</h1>
         @if (Auth::id() == 2)
-        <a href="{{ route('usuario.novo') }}" class="btn btn-primary" style="margin-left: 87%">Novo Aluno</a>
+            <div class="text-end mb-3">
+                <a href="{{ route('usuario.novo') }}" class="btn btn-primary">Novo Aluno</a>
+            </div>
         @endif
 
         @if(session('success'))
@@ -159,7 +192,7 @@
         @endif
 
         <div class="table-responsive">
-            <table class="table table-bordered table-striped" style="text-align: center">
+            <table class="table table-bordered table-striped text-center">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -211,16 +244,9 @@
             </table>
         </div>
     </div>
-    <script>
-        document.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', function(e) {
-                console.log('Form submission started');
-            });
-        });
-    </script>
-
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76A2I7S91i8JEC0doQeqx5cO4tcFpo4JbN8oQ78dxD/r82jvn5i4kk6o1U7BhR5a" crossorigin="anonymous"></script>
 </body>
 </html>
