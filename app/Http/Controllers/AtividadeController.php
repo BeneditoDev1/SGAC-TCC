@@ -115,6 +115,25 @@ class AtividadeController extends Controller
           $atividade->curso__id = 4;
         }
 
+        $nomeArquivo = $request->input('nome_arquivo');
+        if ($request->hasFile('arquivo')) {
+            // Caminho para o diretório de uploads
+            $caminhoUploads = public_path('uploads');
+
+            // Excluindo o arquivo existente, se houver
+            if ($atividade->arquivo && file_exists($caminhoUploads . '/' . $atividade->arquivo)) {
+                unlink($caminhoUploads . '/' . $atividade->arquivo);
+            }
+
+            // Salvando o novo arquivo
+            $arquivo = $request->file('arquivo');
+            $nomeArquivo = time() . '_' . $arquivo->getClientOriginalName();
+            $arquivo->move($caminhoUploads, $nomeArquivo);
+
+            // Atualizando o nome do arquivo na atividade
+            $atividade->arquivo = $nomeArquivo;
+        }
+
         $atividade->save();
 
         return redirect()->route('atividade.listar');
