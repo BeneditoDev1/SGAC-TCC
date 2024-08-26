@@ -147,7 +147,7 @@
         @if (Auth::id() == 2)
         <a href="{{ route('turma.novo') }}" class="btn btn-primary" style="margin-left: 80%">Nova Turma</a>
         @endif
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped" style="text-align: center">
             <thead>
                 <tr>
                     <th>Nome</th>

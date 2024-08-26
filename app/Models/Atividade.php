@@ -26,5 +26,8 @@ class Atividade extends Model
         return $this->belongsTo(User::class, 'usuario_id');
     }
 
+    protected $casts = [
+        'data_ativacao' => 'datetime:Y-m-d'
+    ];
 }
 

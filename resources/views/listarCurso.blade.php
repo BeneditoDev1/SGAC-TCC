@@ -148,7 +148,7 @@
         @if (Auth::id() == 2)
         <a href="{{ route('curso.novo') }}" class="btn btn-primary" style="margin-left: 85%">Novo Curso</a>
         @endif
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped" style="text-align: center">
             <thead>
                 <tr>
                     <th>Nome do Curso</th>

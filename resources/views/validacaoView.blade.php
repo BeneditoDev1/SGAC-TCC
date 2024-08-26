@@ -177,18 +177,16 @@
     <div class="container">
         <h1 style="text-align: center">Validar atividades de {{ $usuario->name }}</h1>
 
-        <table class="table table-bordered table-striped mt-4">
+        <table class="table table-bordered table-striped mt-4" style="text-align: center">
             <thead>
                 <tr>
                     <th>Título</th>
                     <th>Credencial</th>
                     <th>Semestre</th>
-                    <th>Nome do curso</th>
                     <th>Categoria</th>
                     <th>Data de início</th>
                     <th>Data de conclusão</th>
                     <th>Total de horas</th>
-                    <th>Usuário</th>
                     <th>Arquivo</th>
                     <th>Status</th>
                     <th>Salvar</th>
@@ -200,12 +198,10 @@
                     <td>{{ $atividade->titulo }}</td>
                     <td>{{ $atividade->credencial }}</td>
                     <td>{{ $atividade->semestre }}</td>
-                    <td>{{ $atividade->curso->nome }}</td>
                     <td>{{ $atividade->categoria }}</td>
-                    <td>{{ $atividade->data_inicio }}</td>
-                    <td>{{ $atividade->data_conclusao }}</td>
+                    <td>{{ \Carbon\Carbon::parse($atividade->data_inicio)->format('d/m/Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($atividade->data_conclusao)->format('d/m/Y') }}</td>
                     <td>{{ $atividade->total_horas }}</td>
-                    <td>{{ $atividade->usuario->name }}</td>
                     <td style="max-width: 150px"><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a></td>
                     <td>
                         <form action="{{ route('atividade.salvarStatus', ['id' => $atividade->id]) }}" method="POST">

@@ -159,7 +159,7 @@
         @endif
 
         <div class="table-responsive">
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" style="text-align: center">
                 <thead>
                     <tr>
                         <th>Nome</th>

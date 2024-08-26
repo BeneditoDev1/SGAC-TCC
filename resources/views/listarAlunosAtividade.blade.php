@@ -237,7 +237,7 @@
         @endif
         <div class="container">
             <h1>Alunos com Atividades</h1>
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" style="text-align: center">
                 @if (Auth::id() == 2)
                     <form action="{{ route('atividade.listar') }}" method="GET">
                         <div class="input-group rounded" style="margin-bottom: 2%">

@@ -205,7 +205,7 @@
             @endforeach
         </div>
         <a href="{{ route('atividade.novo') }}" class="btn btn-primary" style="margin-left: 87%">Nova Atividade</a>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped" style="text-align: center">
             <thead>
                 <tr>
                     <th>Título</th>
@@ -231,8 +231,8 @@
                     <td>{{ $atividade->semestre }}</td>
                     <td>{{ $atividade->curso->nome }}</td>
                     <td>{{ $atividade->categoria }}</td>
-                    <td>{{ $atividade->data_inicio }}</td>
-                    <td>{{ $atividade->data_conclusao }}</td>
+                    <td>{{ \Carbon\Carbon::parse($atividade->data_inicio)->format('d/m/Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($atividade->data_conclusao)->format('d/m/Y') }}</td>
                     <td>{{ $atividade->total_horas }}</td>
                     <td>{{ $atividade->usuario->name }}</td> <!-- Alterado para exibir o nome do usuário -->
                     <td style="max-width: 150px"><a href="{{ asset('uploads/' . $atividade->arquivo) }}" download>{{ $atividade->titulo }}</a></td>
