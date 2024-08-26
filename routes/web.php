@@ -8,6 +8,7 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\AtividadeController;
 use App\Http\Controllers\TurmaController;
 use App\Http\Controllers\AboutController;
+Use App\Http\Controllers\Auth\PasswordResetLinkController;
 
 
 /*
@@ -71,6 +72,7 @@ Route::get('/dashboard', function () {
         Route::post('/alterar-senha', [UsuarioController::class, 'changePassword'])->name('alterar.senha');
 
         Route::get('/alunos', [AtividadeController::class, 'Alunos'])->name('listarAlunos');
+
 });
 
 Route::get('usuario/listar', [UsuarioController::class, 'listar'])->name('usuario.listar');

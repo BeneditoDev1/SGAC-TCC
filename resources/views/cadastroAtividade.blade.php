@@ -75,19 +75,15 @@
 
         .btn-primary,
         .btn-secondary {
-            display: block;
+            display: inline-block;
             width: 40%;
             padding: 10px;
             border-radius: 10px;
             cursor: pointer;
-            margin-top: 10px;
-            color: #fff;
-            border: none;
-            text-align: center;
-            cursor: pointer;
-            margin: 10px auto;
-            margin-left: 60%;
+            margin: 10px;
+            margin-left: 60px;
         }
+
 
         .logout-button {
             position: fixed;
@@ -195,21 +191,38 @@
 
             <div class="form-group lista">
                 <label for="categoria">Categoria:</label>
-                <select class="form-control" name="categoria" required>
-                    <option value="Atividades culturais" @if($atividade->tipo == 'Atividades culturais') selected @endif>Atividades culturais</option>
-                    <option value="Monitoria remunerada ou voluntária" @if($atividade->tipo == 'Monitoria remunerada ou voluntária') selected @endif>Monitoria remunerada ou voluntária</option>
-                    <option value="Membro atuante em atividades técnico-científicas" @if($atividade->tipo == 'Membro atuante em atividades técnico-científicas') selected @endif>Membro atuante em atividades técnico-científicas</option>
-                    <option value="Participação em atividades pedagógicas de observação para cursos de licenciatura" @if($atividade->tipo == 'Participação em atividades pedagógicas de observação para cursos de licenciatura') selected @endif>Participação em atividades pedagógicas de observação para cursos de licenciatura</option>
-                    <option value="Representação discente em Conselhos e Entidades estudantis, liderança de turma, órgãos de classe e conselhos representativos" @if($atividade->tipo == 'Representação discente em Conselhos e Entidades estudantis, liderança de turma, órgãos de classe e conselhos representativos') selected @endif>Representação discente em Conselhos e Entidades estudantis, liderança de turma, órgãos de classe e conselhos representativos</option>
-                    <option value="Participação como ouvinte em eventos acadêmicos, tais como bancas de TCC, dissertação, teses" @if($atividade->tipo == 'Participação como ouvinte em eventos acadêmicos, tais como bancas de TCC, dissertação, teses') selected @endif>Participação como ouvinte em eventos acadêmicos, tais como bancas de TCC, dissertação, teses</option>
-                    <option value="Participação como ouvinte em congressos, seminários, simpósios e demais eventos relacionados ao curso ou áreas afins" @if($atividade->tipo == 'Participação como ouvinte em congressos, seminários, simpósios e demais eventos relacionados ao curso ou áreas afins') selected @endif>Participação como ouvinte em congressos, seminários, simpósios e demais eventos relacionados ao curso ou áreas afins</option>
-                    <option value="Participação em visita técnica, relacionada à área de atuação" @if($atividade->tipo == 'Participação em visita técnica, relacionada à área de atuação') selected @endif>Participação em visita técnica, relacionada à área de atuação</option>
-                    <option value="Participação em projetos de incubação" @if($atividade->tipo == 'Participação em projetos de incubação') selected @endif>Participação em projetos de incubação</option>
-                    <option value="Participação em projetos e grupos de pesquisa" @if($atividade->tipo == 'Participação em projetos e grupos de pesquisa') selected @endif>Participação em projetos e grupos de pesquisa</option>
-                    <option value="Participação em projetos e grupos de extensão" @if($atividade->tipo == 'Participação em projetos e grupos de extensão') selected @endif>Participação em projetos e grupos de extensão</option>
-                    <option value="Publicação de artigo científico completo em revista ou periódico" @if($atividade->tipo == 'Publicação de artigo científico completo em revista ou periódico') selected @endif>Publicação de artigo científico completo em revista ou periódico</option>
-                    <option value="Publicação de resumos de artigo científico em revista ou periódicos" @if($atividade->tipo == 'Publicação de resumos de artigo científico em revista ou periódicos') selected @endif>Publicação de resumos de artigo científico em revista ou periódicos</option>
-                    <option value="Publicação de matérias ou notas em jornais e meios eletrônicos" @if($atividade->tipo == 'Publicação de matérias ou notas em jornais e meios eletrônicos') selected @endif>Publicação de matérias ou notas em jornais e meios eletrônicos</option>
+
+                <select class="form-control" name="categoria" id="categoriaSelect" required>
+                    <!-- Grupo 1: Atividades de aperfeiçoamento e enriquecimento cultural -->
+                    <optgroup label="1. Atividades de aperfeiçoamento e enriquecimento cultural">
+                        <option value="Participação em atividades culturais" @if($atividade->tipo == 'Participação em atividades culturais') selected @endif>1.1 Participação em atividades culturais</option>
+                    </optgroup>
+
+                    <!-- Grupo 2: Atividades de divulgação científica e de iniciação à docência -->
+                    <optgroup label="2. Atividades de divulgação científica e de iniciação à docência">
+                        <option value="Monitoria remunerada ou voluntária" @if($atividade->tipo == 'Monitoria remunerada ou voluntária') selected @endif>2.1 Monitoria remunerada ou voluntária</option>
+                        <option value="Membro atuante em atividades técnico-científicas" @if($atividade->tipo == 'Membro atuante em atividades técnico-científicas') selected @endif>2.2 Membro atuante em atividades técnico-científicas</option>
+                        <option value="Participação em atividades pedagógicas de observação para cursos de licenciatura" @if($atividade->tipo == 'Participação em atividades pedagógicas de observação para cursos de licenciatura') selected @endif>2.3 Participação em atividades pedagógicas de observação para cursos de licenciatura</option>
+                    </optgroup>
+
+                    <!-- Grupo 3: Atividades de vivência acadêmica e profissional complementar -->
+                    <optgroup label="3. Atividades de vivência acadêmica e profissional complementar">
+                        <option value="Organização de eventos acadêmicos e festivais" @if($atividade->tipo == 'Organização de eventos acadêmicos e festivais') selected @endif>3.1 Organização de eventos acadêmicos e festivais</option>
+                        <option value="Representação discente em Conselhos e Entidades estudantis" @if($atividade->tipo == 'Representação discente em Conselhos e Entidades estudantis') selected @endif>3.2 Representação discente em Conselhos e Entidades estudantis</option>
+                        <option value="Participação como ouvinte em eventos acadêmicos, tais como bancas de TCC, dissertação, teses" @if($atividade->tipo == 'Participação como ouvinte em eventos acadêmicos, tais como bancas de TCC, dissertação, teses') selected @endif>3.3 Participação como ouvinte em eventos acadêmicos, tais como bancas de TCC, dissertação, teses</option>
+                        <option value="Participação como ouvinte em congressos, seminários, simpósios e demais eventos relacionados ao curso ou áreas afins" @if($atividade->tipo == 'Participação como ouvinte em congressos, seminários, simpósios e demais eventos relacionados ao curso ou áreas afins') selected @endif>3.4 Participação como ouvinte em congressos, seminários, simpósios e demais eventos relacionados ao curso ou áreas afins</option>
+                        <option value="Participação em visita técnica, relacionada à área de atuação" @if($atividade->tipo == 'Participação em visita técnica, relacionada à área de atuação') selected @endif>3.5 Participação em visita técnica, relacionada à área de atuação</option>
+                        <option value="Participação em projetos de incubação" @if($atividade->tipo == 'Participação em projetos de incubação') selected @endif>3.6 Participação em projetos de incubação</option>
+                    </optgroup>
+
+                    <!-- Grupo 4: Atividades de Pesquisa ou Extensão e publicações -->
+                    <optgroup label="4. Atividades de Pesquisa ou Extensão e publicações">
+                        <option value="Participação em projetos e grupos de pesquisa" @if($atividade->tipo == 'Participação em projetos e grupos de pesquisa') selected @endif>4.1 Participação em projetos e grupos de pesquisa</option>
+                        <option value="Participação em projetos e grupos de extensão" @if($atividade->tipo == 'Participação em projetos e grupos de extensão') selected @endif>4.2 Participação em projetos e grupos de extensão</option>
+                        <option value="Publicação de artigo científico completo em revista ou periódico" @if($atividade->tipo == 'Publicação de artigo científico completo em revista ou periódico') selected @endif>4.3 Publicação de artigo científico completo em revista ou periódico</option>
+                        <option value="Publicação de resumos de artigo científico em revista ou periódicos" @if($atividade->tipo == 'Publicação de resumos de artigo científico em revista ou periódicos') selected @endif>4.4 Publicação de resumos de artigo científico em revista ou periódicos</option>
+                        <option value="Publicação de matérias ou notas em jornais e meios eletrônicos" @if($atividade->tipo == 'Publicação de matérias ou notas em jornais e meios eletrônicos') selected @endif>4.5 Publicação de matérias ou notas em jornais e meios eletrônicos</option>
+                    </optgroup>
                 </select>
             </div>
 
@@ -269,19 +282,20 @@
             <input type="hidden" name="nome_arquivo" value="{{ old('arquivo', $atividade->arquivo) }}">
 
             <button type="submit" class="btn btn-primary">Salvar</button>
-            <button type="button" onclick="window.location='{{ route('usuario.listar') }}'" class="btn btn-secondary">Cancelar</button>
+            <a href="{{ route('atividade.listar') }}" class="btn btn-secondary">Cancelar</a>
         </form>
 
     </div>
     <script>
-        var selectElement = document.querySelector('select[name="categoria"]');
-        selectElement.addEventListener('change', function () {
-            if (this.value === 'Outros') {
-                document.getElementById('other-category-input').style.display = 'block';
-            } else {
-                document.getElementById('other-category-input').style.display = 'none';
-            }
-        });
+        document.getElementById('searchCategoria').addEventListener('keyup', function() {
+        var searchText = this.value.toLowerCase();
+        var options = document.getElementById('categoriaSelect').options;
+
+        for (var i = 0; i < options.length; i++) {
+            var optionText = options[i].text.toLowerCase();
+            options[i].style.display = optionText.includes(searchText) ? '' : 'none';
+        }
+    });
     </script>
 </body>
 </html>

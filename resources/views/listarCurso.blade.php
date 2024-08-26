@@ -91,7 +91,7 @@
             <ul class="navbar-nav mr-auto">
                 @if (Auth::id() == 2)
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Aluno com Atividades</strong></a>
                 </li>
                 @endif
                 <li class="nav-item">
@@ -99,10 +99,10 @@
                 </li>
                 @if (Auth::id() == 2)
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Cursos</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Curso</strong></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turmas</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turma</strong></a>
                 </li>
                 @endif
                 @if (Auth::id() !== 2)
@@ -144,7 +144,7 @@
 </nav>
 <body>
     <div class="container">
-        <h1 style="text-align: center">Cursos</h1>
+        <h1 style="text-align: center">Curso</h1>
         @if (Auth::id() == 2)
         <a href="{{ route('curso.novo') }}" class="btn btn-primary" style="margin-left: 85%">Novo Curso</a>
         @endif
