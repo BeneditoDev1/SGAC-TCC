@@ -46,15 +46,6 @@
             border: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
         /* Navbar */
         .navbar {
             background-color: green;
@@ -80,56 +71,8 @@
             color: white;
         }
 
-        .logout-button {
-            position: fixed;
-            top: 10px;
-            right: 20px;
-            z-index: 1000;
-        }
-
         .mb-3 {
             margin-top: 2%;
-        }
-
-        .usuario {
-            position: fixed;
-            top: 10px;
-            right: 80px;
-            z-index: 1000;
-        }
-
-        @media (max-width: 767px) {
-            .container {
-                max-width: 100%;
-                margin-top: 20px;
-            }
-
-            .table th, .table td {
-                font-size: 0.875rem;
-                padding: 6px;
-            }
-
-            .table th {
-                font-weight: bold;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .logout-button {
-                display: none;
-            }
-
-            .usuario {
-            position: fixed;
-            top: 10px;
-            right: 80px;
-            z-index: 1000;
-            }
-
-            .navbar-collapse {
-            text-align: center;
         }
 
         .navbar-collapse ul {
@@ -164,16 +107,50 @@
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
         }
+
+        .usuario {
+            position: static;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
+            color: white;
         }
+
+        .logout-button {
+            position: static;
+            top: 10px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .navbar-brand{
+            margin-left: 16%;
+        }
+
+        @media (max-width: 767px){
+            .logout-button {
+                display: none;
+            }
+            .navbar-brand{
+            margin-left: 2%;
+            }
+            .usuario {
+            position: fixed;
+            top: 15px;
+            right: 80px;
+            z-index: 1000;
+            }
+        }
+
     </style>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
         <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 @if (Auth::id() == 2)
@@ -205,7 +182,7 @@
                     @if (Auth::check())
                         <form method="POST" action="{{ route('logout') }}" class="mb-0">
                             @csrf
-                            <button type="submit" class="nav-link active">Sair</button>
+                            <a type="submit" class="nav-link active"><strong>Sair</strong></a>
                         </form>
                     @else
                         <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
@@ -213,7 +190,7 @@
                 </li>
             </ul>
             <!-- Show logout button on larger screens -->
-            <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+            <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block" style="margin-left: 15%">
                 <li class="nav-item d-flex align-items-center">
                     @if (Auth::check())
                         <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>

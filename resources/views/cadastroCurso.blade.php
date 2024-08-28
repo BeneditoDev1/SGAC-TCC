@@ -33,6 +33,7 @@
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px;
+        margin-top: 5%;
         background-color: #fff;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         border-radius: 5px;
@@ -66,6 +67,25 @@
             border-radius: 3px;
         }
 
+        .usuario {
+            position: static;
+            top: 10px;
+            right: 80px;
+            z-index: 1000;
+            color: white;
+        }
+
+        .logout-button {
+            position: static;
+            top: 10px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .navbar-brand{
+            margin-left: 16%;
+        }
+
         .btn-primary,
         .btn-secondary {
             display: inline-block;
@@ -77,72 +97,61 @@
             margin-left: 60px;
         }
 
-        @media (min-width: 500px) and (max-width: 768px) {
-            .btn-primary,
-            .btn-secondary {
+        .navbar {
+            background-color: green; /* Define a cor de fundo da barra de navegação como verde */
+        }
+
+        .navbar-collapse {
+            text-align: center;
+        }
+
+        .navbar-collapse ul {
             display: inline-block;
-            width: 40%;
-            margin-left: 0;
-            margin-right: 10px;
-    }
-}
+            vertical-align: middle;
+            float: none;
+        }
 
-@media (max-width: 500px) {
-    .btn-primary,
-    .btn-secondary {
-        display: block;
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-    }
-    .container {
-        max-width: 459px;
-    }
-}
+        .navbar-collapse li {
+            display: inline-block;
+        }
 
-    .navbar {
-        background-color: green;
-    }
+        .navbar-collapse li a {
+            display: inline-block;
+            vertical-align: middle;
+            color: white; /* Define a cor do texto dos links da barra de navegação como branco */
+        }
 
-    .navbar-collapse {
-        text-align: center;
-    }
-
-    .navbar-collapse ul {
-        display: inline-block;
-        vertical-align: middle;
-        float: none;
-    }
-
-    .navbar-collapse li {
-        display: inline-block;
-    }
-
-    .navbar-collapse li a {
-        display: inline-block;
-        vertical-align: middle;
-        color: white;
-    }
-
-    .logout-button {
+        @media (max-width: 767px){
+            .logout-button {
                 display: none;
             }
-
+            .navbar-brand{
+            margin-left: 2%;
+            }
             .usuario {
             position: fixed;
-            top: 10px;
+            top: 15px;
             right: 80px;
             z-index: 1000;
             }
+            .btn-primary,
+            .btn-secondary {
+                display: block;
+                width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+
 </style>
 </head>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
         <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 @if (Auth::id() == 2)
@@ -174,7 +183,7 @@
                     @if (Auth::check())
                         <form method="POST" action="{{ route('logout') }}" class="mb-0">
                             @csrf
-                            <button type="submit" class="nav-link active">Sair</button>
+                            <a type="submit" class="nav-link active"><strong>Sair</strong></a>
                         </form>
                     @else
                         <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
@@ -182,7 +191,7 @@
                 </li>
             </ul>
             <!-- Show logout button on larger screens -->
-            <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+            <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block" style="margin-left: 15%">
                 <li class="nav-item d-flex align-items-center">
                     @if (Auth::check())
                         <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>

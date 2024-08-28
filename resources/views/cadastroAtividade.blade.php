@@ -63,10 +63,14 @@
         color: black;
     }
 
+    .navbar-brand{
+            margin-left: 16%;
+        }
+
     .container {
         max-width: 1200px;
         padding: 20px;
-        margin-top: 5%;
+        margin-top: 4%;
         margin-bottom: 5%;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         border-radius: 5px;
@@ -103,69 +107,69 @@
         margin-left: 60px;
     }
 
-    .logout-button {
-        position: fixed;
-        top: 10px; /* Distância do topo da página */
-        right: 20px; /* Distância da direita da página */
-        z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
-    }
-
-    .lista {
-        max-width: 15%;
-    }
-
-    .usuario {
-        position: fixed;
-        top: 10px;
-        right: 80px;
-        z-index: 1000;
-    }
-
-    /* Media query para ajustar a responsividade para max-width: 767px */
-    @media (max-width: 767px) {
-        .container {
-            max-width: 100%;
-            margin-top: 14%;
-            padding: 10px;
-            margin-bottom: 5%;
-        }
-
-        .btn-primary,
-        .btn-secondary {
-            width: 100%;
-            margin-left: 0;
-        }
-
-        .lista {
-            max-width: 100%;
-        }
-
-        .logout-button {
-                display: none;
-            }
-
-            .usuario {
-            position: fixed;
+        .usuario {
+            position: static;
             top: 10px;
             right: 80px;
             z-index: 1000;
+            color: white;
         }
-    }
+
+        .logout-button {
+            position: static;
+            top: 10px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+    /* Media query para ajustar a responsividade para max-width: 767px */
+            @media (max-width: 883px) {
+            .container {
+                max-width: 90%;
+            }
+
+            .btn-primary {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            }
+            .logout-button {
+                display: none;
+            }
+            .navbar-brand{
+            margin-left: 2%;
+            }
+            .usuario {
+            position: fixed;
+            top: 15px;
+            right: 80px;
+            z-index: 1000;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                display: block;
+                width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+        }
 </style>
 
 </head>
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
+    <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="collapse navbar-collapse justify-content-center text-center" style="margin-left: 8%" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
                 @if (Auth::id() == 2)
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Aluno com Atividades</strong></a>
                 </li>
                 @endif
                 <li class="nav-item">
@@ -173,10 +177,10 @@
                 </li>
                 @if (Auth::id() == 2)
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Cursos</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Curso</strong></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turmas</strong></a>
+                    <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turma</strong></a>
                 </li>
                 @endif
                 @if (Auth::id() !== 2)
@@ -192,7 +196,7 @@
                     @if (Auth::check())
                         <form method="POST" action="{{ route('logout') }}" class="mb-0">
                             @csrf
-                            <button type="submit" class="nav-link active">Sair</button>
+                            <a type="submit" class="nav-link active"><strong>Sair</strong></a>
                         </form>
                     @else
                         <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
@@ -200,7 +204,7 @@
                 </li>
             </ul>
             <!-- Show logout button on larger screens -->
-            <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+            <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block" style="margin-left: 22%">
                 <li class="nav-item d-flex align-items-center">
                     @if (Auth::check())
                         <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>

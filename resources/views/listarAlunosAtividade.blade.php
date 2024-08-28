@@ -12,16 +12,16 @@
 
     <style>
         body {
-            min-height: 50rem;
-            padding-top: 4.5rem;
-            background-color: #034811;
+            background-color: #034811; /* Fundo verde */
+            color: white; /* Texto branco */
+            margin-bottom: 70px;
         }
 
         .container {
             background-color: white;
             padding: 20px;
             border-radius: 10px;
-            margin-top: 20px;
+            margin-top: 70px;
             color: black;
         }
 
@@ -37,7 +37,7 @@
         }
 
         .logout-button {
-            position: fixed;
+            position: static;
             top: 10px;
             right: 20px;
             z-index: 1000;
@@ -81,11 +81,15 @@
         }
 
         .usuario {
-            position: fixed;
+            position: static;
             top: 10px;
             right: 80px;
             z-index: 1000;
             color: white;
+        }
+
+        .navbar-brand{
+            margin-left: 15%;
         }
 
         @media (max-width: 767px) {
@@ -95,7 +99,7 @@
 
             .usuario {
             position: fixed;
-            top: 10px;
+            top: 15px;
             right: 80px;
             z-index: 1000;
             }
@@ -111,6 +115,10 @@
 
             h1 {
                 font-size: 1.5rem;
+            }
+
+            .navbar-brand{
+            margin-left: 2%;
             }
         }
     </style>
@@ -153,14 +161,14 @@
                         @if (Auth::check())
                             <form method="POST" action="{{ route('logout') }}" class="mb-0">
                                 @csrf
-                                <button type="submit" class="nav-link active">Sair</button>
+                                <a type="submit" class="nav-link active"><strong>Sair</strong></a>
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
                         @endif
                     </li>
                 </ul>
-                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block" style="margin-left: 15%">
                     <li class="nav-item d-flex align-items-center">
                         @if (Auth::check())
                             <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
@@ -184,7 +192,7 @@
     @endif
 
     <div class="container table-responsive">
-        <h1 style="text-align: center">Aluno com Atividade</h1>
+        <h1 class="text-center">Aluno com Atividade</h1>
     <div>
         <div style="table-responsive">
         <table class="table table-bordered table-striped">

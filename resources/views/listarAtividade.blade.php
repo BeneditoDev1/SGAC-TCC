@@ -34,6 +34,7 @@
             color: black;
         }
 
+
         .table th,
         .table td {
             vertical-align: middle;
@@ -57,21 +58,13 @@
             cursor: pointer;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                max-width: 90%;
-            }
-
-            .btn-primary {
-            margin-left: auto;
-            margin-right: auto;
-            display: block;
-        }
-        }
-
         /* Navbar */
         .navbar {
             background-color: green;
+        }
+
+        .navbar-brand{
+            margin-left: 16%;
         }
 
         .navbar-collapse {
@@ -110,14 +103,18 @@
             margin-top: 1%;
         }
 
-        .logout-button {
-            display: none;
-        }
-
         .usuario {
-            position: fixed;
+            position: static;
             top: 10px;
             right: 80px;
+            z-index: 1000;
+            color: white;
+        }
+
+        .logout-button {
+            position: static;
+            top: 10px;
+            right: 20px;
             z-index: 1000;
         }
 
@@ -126,22 +123,45 @@
             overflow-x: auto;
         }
 
-        /* Centraliza o botão de nova atividade no mobile */
+
+        @media (max-width: 883px) {
+            .container {
+                max-width: 90%;
+            }
+
+            .btn-primary {
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            }
+            .logout-button {
+                display: none;
+            }
+            .navbar-brand{
+            margin-left: 2%;
+            }
+            .usuario {
+            position: fixed;
+            top: 15px;
+            right: 80px;
+            z-index: 1000;
+            }
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center text-center" id="navbarCollapse">
+        <a class="navbar-brand" href="{{ url('/') }}"><strong>SGAC</strong></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse justify-content-center text-center" style="margin-left: 8%" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                     @if (Auth::id() == 2)
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Alunos com Atividades</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('alunos') }}"><strong>Listar Aluno com Atividades</strong></a>
                     </li>
                     @endif
                     <li class="nav-item">
@@ -149,10 +169,10 @@
                     </li>
                     @if (Auth::id() == 2)
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Cursos</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('curso/listar') }}"><strong>Curso</strong></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turmas</strong></a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('turma/listar') }}"><strong>Turma</strong></a>
                     </li>
                     @endif
                     @if (Auth::id() !== 2)
@@ -168,7 +188,7 @@
                         @if (Auth::check())
                             <form method="POST" action="{{ route('logout') }}" class="mb-0">
                                 @csrf
-                                <button type="submit" class="nav-link active">Sair</button>
+                                <a type="submit" class="nav-link active"><strong>Sair</strong></a>
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="nav-link active">Entrar</a>
@@ -176,7 +196,7 @@
                     </li>
                 </ul>
                 <!-- Show logout button on larger screens -->
-                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block" style="margin-left: 22%">
                     <li class="nav-item d-flex align-items-center">
                         @if (Auth::check())
                             <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>

@@ -28,19 +28,6 @@
             user-select: none;
         }
 
-        @media (max-width: 767px){
-            .logout-button {
-                display: none;
-            }
-
-            .usuario {
-            position: fixed;
-            top: 10px;
-            right: 80px;
-            z-index: 1000;
-            }
-        }
-
         .b-example-divider {
             width: 100%;
             height: 3rem;
@@ -126,6 +113,10 @@
             vertical-align: middle;
         }
 
+        .navbar-brand{
+            margin-left: 16%;
+        }
+
         .container {
             background-color: white;
         }
@@ -141,18 +132,34 @@
             text-align: left;
         }
 
-        .logout-button {
-            position: fixed;
-            top: 10px; /* Distância do topo da página */
-            right: 20px; /* Distância da direita da página */
-            z-index: 1000; /* Z-index para garantir que o botão esteja acima de outros elementos */
-        }
-
         .usuario {
-            position: fixed;
+            position: static;
             top: 10px;
             right: 80px;
             z-index: 1000;
+            color: white;
+        }
+
+        .logout-button {
+            position: static;
+            top: 10px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        @media (max-width: 883px){
+            .logout-button {
+                display: none;
+            }
+            .navbar-brand{
+            margin-left: 2%;
+            }
+            .usuario {
+            position: fixed;
+            top: 15px;
+            right: 80px;
+            z-index: 1000;
+            }
         }
     </style>
 </head>
@@ -204,7 +211,7 @@
                     </li>
                 </ul>
                 <!-- Show logout button on larger screens -->
-                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block">
+                <ul class="navbar-nav ml-auto d-flex align-items-center d-md-block" style="margin-left: 15%">
                     <li class="nav-item d-flex align-items-center">
                         @if (Auth::check())
                             <p class="usuario text-white mb-0 me-2"><strong>OLÁ {{ Auth::user()->name }}</strong></p>
