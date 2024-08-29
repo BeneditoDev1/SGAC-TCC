@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Curso;
 use App\Models\Turma;
+use App\Models\Atividade;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Exception as GlobalException;
@@ -118,5 +119,21 @@ public function editar($id)
             return redirect()->back()->with('error', 'Erro ao excluir o usuário.');
         //}
     }
+
+    public function buscarUsuario(Request $request)
+{
+    $search = $request->input('search');
+
+    // Busca o usuário pelo nome
+    $usuario = User::where('name', 'LIKE', '%' . $search . '%')->first();
+
+    if ($usuario) {
+        // Redireciona para a tela de validação com o usuário encontrado
+        return redirect()->route('atividade.validacaoView', ['id' == $usuario->id]);
+    }
+
+    return redirect()->back()->with('error', 'Usuário não encontrado.');
+}
+
 }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Curso;
 use App\Models\User;
+use App\Models\Turma;
 use Exception as GlobalException;
 
 class CursoController extends Controller
@@ -57,18 +58,17 @@ class CursoController extends Controller
     {
     try {
         $curso = Curso::findOrFail($id);
-        if ($curso->usuarios()->exists()) {
-            throw new GlobalException('Não é possível excluir o curso, pois ele está vinculado a um ou mais usuários.');
+        if ($curso->usuario) {
+            throw new GlobalException('Não é possível excluir a curso, pois ela está vinculada a um usuário');
         }
 
         $curso->delete();
 
-        return redirect()->route('curso.listar')->with('success', 'Curso excluído com sucesso.');
-        } catch (GlobalException $e) {
+        return redirect()->route('curso.listar')->with('success', 'curso excluída com sucesso.');
+    } catch (GlobalException $e) {
         return redirect()->back()->with('error', $e->getMessage());
-        } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'Erro ao excluir o curso.');
         }
     }
 }
+
 

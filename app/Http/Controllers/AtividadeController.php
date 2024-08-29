@@ -193,12 +193,13 @@ class AtividadeController extends Controller
     return $status;
 }
 
-public function validacaoView()
+public function validacaoView($id)
 {
     // ...
 
     $atividades = Atividade::with('usuario')->orderBy('titulo')->get();
     $status = $this->validacao();
+    $usuario = User::findOrFail($id);
 
     // Recupere os status armazenados na sessão
     $atividadeStatus = [];
@@ -207,7 +208,7 @@ public function validacaoView()
     }
 
     // Retorne a view 'validacao' com os dados necessários
-    return view('validacaoView', compact('atividades', 'status', 'atividadeStatus'));
+    return view('validacaoView', compact('usuario','atividades', 'status', 'atividadeStatus'));
 }
 
 

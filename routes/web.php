@@ -40,6 +40,7 @@ Route::get('/dashboard', function () {
         Route::put('/usuario/editar/{id}', [UsuarioController::class, 'editar'])->name('usuario.editar');
         Route::get('/usuario/excluir/{id}', [UsuarioController::class, 'excluir'])->name('usuario.excluir');
         Route::delete('/usuario/excluir/{id}', [UsuarioController::class, 'excluir'])->name('usuario.excluir');
+        Route::get('/usuario/buscar', [UsuarioController::class, 'buscarUsuario'])->name('usuario.buscar');
 
         Route::get('/curso/listar', [CursoController::class, 'listar'])->name('curso.listar');
         Route::get('/curso/novo', [CursoController::class, 'novo'])->name('curso.novo');
@@ -47,7 +48,8 @@ Route::get('/dashboard', function () {
         Route::get('/curso/editar/{id}', [CursoController::class, 'editar'])->name('curso.editar');
         Route::post('/curso/atualizar/{id}', [CursoController::class, 'atualizar'])->name('curso.atualizar');
         Route::put('/curso/atualizar/{id}', [CursoController::class, 'atualizar'])->name('curso.atualizar');
-        Route::delete('/curso/excluir/{id}', [CursoController::class, 'excluir'])->name('curso.excluir');
+        Route::get('/curso/excluir/{id}', [CursoController::class, 'excluir'])->name('curso.excluir');
+        Route::delete('/curso/{id}', [CursoController::class, 'excluir'])->name('curso.excluir');
 
         Route::get('/turma/listar', [TurmaController::class, 'listar'])->name('turma.listar');
         Route::get('/turma/novo', [TurmaController::class, 'novo'])->name('turma.novo');
@@ -59,7 +61,7 @@ Route::get('/dashboard', function () {
 
         Route::get('atividade/download/{id}', 'AtividadeController@download')->name('atividade.download');
         Route::get('atividade/validacaolistar', [AtividadeController::class, 'validacaoListar'])->name('atividade.validacao');
-        Route::get('atividade/validacaoView', [AtividadeController::class, 'validacaoView'])->name('validacaoView');
+        Route::get('atividade/validacaoView/{id}', [AtividadeController::class, 'validacaoView'])->name('atividade.validacaoView');
         Route::get('atividade/validacao/status', [AtividadeController::class, 'validacao'])->name('atividade.status');
         Route::post('/atividade/salvar-status/{id}', [AtividadeController::class, 'salvarStatus'])->name('atividade.salvarStatus');
         Route::get('/atividade/relatorio/{id}', [AtividadeController::class, 'relatorio'])->name('atividade.relatorio');

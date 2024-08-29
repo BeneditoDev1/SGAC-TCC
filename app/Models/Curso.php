@@ -13,9 +13,14 @@ class Curso extends Model
     protected $fillable = ['nome', 'ano_inicio', 'ano_fim', 'horas'];
     public $timestamps = false;
 
-    public function users()
+    public function usuarios()
     {
-        return $this->belongsToMany(User::class, 'curso_user');
+        return $this->belongsToMany(User::class);
+    }
+
+    public function turmas()
+    {
+    return $this->hasMany(Turma::class);
     }
 
 }

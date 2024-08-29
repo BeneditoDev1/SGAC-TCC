@@ -197,9 +197,9 @@
         <div style="table-responsive">
         <table class="table table-bordered table-striped">
             @if (Auth::id() == 2)
-            <form action="{{ route('atividade.listar') }}" method="GET">
+            <form action="{{ route('usuario.buscar') }}" method="GET">
                 <div class="input-group rounded mb-3">
-                    <input type="search" class="form-control" id="search" style="width: 80%" name="search" placeholder="Digite o nome do usuário" aria-label="Search" aria-describedby="search-addon"/>
+                    <input type="search" class="form-control" id="search" style="width: 80%" name="search" placeholder="Digite o nome do usuário" aria-label="Search" aria-describedby="search-addon" autocomplete="off"/>
                     <button class="btn btn-primary" type="submit">
                         <i class="fas fa-search"></i> Buscar
                     </button>
