@@ -116,20 +116,21 @@ public function editar($id)
         //}
     }
 
-    public function buscarUsuario(Request $request)
-{
-    $search = $request->input('search');
+    public function buscar(Request $request)
+    {
+        $search = $request->input('search');
 
-    // Busca o usuário pelo nome
-    $usuario = User::where('name', 'LIKE', '%' . $search . '%')->first();
+        // Encontre o usuário pelo nome fornecido
+        $usuario = User::where('name', 'like', '%' . $search . '%')->first();
 
-    if ($usuario) {
-        // Redireciona para a tela de validação com o usuário encontrado
-        return redirect()->route('atividade.validacaoView', ['id' == $usuario->id]);
+        if ($usuario) {
+            // Se o usuário for encontrado, redirecione para a view de validação
+            return redirect()->route('atividade.validacaoView', ['id' => $usuario->id]);
+        } else {
+            // Caso não encontre o usuário, redirecione de volta com uma mensagem de erro
+            return redirect()->back()->with('error', 'Usuário não encontrado.');
+        }
     }
-
-    return redirect()->back()->with('error', 'Usuário não encontrado.');
-}
 
 }
 

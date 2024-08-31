@@ -40,7 +40,7 @@ Route::get('/dashboard', function () {
         Route::put('/usuario/editar/{id}', [UsuarioController::class, 'editar'])->name('usuario.editar');
         Route::get('/usuario/excluir/{id}', [UsuarioController::class, 'excluir'])->name('usuario.excluir');
         Route::delete('/usuario/excluir/{id}', [UsuarioController::class, 'excluir'])->name('usuario.excluir');
-        Route::get('/usuario/buscar', [UsuarioController::class, 'buscarUsuario'])->name('usuario.buscar');
+        Route::get('/usuario/buscar', [UsuarioController::class, 'buscar'])->name('usuario.buscar');
 
         Route::get('/curso/listar', [CursoController::class, 'listar'])->name('curso.listar');
         Route::get('/curso/novo', [CursoController::class, 'novo'])->name('curso.novo');
