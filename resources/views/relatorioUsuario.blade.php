@@ -133,7 +133,7 @@
             <table>
                 <tr>
                     <th colspan="5">Situação do Estudante:</th>
-                    <td>Aprovado</td>
+                    <td>{{ $situacao }}</td>
                 </tr>
                 <tr>
                     <th>Data de conclusão:</th>

@@ -48,10 +48,6 @@ class UsuarioController extends Controller
             $usuario = new User();
         }
 
-        //$cpfExistente = User::where('cpf', $request->input('cpf'))->where('id', '!=', $usuario->id)->first();
-        //if ($cpfExistente) {
-        //return redirect()->back()->withErrors(['cpf' => 'O CPF informado já está cadastrado.'])->withInput();
-        //}
 
         if ($request->filled('password')) {
             $usuario->password = Hash::make($request->input('password'));

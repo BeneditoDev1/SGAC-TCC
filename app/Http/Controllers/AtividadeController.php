@@ -195,11 +195,17 @@ class AtividadeController extends Controller
 
 public function validacaoView($id)
 {
-    // ...
-
-    $atividades = Atividade::with('usuario')->orderBy('titulo')->get();
-    $status = $this->validacao();
+    // Busca o usuário pelo ID
     $usuario = User::findOrFail($id);
+
+    // Busca as atividades relacionadas ao usuário
+    $atividades = Atividade::with('usuario')
+        ->where('usuario_id', $id)
+        ->orderBy('titulo')
+        ->get();
+
+    // Cálculo da carga horária total das atividades concluídas
+    $totalHorasConferidas = $atividades->sum('total_horas');
 
     // Recupere os status armazenados na sessão
     $atividadeStatus = [];
@@ -207,10 +213,9 @@ public function validacaoView($id)
         $atividadeStatus[$atividade->id] = session()->get("atividade_{$atividade->id}_status");
     }
 
-    // Retorne a view 'validacao' com os dados necessários
-    return view('validacaoView', compact('usuario','atividades', 'status', 'atividadeStatus'));
+    // Retorne a view 'validacaoView' com os dados necessários
+    return view('validacaoView', compact('atividades', 'usuario', 'totalHorasConferidas', 'atividadeStatus'));
 }
-
 
     public function salvarAtividadeValidada(Request $request)
 {
@@ -306,17 +311,23 @@ public function validacaoUsuario($id)
 
 public function relatorio($id)
 {
+    // Busca o usuário pelo ID
     $usuario = User::findOrFail($id);
+
+    // Busca as atividades relacionadas ao usuário
     $atividades = $usuario->atividades;
+
+    // Cálculo da carga horária total das atividades concluídas
     $totalHoras = $atividades->sum('total_horas');
-    $horasObrigatórias = $usuario->horas_obrigatorias;
+    $horasObrigatorias = $usuario->horas_obrigatorias;
 
-    if ($totalHoras >= $horasObrigatórias) {
-        $pdf = Pdf::loadView('relatorioUsuario', compact('usuario', 'atividades'));
-        return $pdf->download('atividades.pdf');
-    } else {
-        return redirect()->back()->with('error', 'O aluno ainda tem atividades pendentes e não atingiu o total de horas necessário para gerar o relatório.');
-    }
+    // Determina a situação do estudante
+    $situacao = $totalHoras == $horasObrigatorias ? 'Aprovado' : 'Em andamento';
+
+    // Gera o PDF, passando a situação e outras variáveis necessárias
+    $pdf = Pdf::loadView('relatorioUsuario', compact('usuario', 'atividades', 'totalHoras', 'situacao'));
+
+    // Retorna o PDF para download
+    return $pdf->download('relatorio_atividades.pdf');
 }
-
 }
