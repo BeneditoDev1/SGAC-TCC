@@ -124,7 +124,7 @@
         <div class="table-responsive">
             <table class="table table-bordered">
                 <tr>
-                    <th colspan="5">Carga Horária Total:</th>
+                    <th colspan="4">Carga Horária Total:</th>
                     <td>{{ $usuario->turma ? $usuario->turma->horas : 'Sem horas' }}</td>
                 </tr>
             </table>

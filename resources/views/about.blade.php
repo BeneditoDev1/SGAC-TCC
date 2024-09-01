@@ -250,6 +250,43 @@
                                     <li>Relatório ou comprovante de participação</li>
                                 </ul>
                             </li>
+                            <li>
+                                <h3>1.2 Visitas técnias e culturais</h3>
+                                <ul>
+                                    <li> Visitas técnicas e culturais: patrimônios tombados, cidades históricas, monumentos,
+                                        museus, memoriais, escolamodelo, creches, berçários, ONGs, APAE e entidades afins,
+                                        hospitais laboratórios, instituições de ensino e pesquisa, empresas públicas e privadas
+                                            e outras de interesse do curso.(5 pontos por atividade comprovada - 30 pontos) </li>
+                                </ul>
+                                <ul>
+                                    <li>Relatório ou comprovante de participação</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h3>1.3 Realização de cursos</h3>
+                                <ul>
+                                    <li> Realização de cursos de língua
+                                        estrangeira, informática e outros
+                                        de formação cultural, social ou
+                                        específica do âmbito do curso.(1 ponto por hora comprovada - 70 pontos) </li>
+                                </ul>
+                                <ul>
+                                    <li>Certificado/Declaração</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h3>1.4 Trabalho voluntário</h3>
+                                <ul>
+                                    <li> Trabalho voluntário, atividades
+                                        comunitárias, associações de
+                                        bairros, brigadas de incêndio e
+                                        associações escolares.
+                                        (10 pontos por particiação comprovada - 40 pontos) </li>
+                                </ul>
+                                <ul>
+                                    <li>Declaração</li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </td>

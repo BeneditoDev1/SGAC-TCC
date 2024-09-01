@@ -250,6 +250,9 @@
                     <!-- Grupo 1: Atividades de aperfeiçoamento e enriquecimento cultural -->
                     <optgroup label="1. Atividades de aperfeiçoamento e enriquecimento cultural">
                         <option value="Participação em atividades culturais" @if($atividade->tipo == 'Participação em atividades culturais') selected @endif>1.1 Participação em atividades culturais</option>
+                        <option value="Visitas técnias e culturais" @if($atividade->tipo == 'Visitas técnias e culturais') selected @endif>1.2 Visitas técnias e culturais</option>
+                        <option value="Realização de cursos" @if($atividade->tipo == 'Realização de cursos') selected @endif>1.3 Realização de cursos</option>
+                        <option value="Trabalho voluntário" @if($atividade->tipo == 'Trabalho voluntário') selected @endif>1.4 Trabalho voluntário</option>
                     </optgroup>
 
                     <!-- Grupo 2: Atividades de divulgação científica e de iniciação à docência -->
