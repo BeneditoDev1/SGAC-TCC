@@ -215,15 +215,14 @@
         <h1 class="text-center">Cadastrar Aluno</h1>
 
         @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
         <form id="usuarioForm" action="{{ route('usuario.salvar') }}" method="POST">
             @csrf
             @if($usuario->id)

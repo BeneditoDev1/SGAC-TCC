@@ -10,6 +10,7 @@ use App\Models\Atividade;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Exception as GlobalException;
+use Illuminate\Validation\Rule;
 
 class UsuarioController extends Controller
 {
@@ -42,6 +43,26 @@ class UsuarioController extends Controller
 
     public function salvar(Request $request)
     {
+
+        $request->validate([
+            'cpf' => [
+                'required',
+                'string',
+                'size:11',
+                Rule::unique('users')->ignore($request->input('id'))
+            ],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore($request->input('id'))
+            ],
+        ], [
+            'cpf.unique' => 'Este CPF já está cadastrado.',
+            'email.unique' => 'Este e-mail já está cadastrado.',
+        ]);
+
         if ($request->input('id') != 0) {
             $usuario = User::find($request->input('id'));
         } else {
