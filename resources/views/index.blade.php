@@ -273,7 +273,7 @@
                     <div class="card" style="width: 18rem; margin-bottom:1%">
                         <img src="https://www.ifms.edu.br/imagens/icones/s/2/ifms15" width="500px" height="140px" class="card-img-top" alt="Descrição da imagem 2">
                         <div class="card-body">
-                            <p class="card-text"><a href="https://www.ifms.edu.br/cidadania/consultas-publicas/rod/minuta-regulamento-da-organizacao-didatico-pedagogica-03-04-2019-revisada-para-consulta.pdf" target="_blank">Minuta Regulamento da Organização Didático-Pedagógica</a></p>
+                            <p class="card-text"><a href="https://www.ifms.edu.br/acesso-a-informacao/institucional/estrutura-organizacional/orgaos-colegiados/conselho-superior/resolucoes/2023/resolucao-no-4-de-27-de-janeiro-de-2023.pdf" target="_blank">Regulamento da Organização Didático-Pedagógica</a></p>
                         </div>
                     </div>
                 </div>
